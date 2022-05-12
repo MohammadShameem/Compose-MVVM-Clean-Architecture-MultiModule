@@ -1,0 +1,67 @@
+android{
+    compileSdk AppConfig.compileSdkVersion
+    defaultConfig {
+        minSdk AppConfig.minSdkVersion
+        targetSdk AppConfig.targetSdkVersion
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding = true
+    }
+}
+
+dependencies {
+    implementation project(ModulesDep.assets)
+    implementation project(ModulesDep.common)
+    implementation project(ModulesDep.domain)
+    implementation project(ModulesDep.di)
+    implementation project(ModulesDep.sharedPref)
+
+
+    implementation AppDep.coreKtx
+    implementation AppDep.appCompat
+    implementation AppDep.material
+    implementation AppDep.activity
+    implementation AppDep.fragment
+    implementation AppDep.recyclerview
+    implementation AppDep.constraintLayout
+    implementation AppDep.viewModel
+    implementation AppDep.lifecycle
+    implementation AppDep.liveData
+    implementation AppDep.navigationUi
+    implementation AppDep.navigationFragment
+
+    implementation AppDep.hiltAndroid
+    kapt AppDep.hiltCompiler
+
+    implementation AppDep.timber
+    implementation AppDep.gson
+
+    implementation AppDep.sdp
+    implementation AppDep.ssp
+
+    testImplementation AppDep.junit
+    androidTestImplementation AppDep.extJunit
+    androidTestImplementation AppDep.espresso
+}

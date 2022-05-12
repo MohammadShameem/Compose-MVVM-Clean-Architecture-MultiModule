@@ -1,0 +1,25 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+}
+apply from: "$rootDir/android-config-dependencies.gradle"
+dependencies {
+    implementation project(ModulesDep.sharedPref)
+    implementation project(ModulesDep.assets)
+
+    implementation AppDep.appCompat
+    implementation AppDep.activity
+    implementation AppDep.fragment
+    implementation AppDep.recyclerview
+    implementation AppDep.liveData
+    implementation AppDep.viewModel
+    implementation AppDep.rxJava3
+    implementation AppDep.rxJava3Android
+    implementation AppDep.material
+    implementation AppDep.preference
+    implementation AppDep.playStoreCore
+    implementation AppDep.navigationUi
+    implementation AppDep.navigationFragment
+    implementation AppDep.picasso
+    implementation AppDep.circleImageview
+}

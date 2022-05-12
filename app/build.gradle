@@ -1,0 +1,123 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdk AppConfig.compileSdkVersion
+    defaultConfig {
+        applicationId AppConfig.applicationId
+        minSdk AppConfig.minSdkVersion
+        targetSdk AppConfig.targetSdkVersion
+        versionCode AppConfig.versionCode
+        versionName AppConfig.versionName
+        testInstrumentationRunner AppConfig.testRunner
+    }
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/proguard/androidx-annotations.pro']
+        }
+    }
+
+
+    buildTypes {
+        debug {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    renameAPK(applicationVariants, defaultConfig)
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    buildFeatures{
+        viewBinding  true
+    }
+}
+
+def renameAPK(applicationVariants, defaultConfig) {
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def formattedDate = new Date().format('dd-MM-yy')
+            outputFileName = "App" + "_" +  defaultConfig.versionName + "_" + defaultConfig.versionCode + "_" + formattedDate + "_" + variant.name + ".apk"
+        }
+    }
+}
+
+dependencies {
+
+    implementation project(ModulesDep.assets)
+    implementation project(ModulesDep.sharedPref)
+    implementation project(ModulesDep.data)
+    implementation project(ModulesDep.domain)
+    implementation project(ModulesDep.common)
+
+    implementation project(ModulesDep.cache)
+
+    implementation AppDep.coreKtx
+    implementation AppDep.material
+    implementation AppDep.appCompat
+    implementation AppDep.fragment
+    implementation AppDep.activity
+
+    implementation AppDep.viewModel
+    implementation AppDep.liveData
+    implementation AppDep.preference
+    implementation AppDep.lifecycle
+
+    implementation AppDep.composeActivity
+    implementation AppDep.composeMaterial
+    implementation AppDep.composeAnimation
+    implementation AppDep.composeUiTooling
+    implementation AppDep.composeViewModel
+
+    implementation AppDep.navigationFragment
+
+    implementation AppDep.hiltAndroid
+    kapt AppDep.hiltCompiler
+
+    implementation AppDep.rxJava3
+    implementation AppDep.rxJava3Android
+
+    implementation AppDep.retrofit
+    implementation AppDep.retrofitGsonConverter
+    implementation AppDep.rxJava3adapter
+    implementation AppDep.okhHttp3
+    implementation AppDep.okhHttp3Interceptor
+    implementation AppDep.gson
+    implementation AppDep.timber
+
+    implementation AppDep.room
+    implementation AppDep.roomRuntime
+    kapt AppDep.roomCompiler
+
+
+    //debugImplementation AppDep.leakcanary
+
+    testImplementation AppDep.junit
+    androidTestImplementation AppDep.extJunit
+    androidTestImplementation AppDep.espresso
+}
+
+kapt {
+    correctErrorTypes = true
+}
+

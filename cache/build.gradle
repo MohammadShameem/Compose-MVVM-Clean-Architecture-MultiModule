@@ -1,0 +1,18 @@
+plugins {
+    id 'com.android.library'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+apply from: "$rootDir/android-core-library.gradle"
+dependencies {
+    implementation project(ModulesDep.domain)
+
+    api AppDep.room
+    api AppDep.roomRuntime
+    kapt AppDep.roomCompiler
+
+    implementation AppDep.hiltAndroid
+    kapt AppDep.hiltCompiler
+
+}
