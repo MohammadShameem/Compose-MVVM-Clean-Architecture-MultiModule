@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.jatri.domain.usecase.credential.LoginApiUseCase
+import com.jatri.domain.usecase.login.LoginApiUseCase
 import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,13 +29,13 @@ class LoginFragment : Fragment() {
         setContent {
             OfflineCounterTicketingTheme {
               LoginScreen{ phoneNumber,password ->
-                  /*viewModel.login(params = LoginApiUseCase.Params(
+                  viewModel.login(params = LoginApiUseCase.Params(
                       phoneNumber, password
                   )).observe(viewLifecycleOwner){
                     if (it is ApiResponse.Success){
-                        //findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
                     }
-                  }*/
+                  }
               }
             }
         }

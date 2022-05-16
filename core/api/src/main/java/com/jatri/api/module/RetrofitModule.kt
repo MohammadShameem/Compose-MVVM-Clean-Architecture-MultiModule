@@ -2,6 +2,7 @@ package com.jatri.api.module
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.jatri.api.service.offlinecounterticketing.OfflineCounterTicketingApiService
 import com.jatri.di.qualifier.AppBaseUrl
 import dagger.Module
 import dagger.Provides
@@ -16,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
+
 
     @Provides
     @AppBaseUrl

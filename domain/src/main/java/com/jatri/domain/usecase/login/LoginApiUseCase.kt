@@ -1,10 +1,9 @@
-package com.jatri.domain.usecase.credential
+package com.jatri.domain.usecase.login
 
 import androidx.lifecycle.LiveData
 import com.jatri.domain.base.AbsentLiveData
 import com.jatri.domain.base.ApiUseCase
 import com.jatri.domain.repository.OfflineCounterRepository
-import com.jatri.entity.credential.UserProfileApiEntity
 import com.jatri.entity.login.LoginEntity
 import com.jatri.entity.res.ApiResponse
 import javax.inject.Inject

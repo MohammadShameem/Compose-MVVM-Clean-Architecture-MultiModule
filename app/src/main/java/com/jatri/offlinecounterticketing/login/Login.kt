@@ -1,8 +1,6 @@
 package com.jatri.offlinecounterticketing.login
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
@@ -11,11 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavAction
-import com.jatri.domain.usecase.credential.LoginApiUseCase
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
-import dagger.hilt.android.AndroidEntryPoint
 
 @Composable
 fun LoginScreen(
