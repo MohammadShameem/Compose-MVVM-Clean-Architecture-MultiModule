@@ -73,6 +73,7 @@ dependencies {
 
     implementation project(ModulesDep.assets)
     implementation project(ModulesDep.sharedPref)
+    implementation project(ModulesDep.dateFormatter)
     implementation project(ModulesDep.data)
     implementation project(ModulesDep.domain)
     implementation project(ModulesDep.common)
