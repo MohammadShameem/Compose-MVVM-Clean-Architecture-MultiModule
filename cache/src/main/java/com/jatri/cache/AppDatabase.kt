@@ -2,10 +2,12 @@ package com.jatri.cache
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.jatri.cache.dao.RentalSearchLocationDao
-import com.jatri.domain.entity.RentalSearchLocationEntity
+import com.jatri.cache.dao.OfflineCounterTicketingDao
+import com.jatri.domain.entity.BusCounterEntity
+import com.jatri.domain.entity.SoldTicketEntity
 
-@Database(entities = [RentalSearchLocationEntity::class], version = 10, exportSchema = false)
+@Database(entities = [BusCounterEntity::class,
+                     SoldTicketEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun rentalSearchLocationDao(): RentalSearchLocationDao
+    abstract fun offlineCounterTicketingDao(): OfflineCounterTicketingDao
 }

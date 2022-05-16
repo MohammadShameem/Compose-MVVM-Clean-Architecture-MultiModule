@@ -31,7 +31,7 @@ object DepVersion {
     const val mapPlaceVersion = "2.4.0"
     const val firebaseBomVersion= "28.2.1"
     const val circleImageViewVersion = "3.1.0"
-    const val navigationVersion = "2.3.5"
+    const val navigationVersion = "2.4.2"
     const val navigationSafeArgsVersion = "2.3.5"
     const val coroutinesVersion = "1.5.1"
     const val leakcanaryVersion = "2.7"

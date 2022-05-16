@@ -15,6 +15,7 @@ object AppDep {
     const val swipeToRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:${DepVersion.swipeLayoutVersion}"
 
     const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${DepVersion.navigationVersion}"
+    const val navigationCompose = "androidx.navigation:navigation-compose:${DepVersion.navigationVersion}"
     const val navigationUi = "androidx.navigation:navigation-ui-ktx:${DepVersion.navigationVersion}"
     const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${DepVersion.navigationSafeArgsVersion}"
 

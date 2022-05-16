@@ -1,4 +1,4 @@
-package com.jatri.offlinecounterticketing.home
+package com.jatri.offlinecounterticketing.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

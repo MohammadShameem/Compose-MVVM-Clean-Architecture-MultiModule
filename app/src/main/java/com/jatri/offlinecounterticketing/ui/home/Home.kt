@@ -1,4 +1,4 @@
-package com.jatri.offlinecounterticketing.home
+package com.jatri.offlinecounterticketing.ui.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -78,9 +78,9 @@ fun BusCounterItem(msg: BusCounterEntity) {
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
-        //Text(text = msg.name, color = Color.White, fontSize = 22.sp)
+        Text(text = msg.name, color = Color.White, fontSize = 22.sp)
         Spacer(modifier = Modifier.height(4.dp))
-       // Text(text = msg.fare.toString(), color = Color.White, fontSize = 24.sp)
+        Text(text = msg.fare.toString(), color = Color.White, fontSize = 24.sp)
     }
 }
 

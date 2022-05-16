@@ -1,7 +1,5 @@
 package com.jatri.api.module
 
-
-import com.jatri.api.authrefresh.AuthenticationRefreshToken
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
 import dagger.Module
@@ -32,8 +30,7 @@ object OkHttpModule {
     @Singleton
     fun provideOkHttpClient(
         loggerInterceptor: HttpLoggingInterceptor,
-        helper: SharedPrefHelper,
-        refreshToken: AuthenticationRefreshToken
+        helper: SharedPrefHelper
     ): OkHttpClient {
         val timeOut = 30
         val httpClient = OkHttpClient().newBuilder()
@@ -41,7 +38,6 @@ object OkHttpModule {
             .readTimeout(timeOut.toLong(), TimeUnit.SECONDS)
             .writeTimeout(timeOut.toLong(), TimeUnit.SECONDS)
 
-        httpClient.authenticator(refreshToken)
         httpClient.addInterceptor(loggerInterceptor)
         httpClient.addInterceptor { chain ->
             val original = chain.request()
