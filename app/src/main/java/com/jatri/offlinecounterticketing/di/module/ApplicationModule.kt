@@ -10,7 +10,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import com.jatri.api.authrefresh.AuthRefreshServiceHolder
 import com.jatri.cache.AppDatabase
-import com.jatri.cache.dao.RentalSearchLocationDao
+import com.jatri.cache.dao.OfflineCounterTicketingDao
 import com.jatri.sharedpref.SharedPrefHelper
 import javax.inject.Singleton
 
@@ -33,8 +33,8 @@ object ApplicationModule {
             .fallbackToDestructiveMigration().build()
 
     @Provides
-    fun provideRentalSearchLocationDao(appDatabase: AppDatabase):
-            RentalSearchLocationDao = appDatabase.rentalSearchLocationDao()
+    fun provideOfflineCounterTicketingDao(appDatabase: AppDatabase):
+            OfflineCounterTicketingDao = appDatabase.offlineCounterTicketingDao()
 
 
 

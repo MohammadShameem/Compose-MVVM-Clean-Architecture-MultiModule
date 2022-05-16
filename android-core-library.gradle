@@ -29,6 +29,7 @@ android{
 
 dependencies {
     implementation project(ModulesDep.sharedPref)
+    implementation project(ModulesDep.dateFormatter)
     implementation AppDep.coreKtx
     implementation AppDep.viewModel
     implementation AppDep.lifecycle
