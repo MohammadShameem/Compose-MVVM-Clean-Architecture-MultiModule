@@ -1,0 +1,14 @@
+{
+	"offline_company_list" : [
+		{
+			"name" : "MPSB",
+			"counter_file_name" : "mpsb_counter_data.json",
+			"ticket_format_file_name" : "mpsb_ticket_format.json"
+		},
+		{
+			"name" : "Sea Maritime",
+			"counter_file_name" : "sea_maritime_counter_data.json",
+			"ticket_format_file_name" : "sea_maritime_ticket_format.json"
+		}
+	]
+}

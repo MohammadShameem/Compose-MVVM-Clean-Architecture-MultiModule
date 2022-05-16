@@ -1,0 +1,24 @@
+{
+  "counter_list": [
+    {
+      "counter_name": "দক্ষিন পতেঙ্গা চর পাড়া ঘাট",
+      "stoppage_list": [
+        {
+          "name": "যাত্রী পারাপার",
+          "fare": 10,
+          "fare_student": 5
+        },
+        {
+          "name": "পণ্য (২০ থেকে ৪০ কেজি)",
+          "fare": 20,
+          "fare_student": 10
+        },
+        {
+          "name": "পণ্য (৪০ কেজি উর্ধে)",
+          "fare": 50,
+          "fare_student": 25
+        }
+      ]
+    }
+  ]
+}

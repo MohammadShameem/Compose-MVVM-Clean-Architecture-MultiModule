@@ -29,7 +29,8 @@ object ApplicationModule {
 
     @Provides
     fun provideDatabase(application: Application): AppDatabase =
-        Room.databaseBuilder(application, AppDatabase::class.java, "jatri_user.db").fallbackToDestructiveMigration().build()
+        Room.databaseBuilder(application, AppDatabase::class.java, "jatri_offline_counter.db")
+            .fallbackToDestructiveMigration().build()
 
     @Provides
     fun provideRentalSearchLocationDao(appDatabase: AppDatabase):
