@@ -16,7 +16,14 @@
     <fragment
         android:id="@+id/configurationFragment"
         android:name="com.jatri.offlinecounterticketing.ui.configuration.ConfigurationFragment"
-        android:label="ConfigurationFragment" />
+        android:label="ConfigurationFragment" >
+        <argument
+            android:name="secretPassword"
+            app:argType="string" />
+        <argument
+            android:name="companyListJsonString"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.jatri.offlinecounterticketing.login.LoginFragment"
@@ -27,13 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.jatri.offlinecounterticketing.home.HomeFragment"
-        android:label="HomeFragment" />
-    <argument
-            android:name="secretPassword"
-            app:argType="string" />
-        <argument
-            android:name="companyListJsonString"
-            app:argType="string" />
+        android:name="com.jatri.offlinecounterticketing.ui.home.HomeFragment"
+        android:label="HomeFragment">
     </fragment>
 </navigation>

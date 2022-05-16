@@ -10,10 +10,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val loginApiUseCase: LoginApiUseCase
+    //private val loginApiUseCase: LoginApiUseCase
 ): ViewModel(){
 
-     fun login(params: LoginApiUseCase.Params) : LiveData<ApiResponse<LoginEntity>> =
-         loginApiUseCase.execute(params)
+    /* fun login(params: LoginApiUseCase.Params) : LiveData<ApiResponse<LoginEntity>> =
+         //loginApiUseCase.execute(params)*/
 
 }

@@ -24,9 +24,9 @@ class ConfigurationFragment : Fragment() {
         layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT)
-/**
- * Get navigation arguments
- * */
+        /**
+         * Get navigation arguments
+         * */
         val args : ConfigurationFragmentArgs by navArgs()
         val companyList = gson.fromJson(args.companyListJsonString, OfflineCompanyListEntity::class.java)
 

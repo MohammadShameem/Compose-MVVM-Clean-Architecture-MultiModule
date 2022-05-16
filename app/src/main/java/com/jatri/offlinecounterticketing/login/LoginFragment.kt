@@ -29,13 +29,13 @@ class LoginFragment : Fragment() {
         setContent {
             OfflineCounterTicketingTheme {
               LoginScreen{ phoneNumber,password ->
-                  viewModel.login(params = LoginApiUseCase.Params(
+                  /*viewModel.login(params = LoginApiUseCase.Params(
                       phoneNumber, password
                   )).observe(viewLifecycleOwner){
                     if (it is ApiResponse.Success){
-                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                        //findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
                     }
-                  }
+                  }*/
               }
             }
         }
