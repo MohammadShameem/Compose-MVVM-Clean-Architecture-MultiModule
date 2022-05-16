@@ -100,6 +100,7 @@ dependencies {
     implementation AppDep.composeViewBinding
 
     implementation AppDep.navigationFragment
+    implementation AppDep.navigationCompose
 
     implementation AppDep.hiltAndroid
     kapt AppDep.hiltCompiler

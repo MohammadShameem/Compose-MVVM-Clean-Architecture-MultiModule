@@ -11,24 +11,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
+import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.JatriLogo
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithBackButton
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 
 @Composable
-fun SecretPassword() {
+fun SecretPassword(
+    onContinueClick : (String) -> Unit
+) {
 
     Column(
         modifier = Modifier.fillMaxHeight(),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        JatriLogo()
         var text by remember { mutableStateOf("") }
-
+        JatriLogo()
         Text(text = "Please Setup Configuration", fontWeight = FontWeight.Bold)
-
         OutlinedTextField(
             value = text,
             onValueChange = { text = it },
@@ -37,7 +39,9 @@ fun SecretPassword() {
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp)
         )
-        RoundJatriButton("Continue") {}
+        RoundJatriButton("Continue"){
+            onContinueClick(text)
+        }
     }
 
 }
@@ -47,7 +51,7 @@ fun SecretPassword() {
 fun SecretPasswordPrev() {
     OfflineCounterTicketingTheme {
         Surface {
-            SecretPassword()
+            SecretPassword({})
         }
     }
 }

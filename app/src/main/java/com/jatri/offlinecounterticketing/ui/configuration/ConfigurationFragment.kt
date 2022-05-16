@@ -6,10 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
+import com.google.gson.Gson
+import com.jatri.entity.companylist.OfflineCompanyListEntity
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
-
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
+import javax.inject.Inject
+@AndroidEntryPoint
 class ConfigurationFragment : Fragment() {
-
+    @Inject
+    lateinit var gson: Gson
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -18,9 +25,14 @@ class ConfigurationFragment : Fragment() {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT)
 
+        val args : ConfigurationFragmentArgs by navArgs()
+        val companyList = gson.fromJson(args.companyListJsonString, OfflineCompanyListEntity::class.java)
+
+        Timber.d(args.companyListJsonString)
+
         setContent {
             OfflineCounterTicketingTheme {
-                Configuration()
+                Configuration(companyList)
             }
         }
     }

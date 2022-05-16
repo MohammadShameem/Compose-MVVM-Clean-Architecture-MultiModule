@@ -9,8 +9,9 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.viewinterop.AndroidViewBinding
 import com.jatri.offlinecounterticketing.databinding.ActivityNavHostBinding
 import com.jatri.offlinecounterticketing.ui.LocalBackPressedDispatcher
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class NavHostActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

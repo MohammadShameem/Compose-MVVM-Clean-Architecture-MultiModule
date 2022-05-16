@@ -8,9 +8,20 @@
     <fragment
         android:id="@+id/secretPasswordFragment"
         android:name="com.jatri.offlinecounterticketing.ui.configuration.SecretPasswordFragment"
-        android:label="fragment_secret_password"/>
+        android:label="fragment_secret_password">
+        <action
+            android:id="@+id/action_secretPasswordFragment_to_configurationFragment"
+            app:destination="@id/configurationFragment" />
+    </fragment>
     <fragment
         android:id="@+id/configurationFragment"
         android:name="com.jatri.offlinecounterticketing.ui.configuration.ConfigurationFragment"
-        android:label="ConfigurationFragment" />
+        android:label="ConfigurationFragment" >
+        <argument
+            android:name="secretPassword"
+            app:argType="string" />
+        <argument
+            android:name="companyListJsonString"
+            app:argType="string" />
+    </fragment>
 </navigation>
