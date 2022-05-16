@@ -70,8 +70,11 @@ object AppDep {
     const val imageZoomView = "com.github.chrisbanes:PhotoView:${DepVersion.imageZoom}"
 
     const val composeActivity = "androidx.activity:activity-compose:${DepVersion.composeActivity}"
-    const val composeMaterial = "androidx.compose.material:material:${DepVersion.composeMaterial}"
-    const val composeAnimation = "androidx.compose.animation:animation:${DepVersion.composeAnimation}"
-    const val composeUiTooling = "androidx.compose.ui:ui-tooling:${DepVersion.composeUiTooling}"
+    const val composeMaterial = "androidx.compose.material:material:${DepVersion.compose}"
+    const val composeAnimation = "androidx.compose.animation:animation:${DepVersion.compose}"
+    const val composeUi = "androidx.compose.ui:ui:${DepVersion.compose}"
+    const val composeUiTooling = "androidx.compose.ui:ui-tooling:${DepVersion.compose}"
+    const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:${DepVersion.compose}"
     const val composeViewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${DepVersion.composeViewModel}"
+    const val composeViewBinding = "androidx.compose.ui:ui-viewbinding:${DepVersion.compose}"
 }
