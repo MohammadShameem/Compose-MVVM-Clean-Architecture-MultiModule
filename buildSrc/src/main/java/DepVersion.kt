@@ -53,6 +53,7 @@ object DepVersion {
     const val composeMaterial = "1.1.1"
     const val composeAnimation = "1.1.1"
     const val composeUiTooling = "1.1.1"
+    const val compose = "1.1.1"
     const val composeViewModel = "2.4.1"
 
 

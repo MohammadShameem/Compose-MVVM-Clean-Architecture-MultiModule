@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#f04935</color>
+    <color name="appColor">#f04935</color>
+    <color name="appColorDark">#f04935</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="blue">#2196F3</color>
+    <color name="red">#F44336</color>
+    <color name="gray">#808080</color>
+    <color name="gray_div">#dddddd</color>
+    <color name="green">#4CAF50</color>
+    <color name="green_medium">#3CB371</color>
+    <color name="divider">#dddddd</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="bottom_un_sync">#C9CDD1</color>
+</resources>

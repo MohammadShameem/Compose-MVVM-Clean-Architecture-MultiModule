@@ -15,6 +15,9 @@ android {
         versionCode AppConfig.versionCode
         versionName AppConfig.versionName
         testInstrumentationRunner AppConfig.testRunner
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
     packagingOptions {
         resources {
@@ -50,6 +53,10 @@ android {
 
     buildFeatures{
         viewBinding  true
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion DepVersion.compose
     }
 }
 
@@ -86,8 +93,11 @@ dependencies {
     implementation AppDep.composeActivity
     implementation AppDep.composeMaterial
     implementation AppDep.composeAnimation
+    implementation AppDep.composeUi
     implementation AppDep.composeUiTooling
+    implementation AppDep.composeUiToolingPreview
     implementation AppDep.composeViewModel
+    implementation AppDep.composeViewBinding
 
     implementation AppDep.navigationFragment
 
