@@ -1,4 +1,4 @@
-package com.example.composemigration.ui.theme
+package com.jatri.offlinecounterticketing.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
