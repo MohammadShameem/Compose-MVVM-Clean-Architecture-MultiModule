@@ -11,7 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.jatri.domain.entity.BusCounterEntity
+import com.jatri.domain.entity.StoppageEntity
 import dagger.hilt.android.AndroidEntryPoint
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import kotlinx.coroutines.flow.collect
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomeFragment : Fragment(){
     private val viewModel: HomeViewModel by viewModels()
-    private var counterList = listOf<BusCounterEntity>()
+    private var counterList = listOf<StoppageEntity>()
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -23,10 +23,7 @@ class ConfigurationFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            //findNavController().popBackStack(R.id.configurationFragment,false)
             requireActivity().finish()
-
-            Log.d("ASD", "Back Pressed")
         }
 
     }
