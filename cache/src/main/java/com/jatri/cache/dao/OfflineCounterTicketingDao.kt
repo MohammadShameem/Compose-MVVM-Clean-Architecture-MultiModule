@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.jatri.domain.entity.BusCounterEntity
 import com.jatri.domain.entity.SoldTicketEntity
 import com.jatri.domain.entity.SoldTicketGroupWiseEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface OfflineCounterTicketingDao {
@@ -15,7 +16,7 @@ interface OfflineCounterTicketingDao {
     suspend fun insertSelectedBusCounterEntity(entity:List<BusCounterEntity>)
 
     @Query("SELECT * FROM bus_counter")
-    fun fetchSelectedBusCounterEntityList(): LiveData<List<BusCounterEntity>>
+    fun fetchSelectedBusCounterEntityList(): Flow<List<BusCounterEntity>>
 
     @Query("DELETE FROM bus_counter")
     suspend fun deleteSelectedBusCounterEntity()

@@ -12,7 +12,7 @@ object DepVersion {
     const val fragmentVersion = "1.4.0"
     const val constraintLayoutVersion = "2.1.1"
     const val cardViewVersion = "1.0.0"
-    const val lifecycleVersion = "2.4.0"
+    const val lifecycleVersion = "2.4.1"
     const val preferenceVersion = "1.1.1"
     const val swipeLayoutVersion = "1.1.0"
     const val retrofitVersion = "2.9.0"
@@ -55,6 +55,5 @@ object DepVersion {
     const val composeUiTooling = "1.1.1"
     const val compose = "1.1.1"
     const val composeViewModel = "2.4.1"
-
-
+    const val sunmiPrinter = "1.0.13"
 }
