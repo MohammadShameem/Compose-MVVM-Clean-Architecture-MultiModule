@@ -67,7 +67,7 @@ fun DropDown(
 fun DropDownCounterList(
     text: String,
     item: CounterListEntity?,
-    onItemClick: (OfflineCompanyEntity) -> Unit
+    onItemClick: (CounterEntity) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     Box(
@@ -95,14 +95,14 @@ fun DropDownCounterList(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            item?.counter_list?.forEach {
+            item?.counter_list?.forEach { counterEntity ->
                 DropdownMenuItem(
                     onClick = {
-                        //onItemClick.invoke(it.counter_name)
+                        onItemClick.invoke(counterEntity)
                         expanded = false
                     }
                 ) {
-                    Text(it.counter_name)
+                    Text(counterEntity.counter_name)
                 }
             }
             Divider()
