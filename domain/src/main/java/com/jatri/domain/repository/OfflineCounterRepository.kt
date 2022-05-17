@@ -1,5 +1,4 @@
 package com.jatri.domain.repository
-
 import androidx.lifecycle.LiveData
 import com.jatri.domain.usecase.dashboard.ChangePasswordProfileInfoApiUseCase
 import com.jatri.domain.usecase.login.LoginApiUseCase

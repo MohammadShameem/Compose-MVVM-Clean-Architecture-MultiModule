@@ -46,7 +46,10 @@ fun Configuration(
         var isStudentFareSelected by rememberSaveable { mutableStateOf(false) }
 
         JatriLogo()
-        Text(text = "Please Setup Configuration", fontWeight = FontWeight.Bold)
+        Text(
+            text = "Please Setup Configuration",
+            fontWeight = FontWeight.Bold
+        )
         Box {
             Column(
                 modifier = Modifier
@@ -89,7 +92,6 @@ fun Configuration(
                     counterDropDownTitle = it.counter_name
                 }
 
-
                 Spacer(modifier = Modifier.size(8.dp))
                 Text(text = "Student Fare", fontWeight = FontWeight.Bold)
                 Row(
@@ -123,7 +125,7 @@ fun Configuration(
 fun CompanyCounterPrev() {
     OfflineCounterTicketingTheme {
         Surface {
-            //Configuration(null)
+            Configuration(emptyList())
         }
     }
 }

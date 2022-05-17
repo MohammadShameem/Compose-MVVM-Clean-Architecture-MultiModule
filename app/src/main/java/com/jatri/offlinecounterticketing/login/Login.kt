@@ -61,10 +61,6 @@ fun LoginScreen(
 
         RoundJatriButton("Login") {
             clickCallBack.invoke(phoneNumber,password)
-
-            /*viewModel.login(params = LoginApiUseCase.Params(
-                phoneNumber, password
-            ))*/
         }
     }
 }
