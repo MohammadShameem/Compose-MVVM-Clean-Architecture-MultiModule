@@ -23,6 +23,19 @@
             app:argType="string" />
     </fragment>
     <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.jatri.offlinecounterticketing.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.jatri.offlinecounterticketing.ui.home.HomeFragment"
+        android:label="HomeFragment">
+    </fragment>
+    <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.jatri.offlinecounterticketing.ui.dashboard.DashboardFragment"
         android:label="DashboardFragment" />
