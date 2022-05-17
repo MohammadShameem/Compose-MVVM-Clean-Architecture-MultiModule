@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.jatri.offlinecounterticketing.ui
+package com.jatri.offlinecounterticketing.ui.host
 
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.OnBackPressedDispatcher

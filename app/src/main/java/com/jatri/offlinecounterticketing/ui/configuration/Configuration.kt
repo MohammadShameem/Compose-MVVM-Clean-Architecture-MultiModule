@@ -61,6 +61,8 @@ fun Configuration(
                 var counterDropDownTitle by rememberSaveable {
                     mutableStateOf("Select Counter")
                 }
+
+
                 var counterList: CounterListEntity? by rememberSaveable {
                     mutableStateOf(null)
                 }
@@ -111,6 +113,9 @@ fun Configuration(
                 }
             }
         }
+
+
+
         RoundJatriButton("Configure") {
             if (companyEntity != null) {
                 viewModel.saveCompanyInfoToSharedPreference(companyEntity!!, isStudentFareSelected)

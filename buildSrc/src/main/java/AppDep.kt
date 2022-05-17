@@ -7,6 +7,8 @@ object AppDep {
     const val activity = "androidx.activity:activity-ktx:${DepVersion.activityVersion}"
     const val cardView = "androidx.cardview:cardview:${DepVersion.cardViewVersion}"
     const val recyclerview = "androidx.recyclerview:recyclerview:${DepVersion.recyclerViewVersion}"
+
+    const val lifeCycleRunTimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${DepVersion.lifecycleVersion}"
     const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${DepVersion.lifecycleVersion}"
     const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${DepVersion.lifecycleVersion}"
     const val lifecycle = "androidx.lifecycle:lifecycle-common-java8:${DepVersion.lifecycleVersion}"
@@ -78,4 +80,5 @@ object AppDep {
     const val composeUiToolingPreview = "androidx.compose.ui:ui-tooling-preview:${DepVersion.compose}"
     const val composeViewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${DepVersion.composeViewModel}"
     const val composeViewBinding = "androidx.compose.ui:ui-viewbinding:${DepVersion.compose}"
+    const val sunmiPrinter = "com.sunmi:printerlibrary:${DepVersion.sunmiPrinter}"
 }

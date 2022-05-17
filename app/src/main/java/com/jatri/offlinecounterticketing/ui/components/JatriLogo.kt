@@ -13,6 +13,6 @@ fun JatriLogo() {
     Image(
         painter = painterResource(id = R.drawable.ic_app_logo),
         contentDescription = "Jatri Service Limited Logo",
-        modifier = Modifier.size(256.dp)
+        modifier = Modifier.size(160.dp)
     )
 }
