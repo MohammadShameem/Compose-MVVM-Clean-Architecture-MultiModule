@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 
 class HomeFragment : Fragment(){
     private val viewModel: HomeViewModel by viewModels()
@@ -21,7 +22,9 @@ class HomeFragment : Fragment(){
             ViewGroup.LayoutParams.MATCH_PARENT)
 
         setContent {
-
+            OfflineCounterTicketingTheme {
+                HomeScreen()
+            }
         }
 
     }

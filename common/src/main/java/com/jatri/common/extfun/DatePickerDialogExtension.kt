@@ -9,7 +9,6 @@ import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.jatri.common.dateparser.DateTimeFormat
 import com.jatri.common.dateparser.DateTimeParser
-import com.jatri.common.dateparser.DateTimeParser.compareCurrentTimeWithPickTime
 import java.lang.Exception
 import java.util.*
 
@@ -109,22 +108,6 @@ fun Activity.showTimePickerDialog(callback:(pickTime:String)->Unit){
     TimePickerDialog(this, {_, hour, minute ->
         callback.invoke("$hour:$minute:00")
     }, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false).show()
-}
-
-fun Activity.showTimePickerTimeAfterDialog(timeAfter: Int, date: String, callback: (pickTime: String, isPickTimeValid: Boolean) -> Unit) {
-    val cal = Calendar.getInstance()
-    TimePickerDialog(this, { _, hour, minute ->
-        var currentTime = ""
-        val time = "$hour:$minute"
-        val pickDateTime = "$date $time"
-
-        currentTime = if (DateTimeParser.isDateTodayDate(date).isNotEmpty()) "${cal.get(Calendar.HOUR_OF_DAY) + timeAfter}:${cal.get(Calendar.MINUTE)}"
-        else "${cal.get(Calendar.HOUR_OF_DAY)}:${cal.get(Calendar.MINUTE)}"
-        val currentDateTime = "${DateTimeParser.isDateTodayDate(date)} $currentTime"
-        callback.invoke("$hour:$minute:00", compareCurrentTimeWithPickTime(
-            DateTimeParser.convertReadableDateTime(currentDateTime, DateTimeFormat.sqlYMDHM, DateTimeFormat.outputYMDHM),
-                DateTimeParser.convertReadableDateTime(pickDateTime, DateTimeFormat.sqlYMDHM, DateTimeFormat.outputYMDHM)))
-    }, cal.get(Calendar.HOUR_OF_DAY) +timeAfter , cal.get(Calendar.MINUTE), false).show()
 }
 
 

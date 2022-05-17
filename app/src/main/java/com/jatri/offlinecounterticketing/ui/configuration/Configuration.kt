@@ -100,7 +100,9 @@ fun Configuration(
                 }
             }
         }
-        RoundJatriButton("Configure") {}
+        RoundJatriButton("Configure") {
+
+        }
     }
 }
 

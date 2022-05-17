@@ -2,7 +2,8 @@ package com.jatri.domain.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import co.jatri.dateutil.DateTimeFormatter
+import com.jatri.common.dateparser.DateTimeFormat
+import com.jatri.common.dateparser.DateTimeParser
 
 @Entity(tableName = "sold_ticket")
 data class SoldTicketEntity(
@@ -10,5 +11,5 @@ data class SoldTicketEntity(
     val serial:Int,
     val name:String,
     val fare:Int,
-    val created_at:String = DateTimeFormatter.getCurrentDeviceDateTime(DateTimeFormatter.sqlYMDHMS)
+    val created_at:String = DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.sqlYMDHMS)
 )
