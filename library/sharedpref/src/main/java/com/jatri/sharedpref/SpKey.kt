@@ -28,4 +28,10 @@ object SpKey {
     const val foregroundNotificationChannelId ="Jatri Notification"
     const val isDigitalBusTicketProceedBookingDialogAlreadyChecked ="isDigitalBusTicketProceedBookingDialogAlreadyChecked"
 
+    //Configuration Screen
+    const val companyName = "companyName"
+    const val counterFileName = "counterJsonFile"
+    const val ticketFormatFileName = "ticketFormatJsonFile"
+    const val studentFare = "studentFare"
+
 }

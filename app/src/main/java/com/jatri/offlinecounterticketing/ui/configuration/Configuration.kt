@@ -38,44 +38,45 @@ fun Configuration(
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val viewModel: ConfigurationViewModel = viewModel()
+
+        var companyEntity: OfflineCompanyEntity? by rememberSaveable {
+            mutableStateOf(null)
+        }
+        var isStudentFareSelected by rememberSaveable { mutableStateOf(false) }
 
         JatriLogo()
         Text(text = "Please Setup Configuration", fontWeight = FontWeight.Bold)
-
         Box {
             Column(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp)
             ) {
-
-                var company by rememberSaveable {
+                var companyDropDownTitle by rememberSaveable {
                     mutableStateOf("Select Company")
                 }
-                val counter by rememberSaveable {
+                var counterDropDownTitle by rememberSaveable {
                     mutableStateOf("Select Counter")
                 }
-                var counterList : CounterListEntity? by rememberSaveable {
+                var counterList: CounterListEntity? by rememberSaveable {
                     mutableStateOf(null)
                 }
 
-
-
                 val coroutineScope = rememberCoroutineScope()
                 val context = LocalContext.current
-                val viewModel: ConfigurationViewModel = viewModel()
 
-                var isStudentFare by rememberSaveable { mutableStateOf(false) }
 
                 //company drop down
-                DropDown(company, companyList) { offlineCompanyEntity ->
-                    company = offlineCompanyEntity.name
+                DropDown(companyDropDownTitle, companyList) { offlineCompanyEntity ->
+                    companyDropDownTitle = offlineCompanyEntity.name
+                    companyEntity = offlineCompanyEntity
                     coroutineScope.launch {
-                        context.loadJsonFromAsset(offlineCompanyEntity.counter_file_name).onSuccess {
-                             counterList = viewModel.getCounterListFromJson(it)
-
-
-                        }
-
+                        context.loadJsonFromAsset(offlineCompanyEntity.counter_file_name)
+                            .onSuccess {
+                                counterList = viewModel.getCounterListFromJson(it)
+                                counterDropDownTitle =
+                                    counterList?.counter_list?.get(0)?.counter_name ?: "No Counters"
+                            }
                     }
                 }
 
@@ -84,8 +85,8 @@ fun Configuration(
                 /***
                  * Dropdown Menu of Counters
                  * */
-                DropDownCounterList(counter, counterList) {
-                    //counter = it.counter_file_name
+                DropDownCounterList(counterDropDownTitle, counterList) {
+                    counterDropDownTitle = it.counter_name
                 }
 
 
@@ -96,19 +97,23 @@ fun Configuration(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     RadioButton(
-                        selected = isStudentFare,
-                        onClick = { isStudentFare = true }
+                        selected = isStudentFareSelected,
+                        onClick = { isStudentFareSelected = true }
                     )
                     Text(text = "Enabled")
                     RadioButton(
-                        selected = !isStudentFare,
-                        onClick = { isStudentFare = false }
+                        selected = !isStudentFareSelected,
+                        onClick = { isStudentFareSelected = false }
                     )
                     Text(text = "Disabled")
                 }
             }
         }
-        RoundJatriButton("Configure") {}
+        RoundJatriButton("Configure") {
+            if (companyEntity != null) {
+                viewModel.saveCompanyInfoToSharedPreference(companyEntity!!, isStudentFareSelected)
+            }
+        }
     }
 }
 

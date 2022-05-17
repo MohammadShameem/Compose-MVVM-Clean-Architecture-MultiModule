@@ -1,9 +1,11 @@
 package com.jatri.offlinecounterticketing.ui.configuration
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -13,10 +15,21 @@ import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class ConfigurationFragment : Fragment() {
     @Inject
     lateinit var gson: Gson
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            //findNavController().popBackStack(R.id.configurationFragment,false)
+            requireActivity().finish()
+
+            Log.d("ASD", "Back Pressed")
+        }
+
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
