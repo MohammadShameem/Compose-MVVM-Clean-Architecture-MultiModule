@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 
 class DashboardFragment : Fragment() {
     override fun onCreateView(
@@ -18,7 +19,9 @@ class DashboardFragment : Fragment() {
             ViewGroup.LayoutParams.MATCH_PARENT)
 
         setContent {
-
+            OfflineCounterTicketingTheme {
+                Dashboard()
+            }
         }
     }
 }

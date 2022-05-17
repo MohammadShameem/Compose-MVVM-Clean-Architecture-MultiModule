@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/offline_counter_ticketing_navigation"
-    app:startDestination="@id/secretPasswordFragment">
+    app:startDestination="@id/dashboardFragment">
 
     <fragment
         android:id="@+id/secretPasswordFragment"
@@ -22,4 +22,8 @@
             android:name="companyListJsonString"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.jatri.offlinecounterticketing.ui.dashboard.DashboardFragment"
+        android:label="DashboardFragment" />
 </navigation>

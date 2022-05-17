@@ -123,7 +123,7 @@ fun Configuration(
 fun CompanyCounterPrev() {
     OfflineCounterTicketingTheme {
         Surface {
-            //Configuration()
+            //Configuration(null)
         }
     }
 }
