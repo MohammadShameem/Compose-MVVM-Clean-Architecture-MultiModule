@@ -21,12 +21,13 @@ fun SecretPassword(
 
     Column(
         modifier = Modifier.fillMaxHeight(),
-        verticalArrangement = Arrangement.SpaceEvenly,
+
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by remember { mutableStateOf("") }
         JatriLogo()
         Text(text = "Please Setup Configuration", fontWeight = FontWeight.Bold)
+        Spacer(modifier = Modifier.size(48.dp))
         OutlinedTextField(
             value = text,
             onValueChange = { text = it },
@@ -35,6 +36,7 @@ fun SecretPassword(
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp)
         )
+        Spacer(modifier = Modifier.size(48.dp))
         RoundJatriButton("Continue"){
             onContinueClick.invoke(text)
         }

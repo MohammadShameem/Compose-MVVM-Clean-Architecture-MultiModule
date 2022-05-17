@@ -81,9 +81,6 @@ fun DropDownCounterList(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = lightGrey
-            )
 
             ) {
             Row(
@@ -132,6 +129,9 @@ fun JatriDropDown(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = lightGrey
+            )
             ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
