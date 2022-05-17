@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(){
     private val viewModel: HomeViewModel by viewModels()
 

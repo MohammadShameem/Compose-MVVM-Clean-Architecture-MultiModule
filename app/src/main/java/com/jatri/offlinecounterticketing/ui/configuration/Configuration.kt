@@ -7,28 +7,29 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.jatri.entity.companylist.OfflineCompanyListEntity
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.jatri.entity.companylist.OfflineCompanyEntity
+import com.jatri.entity.counterlist.CounterListEntity
 import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
 import com.jatri.offlinecounterticketing.ui.components.DropDown
+import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
 import com.jatri.offlinecounterticketing.ui.components.JatriLogo
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
+import kotlinx.coroutines.launch
 
 
 @Composable
 fun Configuration(
-    companyListEntity: OfflineCompanyListEntity?
+    companyList: List<OfflineCompanyEntity>
 ) {
     Column(
         modifier = Modifier
@@ -46,57 +47,64 @@ fun Configuration(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp)
             ) {
-                val listItem = listOf(
-                    "ABC",
-                    "DEF",
-                    "GHI",
-                    "JKL",
-                )
+
                 var company by rememberSaveable {
                     mutableStateOf("Select Company")
                 }
-                var counter by rememberSaveable {
+                val counter by rememberSaveable {
                     mutableStateOf("Select Counter")
                 }
-                val companyListItem = companyListEntity?.offline_company_list?.map {
-                    it.name
+                var counterList : CounterListEntity? by rememberSaveable {
+                    mutableStateOf(null)
                 }
+
+
+
+                val coroutineScope = rememberCoroutineScope()
+                val context = LocalContext.current
+                val viewModel: ConfigurationViewModel = viewModel()
+
                 var isStudentFare by rememberSaveable { mutableStateOf(false) }
-                if (companyListItem != null) {
-                    DropDown(company, companyListItem) {
-                        company = it
+
+                //company drop down
+                DropDown(company, companyList) { offlineCompanyEntity ->
+                    company = offlineCompanyEntity.name
+                    coroutineScope.launch {
+                        context.loadJsonFromAsset(offlineCompanyEntity.counter_file_name).onSuccess {
+                             counterList = viewModel.getCounterListFromJson(it)
+
+
+                        }
+
                     }
                 }
+
                 Spacer(modifier = Modifier.size(24.dp))
 
                 /***
                  * Dropdown Menu of Counters
                  * */
-                DropDown(counter, listItem) {
-                    counter = it
+                DropDownCounterList(counter, counterList) {
+                    //counter = it.counter_file_name
                 }
+
+
                 Spacer(modifier = Modifier.size(8.dp))
-
-                val context = LocalContext.current
-
-
-
                 Text(text = "Student Fare", fontWeight = FontWeight.Bold)
-
                 Row(
                     modifier = Modifier.selectableGroup(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Text(text = "Enabled")
                     RadioButton(
                         selected = isStudentFare,
                         onClick = { isStudentFare = true }
                     )
-                    Text(text = "Disabled")
+                    Text(text = "Enabled")
                     RadioButton(
                         selected = !isStudentFare,
                         onClick = { isStudentFare = false }
                     )
+                    Text(text = "Disabled")
                 }
             }
         }
@@ -112,7 +120,7 @@ fun Configuration(
 fun CompanyCounterPrev() {
     OfflineCounterTicketingTheme {
         Surface {
-            Configuration(null)
+            //Configuration()
         }
     }
 }

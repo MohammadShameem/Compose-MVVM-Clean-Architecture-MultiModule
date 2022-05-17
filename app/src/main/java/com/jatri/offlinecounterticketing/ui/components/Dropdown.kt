@@ -8,9 +8,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.jatri.entity.companylist.OfflineCompanyEntity
+import com.jatri.entity.companylist.OfflineCompanyListEntity
+import com.jatri.entity.counterlist.CounterEntity
+import com.jatri.entity.counterlist.CounterListEntity
 
 @Composable
-fun DropDown(text: String, item: List<String>, onItemClick: (String) -> Unit) {
+fun DropDown(
+    text: String,
+    item: List<OfflineCompanyEntity>,
+    onItemClick: (OfflineCompanyEntity) -> Unit
+) {
     var expanded by remember { mutableStateOf(false) }
     Box(
         modifier = Modifier
@@ -20,7 +28,8 @@ fun DropDown(text: String, item: List<String>, onItemClick: (String) -> Unit) {
         OutlinedButton(
             onClick = { expanded = true },
             modifier = Modifier
-                .fillMaxWidth().height(48.dp),
+                .fillMaxWidth()
+                .height(48.dp),
 
             ) {
             Row(
@@ -36,14 +45,64 @@ fun DropDown(text: String, item: List<String>, onItemClick: (String) -> Unit) {
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            item.forEach { itemText ->
+            item.forEach {
                 DropdownMenuItem(
                     onClick = {
-                        onItemClick.invoke(itemText)
+                        onItemClick.invoke(it)
                         expanded = false
                     }
                 ) {
-                    Text(itemText)
+                    Text(it.name)
+                }
+            }
+            Divider()
+        }
+    }
+}
+
+
+
+
+@Composable
+fun DropDownCounterList(
+    text: String,
+    item: CounterListEntity?,
+    onItemClick: (OfflineCompanyEntity) -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentSize(Alignment.TopStart)
+    ) {
+        OutlinedButton(
+            onClick = { expanded = true },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp),
+
+            ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = text)
+                Icon(Icons.Default.ArrowDropDown, contentDescription = "Localized description")
+            }
+        }
+        DropdownMenu(
+            modifier = Modifier.fillMaxWidth(),
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            item?.counter_list?.forEach {
+                DropdownMenuItem(
+                    onClick = {
+                        //onItemClick.invoke(it.counter_name)
+                        expanded = false
+                    }
+                ) {
+                    Text(it.counter_name)
                 }
             }
             Divider()
