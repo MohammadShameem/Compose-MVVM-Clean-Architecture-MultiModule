@@ -29,7 +29,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun Configuration(
-    companyList: List<OfflineCompanyEntity>
+    companyList: List<OfflineCompanyEntity>,
+    onConfigureClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -40,10 +41,8 @@ fun Configuration(
     ) {
         val viewModel: ConfigurationViewModel = viewModel()
 
-        var companyEntity: OfflineCompanyEntity? by rememberSaveable {
-            mutableStateOf(null)
-        }
-        var isStudentFareSelected by rememberSaveable { mutableStateOf(false) }
+        var companyEntity: OfflineCompanyEntity? by remember { mutableStateOf(null) }
+        var isStudentFareSelected by remember { mutableStateOf(false) }
 
         JatriLogo()
         Text(text = "Please Setup Configuration", fontWeight = FontWeight.Bold)
@@ -52,21 +51,11 @@ fun Configuration(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp)
             ) {
-                var companyDropDownTitle by rememberSaveable {
-                    mutableStateOf("Select Company")
-                }
-                var counterDropDownTitle by rememberSaveable {
-                    mutableStateOf("Select Counter")
-                }
-
-
-                var counterList: CounterListEntity? by rememberSaveable {
-                    mutableStateOf(null)
-                }
-
+                var companyDropDownTitle by remember { mutableStateOf("Select Company") }
+                var counterDropDownTitle by remember { mutableStateOf("Select Counter") }
+                var counterList: CounterListEntity? by remember { mutableStateOf(null) }
                 val coroutineScope = rememberCoroutineScope()
                 val context = LocalContext.current
-
 
                 //company drop down
                 DropDown(companyDropDownTitle, companyList) { offlineCompanyEntity ->
@@ -91,7 +80,6 @@ fun Configuration(
                     counterDropDownTitle = it.counter_name
                 }
 
-
                 Spacer(modifier = Modifier.size(8.dp))
                 Text(text = "Student Fare", fontWeight = FontWeight.Bold)
                 Row(
@@ -112,11 +100,10 @@ fun Configuration(
             }
         }
 
-
-
         RoundJatriButton("Configure") {
             if (companyEntity != null) {
-                viewModel.saveCompanyInfoToSharedPreference(companyEntity!!, isStudentFareSelected)
+                // viewModel.saveCompanyInfoToSharedPreference(companyEntity!!, isStudentFareSelected)
+                onConfigureClick.invoke()
             }
         }
     }

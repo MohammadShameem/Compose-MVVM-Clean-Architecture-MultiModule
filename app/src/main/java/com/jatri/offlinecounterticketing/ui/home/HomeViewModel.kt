@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
     val uiState : StateFlow<BusCounterListUiState> = _uiState
 
     init {
-        getBusCounterList()
+       // getBusCounterList()
     }
 
     private fun getBusCounterList(){

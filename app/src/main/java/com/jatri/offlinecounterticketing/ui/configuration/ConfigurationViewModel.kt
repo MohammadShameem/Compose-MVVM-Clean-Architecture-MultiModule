@@ -25,7 +25,6 @@ class ConfigurationViewModel
         studentFare: Boolean
     ) {
         sharedPrefHelper.putString(SpKey.companyName, companyEntity.name)
-        sharedPrefHelper.putString(SpKey.counterFileName, companyEntity.counter_file_name)
         sharedPrefHelper.putString(
             SpKey.ticketFormatFileName,
             companyEntity.ticket_format_file_name
