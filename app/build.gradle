@@ -73,7 +73,6 @@ dependencies {
 
     implementation project(ModulesDep.assets)
     implementation project(ModulesDep.sharedPref)
-    implementation project(ModulesDep.dateFormatter)
     implementation project(ModulesDep.data)
     implementation project(ModulesDep.domain)
     implementation project(ModulesDep.common)
@@ -81,6 +80,7 @@ dependencies {
     implementation project(ModulesDep.cache)
 
     implementation AppDep.coreKtx
+    implementation AppDep.lifeCycleRunTimeKtx
     implementation AppDep.material
     implementation AppDep.appCompat
     implementation AppDep.fragment
@@ -90,6 +90,7 @@ dependencies {
     implementation AppDep.liveData
     implementation AppDep.preference
     implementation AppDep.lifecycle
+    implementation AppDep.sunmiPrinter
 
     implementation AppDep.composeActivity
     implementation AppDep.composeMaterial

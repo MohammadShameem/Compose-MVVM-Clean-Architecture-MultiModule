@@ -47,7 +47,9 @@ fun SecretPassword(
 fun SecretPasswordPrev() {
     OfflineCounterTicketingTheme {
         Surface {
-            SecretPassword({})
+            SecretPassword{
+
+            }
         }
     }
 }
