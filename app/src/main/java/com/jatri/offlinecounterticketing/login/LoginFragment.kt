@@ -54,7 +54,7 @@ class LoginFragment : Fragment() {
                 phoneNumber, password
             )).observe(viewLifecycleOwner){
                 if (it is ApiResponse.Success) {
-                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                    findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToDashboardFragment())
                     Toast.makeText(requireContext(),getString(R.string.msg_login_success),Toast.LENGTH_LONG).show()
                 }
                 else if (it is ApiResponse.Failure) Toast.makeText(requireContext(),it.message, Toast.LENGTH_SHORT).show()

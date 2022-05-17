@@ -10,6 +10,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,24 +22,25 @@ import com.jatri.offlinecounterticketing.ui.theme.*
 
 @Composable
 fun Dashboard() {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp)
+    ) {
         UserInfo()
         TicketCountAndFare()
         ChangeCounter()
-        RoundJatriButton(text = "ReportPrint", backgroundColor = lightGrey) {
+        RoundJatriButton(
+            text = "ReportPrint",
+            backgroundColor = Color.Gray) {
         }
-
-
     }
-
 }
 
 
 @Composable
 fun UserInfo() {
     DashboardCard {
-        Row (modifier = Modifier.padding(16.dp)){
-
+        Row (modifier = Modifier.padding(18.dp)){
             Column {
                 Text(text = "Kamrul Hasan")
                 Text(text = "+880xxxxxxxx")
@@ -58,7 +60,7 @@ fun UserInfo() {
 @Composable
 fun ChangeCounter() {
     DashboardCard {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(18.dp)) {
             Text(text = "Change Counter")
             JatriDropDown(text = "Select Counter", items = listOf("a","b","c")) {
             }
@@ -69,7 +71,9 @@ fun ChangeCounter() {
 @Composable
 fun TicketCountAndFare() {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp),
         horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -101,19 +105,6 @@ fun TicketFare() {
             Text(text = "Total Ticket Fare")
             Text(text = "100")
         }
-    }
-}
-
-
-@Preview
-@Composable
-fun DeshPrev() {
-    OfflineCounterTicketingTheme {
-        androidx.compose.material.Surface {
-
-            Dashboard()
-        }
-
     }
 }
 
