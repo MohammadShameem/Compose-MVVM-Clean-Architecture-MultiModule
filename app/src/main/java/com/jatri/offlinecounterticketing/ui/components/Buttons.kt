@@ -1,5 +1,6 @@
 package com.jatri.offlinecounterticketing.ui.components
 
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -17,6 +18,7 @@ fun RoundJatriButton(text: String, onClick: () -> Unit) {
         modifier = Modifier
             //.align(alignment = Alignment.CenterHorizontally)
             .fillMaxWidth()
+            .fillMaxHeight(.12f)
             .padding(start = 16.dp, end = 16.dp)
     ) {
         Text(text = text)
