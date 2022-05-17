@@ -12,6 +12,7 @@ import com.jatri.entity.companylist.OfflineCompanyEntity
 import com.jatri.entity.companylist.OfflineCompanyListEntity
 import com.jatri.entity.counterlist.CounterEntity
 import com.jatri.entity.counterlist.CounterListEntity
+import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 
 @Composable
 fun DropDown(
@@ -80,6 +81,9 @@ fun DropDownCounterList(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = lightGrey
+            )
 
             ) {
             Row(
@@ -103,6 +107,53 @@ fun DropDownCounterList(
                     }
                 ) {
                     Text(counterEntity.counter_name)
+                }
+            }
+            Divider()
+        }
+    }
+}
+
+@Composable
+fun JatriDropDown(
+    modifier: Modifier = Modifier,
+    text: String,
+    items: List<String>,
+    onItemClick: () -> Unit
+) {
+    var expanded by remember { mutableStateOf(false) }
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentSize(Alignment.TopStart)
+    ) {
+        OutlinedButton(
+            onClick = { expanded = true },
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(48.dp),
+            ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Text(text = text)
+                Icon(Icons.Default.ArrowDropDown, contentDescription = "Localized description")
+            }
+        }
+        DropdownMenu(
+            modifier = Modifier.fillMaxWidth(),
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            items.forEach {
+                DropdownMenuItem(
+                    onClick = {
+                        onItemClick.invoke()
+                        expanded = false
+                    }
+                ) {
+                    Text(it)
                 }
             }
             Divider()
