@@ -19,7 +19,9 @@ import androidx.compose.ui.window.Dialog
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 
 @Composable
-fun ChangePasswordDialog() {
+fun ChangePasswordDialog(
+    changePasswordCallBack: (String, String) -> Unit
+) {
     var isDialogOpen by remember { mutableStateOf(false) }
     var oldPassword by remember { mutableStateOf("") }
     var newPassword by remember { mutableStateOf("") }
@@ -86,18 +88,11 @@ fun ChangePasswordDialog() {
                             }
                         ) {
                             Text(text = "Update")
+                            changePasswordCallBack.invoke(oldPassword,newPassword)
                         }
                     }
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun previewChangePassword(){
-    OfflineCounterTicketingTheme {
-        ChangePasswordDialog()
     }
 }
