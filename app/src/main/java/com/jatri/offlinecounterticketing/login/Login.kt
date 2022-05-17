@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
 
 @Composable
@@ -17,6 +18,7 @@ fun LoginScreen(
 ){
     var phoneNumber by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    //val viewModel : LoginViewModel = viewModel()
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -52,7 +54,8 @@ fun LoginScreen(
 
         RoundJatriButton("Login") {
             clickCallBack.invoke(phoneNumber,password)
-          /*  viewModel.login(params = LoginApiUseCase.Params(
+
+            /*viewModel.login(params = LoginApiUseCase.Params(
                 phoneNumber, password
             ))*/
         }

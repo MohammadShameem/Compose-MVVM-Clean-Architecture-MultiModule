@@ -32,9 +32,12 @@ class LoginFragment : Fragment() {
                   viewModel.login(params = LoginApiUseCase.Params(
                       phoneNumber, password
                   )).observe(viewLifecycleOwner){
-                    if (it is ApiResponse.Success){
+                      when(it){
+                          is ApiResponse.Success ->  findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
+                      }
+                   /* if (it is ApiResponse.Success){
                         findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
-                    }
+                    }*/
                   }
               }
             }
