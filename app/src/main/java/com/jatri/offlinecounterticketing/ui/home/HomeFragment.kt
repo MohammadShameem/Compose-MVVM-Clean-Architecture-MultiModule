@@ -11,9 +11,7 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
-import com.jatri.domain.entity.StoppageEntity
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,8 +19,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(){
-    private val viewModel: HomeViewModel by viewModels()
-    private var counterStoppageList = listOf<StoppageEntity>()
     @Inject lateinit var sharedPrefHelper: SharedPrefHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
