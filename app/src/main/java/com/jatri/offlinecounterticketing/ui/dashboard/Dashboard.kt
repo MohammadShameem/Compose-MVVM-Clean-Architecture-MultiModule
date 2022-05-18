@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.domain.entity.CounterListEntity
 import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
@@ -26,10 +27,10 @@ import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 fun Dashboard(
     username: String,
     phoneNumber: String,
-    changePasswordCallBack: (String, String) -> Unit
+    owner: LifecycleOwner
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
-        UserInfo(username, phoneNumber, changePasswordCallBack)
+        UserInfo(username, phoneNumber,owner)
         Spacer(modifier = Modifier.size(8.dp))
         TicketCountAndFare()
         Spacer(modifier = Modifier.size(8.dp))
@@ -44,7 +45,7 @@ fun Dashboard(
 fun UserInfo(
     username: String,
     phoneNumber: String,
-    changePasswordCallBack: (String, String) -> Unit
+    owner: LifecycleOwner,
 ) {
     val isDialogOpen = remember { mutableStateOf(false) }
     DashboardCard {
@@ -64,7 +65,7 @@ fun UserInfo(
                     val number by remember { mutableStateOf(phoneNumber) }
                     Text(text = name)
                     Text(text = number)
-                    ChangePasswordDialog(isDialogOpen, changePasswordCallBack)
+                    ChangePasswordDialog(isDialogOpen,owner)
                     JatriRoundOutlinedButton(
                         borderColor = darkGrey,
                         backgroundColor = lightGrey,
@@ -84,6 +85,7 @@ fun ChangeCounter() {
         val context = LocalContext.current
         val coroutineScope = rememberCoroutineScope()
         val viewModel: DashboardViewModel = viewModel()
+
         var counterDropDownTitle by remember {
             mutableStateOf(
                 viewModel.getCurrentCounterName()

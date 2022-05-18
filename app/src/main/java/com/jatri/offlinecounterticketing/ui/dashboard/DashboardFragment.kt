@@ -42,10 +42,7 @@ class DashboardFragment : Fragment() {
                 Scaffold(topBar = { ToolbarWithButtonLarge(toolbarTitle = "Dashboard", toolbarIcon = Icons.Filled.ArrowBack) {
 
                 }}) {
-                    Dashboard(sharedPrefHelper.getString(SpKey.userName), sharedPrefHelper.getString(SpKey.phoneNumber),
-                        changePasswordCallBack = { oldPassword, newPassword ->
-                            changePassword(oldPassword,newPassword)
-                        })
+                    Dashboard(sharedPrefHelper.getString(SpKey.userName), sharedPrefHelper.getString(SpKey.phoneNumber),viewLifecycleOwner)
                 }
             }
         }
@@ -64,12 +61,11 @@ class DashboardFragment : Fragment() {
             viewModel.changePassword(ChangePasswordApiUseCase.Params(oldPassword,newPassword))
                 .observe(viewLifecycleOwner){
                     if (it is ApiResponse.Success) {
-                        viewModel.isPasswordUpdated(true)
                         Toast.makeText(requireContext(),getString(R.string.msg_success_update_password),Toast.LENGTH_LONG).show()
                     }
                     else if (it is ApiResponse.Failure) {
                         Toast.makeText(requireContext(),it.message, Toast.LENGTH_SHORT).show()
-                        viewModel.isPasswordUpdated(false)
+
                     }
                 }
         }
