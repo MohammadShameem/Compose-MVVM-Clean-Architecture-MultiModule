@@ -121,7 +121,7 @@ fun Configuration(
 }
 
 
-@Preview
+/*@Preview
 @Composable
 fun CompanyCounterPrev() {
     OfflineCounterTicketingTheme {
@@ -129,4 +129,4 @@ fun CompanyCounterPrev() {
             Configuration(emptyList())
         }
     }
-}
+}*/
