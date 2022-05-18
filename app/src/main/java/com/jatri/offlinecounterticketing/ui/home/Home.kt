@@ -8,6 +8,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,9 +36,9 @@ fun HomeScreen(
         Card(modifier = Modifier.weight(1f)) {
             Column(
                 modifier = Modifier.padding(all = 8.dp)) {
-
+                val stoppageList by remember { mutableStateOf(counterList)}
                 LazyColumn{
-                    items(counterList) { busCounter ->
+                    items(stoppageList) { busCounter ->
                         BusCounterItem(
                             StoppageEntity(
                                 busCounter.id, busCounter.name,
