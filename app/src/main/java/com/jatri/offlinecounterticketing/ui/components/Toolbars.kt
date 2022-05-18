@@ -1,15 +1,18 @@
 package com.jatri.offlinecounterticketing.ui.components
 
-import android.widget.Toolbar
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 
 @Composable
 fun ToolbarWithBackButton(title: String, onBackPressed: () -> Unit) {
@@ -24,17 +27,40 @@ fun ToolbarWithBackButton(title: String, onBackPressed: () -> Unit) {
 }
 
 @Composable
-fun ToolbarWithBackButtonLarge() {
-    Column {
-        IconButton(onClick = {}) {
-            
+fun ToolbarWithButtonLarge(
+    toolbarTitle: String,
+    toolbarIcon: ImageVector,
+    onButtonPressed: () -> Unit
+) {
+    Box(Modifier.background(color = colorPrimary)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 8.dp, end = 8.dp, top = 16.dp, bottom = 16.dp),
+            //verticalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                modifier = Modifier.clickable(onClick = onButtonPressed),
+                imageVector = toolbarIcon,
+                tint = Color.White,
+                contentDescription = "Back"
+            )
+            Spacer(modifier = Modifier.size(8.dp))
+            Text(
+                text = toolbarTitle,
+                fontSize = MaterialTheme.typography.h5.fontSize,
+                color = Color.White
+            )
         }
-
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun Toolbar() {
-    ToolbarWithBackButtonLarge()
+fun ToolbarPre() {
+    ToolbarWithButtonLarge(
+        "Sea Maritime Service",
+        Icons.Filled.ArrowBack
+    ) {
+    }
 }
