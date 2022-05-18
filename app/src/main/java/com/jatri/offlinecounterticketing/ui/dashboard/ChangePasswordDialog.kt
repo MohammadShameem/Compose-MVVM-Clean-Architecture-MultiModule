@@ -92,7 +92,6 @@ fun ChangePasswordDialog(
                             Button(
                                 onClick = {
                                     changePasswordCallBack.invoke(oldPassword,newPassword)
-                                    isDialogOpen.value = false
                                 }
                             ) {
                                 Text(text = "Update")
