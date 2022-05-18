@@ -8,5 +8,7 @@
     <string name="error_message_empty_number">Enter phone number</string>
     <string name="error_msg_invalid_number">Enter valid phone number</string>
     <string name="error_msg_enter_password">Enter password</string>
+    <string name="error_msg_enter_oldPassword">Enter old password</string>
+    <string name="error_msg_enter_newPassword">Enter new password</string>
 
 </resources>

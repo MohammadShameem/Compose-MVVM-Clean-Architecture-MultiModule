@@ -8,15 +8,13 @@ import com.jatri.entity.login.LoginEntity
 import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.R
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
-import java.security.AccessControlContext
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginApiUseCase: LoginApiUseCase
 ): ViewModel(){
-    val errorMessageLiveData = MutableLiveData<Int>()
+    val errorMessageLiveDataOfValidation = MutableLiveData<Int>()
     /**
      * login user
      * @param: params as LoginUseCaseParas which include phoneNumber and password
@@ -32,13 +30,13 @@ class LoginViewModel @Inject constructor(
     * */
     fun validatePhoneNumberAndPassword(phoneNumber: String , password: String) : Boolean {
         return if(phoneNumber.isEmpty()){
-            errorMessageLiveData.value  = R.string.error_message_empty_number
+            errorMessageLiveDataOfValidation.value  = R.string.error_message_empty_number
             false
         }else if(phoneNumber.length < 11){
-            errorMessageLiveData.value = R.string.error_msg_invalid_number
+            errorMessageLiveDataOfValidation.value = R.string.error_msg_invalid_number
             false
         }else if(password.isEmpty()){
-            errorMessageLiveData.value = R.string.error_msg_enter_password
+            errorMessageLiveDataOfValidation.value = R.string.error_msg_enter_password
             false
         }else true
     }

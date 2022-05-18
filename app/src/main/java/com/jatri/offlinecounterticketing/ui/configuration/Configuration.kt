@@ -121,13 +121,3 @@ fun Configuration(
     }
 }
 
-
-/*@Preview
-@Composable
-fun CompanyCounterPrev() {
-    OfflineCounterTicketingTheme {
-        Surface {
-            Configuration(emptyList())
-        }
-    }
-}*/

@@ -1,6 +1,6 @@
 package com.jatri.apiresponse.dashboard
 
-data class ChangePasswordProfileInfoApiResponse(
+data class ChangePasswordApiResponse(
     val code: Int,
     val message: String,
     val profile: Profile,
