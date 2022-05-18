@@ -13,20 +13,23 @@ import com.google.gson.Gson
 import com.jatri.entity.companylist.OfflineCompanyListEntity
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
+import com.jatri.sharedpref.SharedPrefHelper
+import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ConfigurationFragment : Fragment() {
-    @Inject
-    lateinit var gson: Gson
+    @Inject lateinit var sharedPrefHelper: SharedPrefHelper
+    @Inject lateinit var gson: Gson
     private val args : ConfigurationFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            requireActivity().finish()
+            //requireActivity().finish()
+
         }
     }
 
@@ -42,6 +45,7 @@ class ConfigurationFragment : Fragment() {
         setContent {
             OfflineCounterTicketingTheme {
                 Configuration(companyList.offline_company_list){
+                    sharedPrefHelper.putBool(SpKey.configured,true)
                     val action =
                         ConfigurationFragmentDirections.actionConfigurationFragmentToHomeFragment()
                         /*  if (secretPassword == resources.getString(R.string.secretPassword)) {

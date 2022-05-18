@@ -30,11 +30,10 @@ object SpKey {
 
     //Secret Password
     const val passwordEntered = "passwordEntered"
-
     //Configuration Screen
     const val companyName = "companyName"
     const val counterFileName = "counterJsonFile"
     const val ticketFormatFileName = "ticketFormatJsonFile"
     const val studentFare = "studentFare"
-
+    const val configured = "configured"
 }
