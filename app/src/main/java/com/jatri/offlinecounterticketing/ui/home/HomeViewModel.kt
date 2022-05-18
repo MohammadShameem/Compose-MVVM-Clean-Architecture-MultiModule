@@ -26,7 +26,6 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getBusCounterList(){
-        _uiState.value = BusCounterListUiState.Loading
         viewModelScope.launch {
             cacheRepository.fetchSelectedBusCounterEntityList()
                 .catch {
@@ -43,5 +42,4 @@ sealed class BusCounterListUiState {
     data class Success(val busCounterList: List<StoppageEntity>): BusCounterListUiState()
     data class Error(val errorMessage:String): BusCounterListUiState()
     object Empty: BusCounterListUiState()
-    object Loading: BusCounterListUiState()
 }

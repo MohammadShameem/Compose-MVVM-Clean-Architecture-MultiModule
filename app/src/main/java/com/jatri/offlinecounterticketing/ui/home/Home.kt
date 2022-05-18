@@ -22,6 +22,7 @@ import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 @Composable
 fun HomeScreen(
     counterList: List<StoppageEntity>,
+    syncClickedCallBack: () -> Unit,
     busCounterClickedCallback: (stoppageEntity: StoppageEntity) -> Unit
 ) {
     //Home page of offline counter
@@ -71,7 +72,7 @@ fun HomeScreen(
                         )
                     }
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { syncClickedCallBack.invoke() },
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
                     ) {
                         Text(text = "Sync", color = Color.White)
@@ -118,9 +119,7 @@ fun CompanyCounterPrev() {
             val list = mutableListOf<StoppageEntity>()
             list.add(StoppageEntity(0, "Rxjava", 3, 2))
             list.add(StoppageEntity(0, "Rxjava", 3, 2))
-            HomeScreen(list){
 
-            }
         }
     }
 }
