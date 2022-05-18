@@ -8,6 +8,9 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +25,7 @@ import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 @Composable
 fun HomeScreen(
     counterList: List<StoppageEntity>,
+    syncClickedCallBack: () -> Unit,
     busCounterClickedCallback: (stoppageEntity: StoppageEntity) -> Unit
 ) {
     //Home page of offline counter
@@ -31,11 +35,10 @@ fun HomeScreen(
     ) {
         Card(modifier = Modifier.weight(1f)) {
             Column(
-                modifier = Modifier.padding(all = 8.dp)
-
-            ) {
-                LazyColumn() {
-                    items(counterList) { busCounter ->
+                modifier = Modifier.padding(all = 8.dp)) {
+                val stoppageList by remember { mutableStateOf(counterList)}
+                LazyColumn{
+                    items(stoppageList) { busCounter ->
                         BusCounterItem(
                             StoppageEntity(
                                 busCounter.id, busCounter.name,
@@ -71,7 +74,7 @@ fun HomeScreen(
                         )
                     }
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { syncClickedCallBack.invoke() },
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
                     ) {
                         Text(text = "Sync", color = Color.White)
@@ -118,9 +121,7 @@ fun CompanyCounterPrev() {
             val list = mutableListOf<StoppageEntity>()
             list.add(StoppageEntity(0, "Rxjava", 3, 2))
             list.add(StoppageEntity(0, "Rxjava", 3, 2))
-            HomeScreen(list){
 
-            }
         }
     }
 }
