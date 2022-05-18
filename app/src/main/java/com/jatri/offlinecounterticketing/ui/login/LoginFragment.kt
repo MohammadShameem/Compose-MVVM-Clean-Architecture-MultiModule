@@ -1,4 +1,4 @@
-package com.jatri.offlinecounterticketing.login
+package com.jatri.offlinecounterticketing.ui.login
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -60,6 +60,7 @@ class LoginFragment : Fragment() {
                 if (it is ApiResponse.Success) {
                     sharedPrefHelper.putString(SpKey.userName,it.data.name)
                     sharedPrefHelper.putString(SpKey.phoneNumber,it.data.mobile)
+                    sharedPrefHelper.putString(SpKey.userAuthKey,it.data.token)
                     findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToDashboardFragment())
                     Toast.makeText(requireContext(),getString(R.string.msg_login_success),Toast.LENGTH_LONG).show()
                 }

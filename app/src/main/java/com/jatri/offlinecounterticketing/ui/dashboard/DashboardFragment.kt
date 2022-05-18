@@ -8,6 +8,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import android.widget.Toast
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
@@ -19,13 +20,13 @@ import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardFragment : Fragment() {
     @Inject
     lateinit var sharedPrefHelper: SharedPrefHelper
-
     private val viewModel: DashboardViewModel by viewModels()
 
     override fun onCreateView(
@@ -63,11 +64,15 @@ class DashboardFragment : Fragment() {
             viewModel.changePassword(ChangePasswordApiUseCase.Params(oldPassword,newPassword))
                 .observe(viewLifecycleOwner){
                     if (it is ApiResponse.Success) {
-
+                        viewModel.isPasswordUpdated(true)
                         Toast.makeText(requireContext(),getString(R.string.msg_success_update_password),Toast.LENGTH_LONG).show()
                     }
-                    else if (it is ApiResponse.Failure) Toast.makeText(requireContext(),it.message, Toast.LENGTH_SHORT).show()
+                    else if (it is ApiResponse.Failure) {
+                        Toast.makeText(requireContext(),it.message, Toast.LENGTH_SHORT).show()
+                        viewModel.isPasswordUpdated(false)
+                    }
                 }
         }
     }
+
 }

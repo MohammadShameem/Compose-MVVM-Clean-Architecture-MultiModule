@@ -8,6 +8,7 @@ import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,14 +17,15 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun ChangePasswordDialog(
     isDialogOpen : MutableState<Boolean>,
     changePasswordCallBack: (String,String) -> Unit
 ) {
-    //val dashboardViewModel: DashboardViewModel = viewModel()
-    //val dialogOpenState = dashboardViewModel.dialogOpenState.observeAsState()
+    val dashboardViewModel: DashboardViewModel = viewModel()
+    val isPasswordUpdated by dashboardViewModel.isPasswordUpdated.observeAsState(initial = false)
 
     var oldPassword by remember { mutableStateOf("") }
     var newPassword by remember { mutableStateOf("") }
@@ -92,6 +94,9 @@ fun ChangePasswordDialog(
                             Button(
                                 onClick = {
                                     changePasswordCallBack.invoke(oldPassword,newPassword)
+                                    if(isPasswordUpdated){
+                                        isDialogOpen.value = false
+                                    }
                                 }
                             ) {
                                 Text(text = "Update")

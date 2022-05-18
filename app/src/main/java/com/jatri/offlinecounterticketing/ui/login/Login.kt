@@ -1,4 +1,4 @@
-package com.jatri.offlinecounterticketing.login
+package com.jatri.offlinecounterticketing.ui.login
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,9 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
-import kotlin.reflect.typeOf
 
 @Composable
 fun LoginScreen(

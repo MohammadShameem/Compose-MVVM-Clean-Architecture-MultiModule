@@ -1,5 +1,8 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +14,7 @@ import com.jatri.entity.dashboard.SyncedSoldTicketApiEntity
 import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.R
 import dagger.hilt.android.lifecycle.HiltViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,26 +23,33 @@ class DashboardViewModel @Inject constructor(
     private val syncedSoldTicketApiUseCase: SyncedSoldTicketApiUseCase
 ) : ViewModel() {
 
-   val errorMessageLiveDataOfValidation = MutableLiveData<Int>()
+    val errorMessageLiveDataOfValidation = MutableLiveData<Int>()
+    val isPasswordUpdated = MutableLiveData<Boolean>()
 
-   fun changePassword(
-       params: ChangePasswordApiUseCase.Params
-   ): LiveData<ApiResponse<ChangePasswordApiEntity>> = changePasswordApiUseCase.execute(params)
+
+    fun changePassword(
+        params: ChangePasswordApiUseCase.Params
+    ): LiveData<ApiResponse<ChangePasswordApiEntity>> = changePasswordApiUseCase.execute(params)
 
 
     fun syncSoldTicket(
         soldTicketBody: SyncSoldTicketBody
-    ): LiveData<ApiResponse<SyncedSoldTicketApiEntity>> = syncedSoldTicketApiUseCase.execute(soldTicketBody)
+    ): LiveData<ApiResponse<SyncedSoldTicketApiEntity>> =
+        syncedSoldTicketApiUseCase.execute(soldTicketBody)
 
 
-    fun validateOldPasswordAndNewPassword(oldPassword: String, newPassword: String) : Boolean {
-        return if(oldPassword.isEmpty()){
-            errorMessageLiveDataOfValidation.value  = R.string.error_msg_enter_oldPassword
+    fun validateOldPasswordAndNewPassword(oldPassword: String, newPassword: String): Boolean {
+        return if (oldPassword.isEmpty()) {
+            errorMessageLiveDataOfValidation.value = R.string.error_msg_enter_oldPassword
             false
-        }else if(newPassword.isEmpty()){
+        } else if (newPassword.isEmpty()) {
             errorMessageLiveDataOfValidation.value = R.string.error_msg_enter_newPassword
             false
-        }else true
+        } else true
+    }
+
+    fun isPasswordUpdated(isPasswordChanged: Boolean) {
+        isPasswordUpdated.value = isPasswordChanged
     }
 
 }

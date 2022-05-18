@@ -1,4 +1,4 @@
-package com.jatri.offlinecounterticketing.login
+package com.jatri.offlinecounterticketing.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

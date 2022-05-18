@@ -37,7 +37,6 @@ fun HomeScreen(
             Column(
                 modifier = Modifier.padding(all = 8.dp)) {
 
-
                 LazyColumn{
                     items(stoppageListState) { busCounter ->
                         BusCounterItem(
