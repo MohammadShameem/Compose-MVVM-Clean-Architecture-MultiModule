@@ -21,12 +21,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(){
     private val viewModel: HomeViewModel by viewModels()
     //private var counterList = listOf<StoppageEntity>(StoppageEntity(0, "Rxjava", 3, 2), StoppageEntity(0, "Rxjava", 3, 2))
-    private var counterList = listOf<StoppageEntity>()
+    private var counterStoppageList = listOf<StoppageEntity>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,11 +50,10 @@ class HomeFragment : Fragment(){
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
                 viewModel.uiState.collect {uiState->
-                    // New value received
                     when (uiState) {
                         is BusCounterListUiState.Success -> {
-                            counterList = uiState.busCounterList
-
+                            counterStoppageList = uiState.counterStoppageList
+                            Timber.e("counterStoppageList $counterStoppageList")
                         }
                         is BusCounterListUiState.Error -> {
                             Toast.makeText(requireActivity(),uiState.errorMessage, Toast.LENGTH_SHORT).show()
@@ -68,7 +68,7 @@ class HomeFragment : Fragment(){
             OfflineCounterTicketingTheme {
                 Surface( modifier = Modifier.fillMaxSize()) {
                     HomeScreen(
-                        counterList = counterList,
+                        counterList = counterStoppageList,
                         syncClickedCallBack = {
                             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
                         },

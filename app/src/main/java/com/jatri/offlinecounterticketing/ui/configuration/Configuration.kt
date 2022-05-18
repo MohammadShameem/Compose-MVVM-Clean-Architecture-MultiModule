@@ -110,10 +110,11 @@ fun Configuration(
 
         RoundJatriButton("Configure") {
             companyEntity?.let {
-                viewModel.saveCompanyInfoToSharedPreference(
-                    companyEntity!!,
-                    isStudentFareSelected, stoppageEntityList
-                )
+                coroutineScope.launch {
+                    viewModel.saveCompanyInfoToSharedPreference(
+                        companyEntity!!, isStudentFareSelected, stoppageEntityList
+                    )
+                }
                 onConfigureClick.invoke()
             }
         }

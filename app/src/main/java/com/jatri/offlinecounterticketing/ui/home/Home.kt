@@ -32,10 +32,9 @@ fun HomeScreen(
     ) {
         Card(modifier = Modifier.weight(1f)) {
             Column(
-                modifier = Modifier.padding(all = 8.dp)
+                modifier = Modifier.padding(all = 8.dp)) {
 
-            ) {
-                LazyColumn() {
+                LazyColumn{
                     items(counterList) { busCounter ->
                         BusCounterItem(
                             StoppageEntity(

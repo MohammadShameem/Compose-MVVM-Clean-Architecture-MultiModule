@@ -46,11 +46,6 @@ class ConfigurationFragment : Fragment() {
             OfflineCounterTicketingTheme {
                 Configuration(companyList.offline_company_list){
                     sharedPrefHelper.putBool(SpKey.configured,true)
-                    val action =
-                        ConfigurationFragmentDirections.actionConfigurationFragmentToHomeFragment()
-                        /*  if (secretPassword == resources.getString(R.string.secretPassword)) {
-                             //sharedPrefHelper.putBool(SpKey.passwordEntered,true)
-                         }*/
                     findNavController().navigate(R.id.homeFragment)
                 }
             }
