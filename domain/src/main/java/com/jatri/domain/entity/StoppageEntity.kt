@@ -5,18 +5,18 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-data class BusCompanyEntity(
-    val counter_list:List<BusCompanyCounter>
-
+data class CounterListEntity(
+    val counter_list: List<CounterEntity>
 )
 
-data class BusCompanyCounter(
-    val counter_name:String,
-    val stoppage_list:List<BusCounterEntity>
+data class CounterEntity(
+    val counter_name: String,
+    val stoppage_list: List<StoppageEntity>
 )
+
 
 @Entity(tableName = "bus_counter")
-data class BusCounterEntity(
+data class StoppageEntity(
     @PrimaryKey(autoGenerate = true)val id:Int = 0,
     @ColumnInfo(name = "stoppage_name")val name:String,
     val fare:Int,

@@ -1,6 +1,5 @@
 package com.jatri.offlinecounterticketing.ui.home
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -16,15 +15,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.jatri.domain.entity.BusCounterEntity
-import com.jatri.offlinecounterticketing.ui.configuration.Configuration
+import com.jatri.domain.entity.StoppageEntity
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 
 
 @Composable
 fun HomeScreen(
-    counterList: List<BusCounterEntity>,
-    busCounterClickedCallback: (busCounterEntity: BusCounterEntity) -> Unit
+    counterList: List<StoppageEntity>,
+    busCounterClickedCallback: (stoppageEntity: StoppageEntity) -> Unit
 ) {
     //Home page of offline counter
     Column(
@@ -39,7 +37,7 @@ fun HomeScreen(
                 LazyColumn() {
                     items(counterList) { busCounter ->
                         BusCounterItem(
-                            BusCounterEntity(
+                            StoppageEntity(
                                 busCounter.id, busCounter.name,
                                 busCounter.fare, busCounter.fare_student
                             ), busCounterClickedCallback
@@ -90,8 +88,8 @@ fun HomeScreen(
 
 @Composable
 fun BusCounterItem(
-    busCounterEntity: BusCounterEntity,
-    busCounterClickedCallback: (busCounterEntity: BusCounterEntity) -> Unit
+    stoppageEntity: StoppageEntity,
+    busCounterClickedCallback: (stoppageEntity: StoppageEntity) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -99,15 +97,15 @@ fun BusCounterItem(
             .background(color = Color.Red, shape = RoundedCornerShape(15))
             .padding(all = 8.dp)
             .clickable(onClick = {
-                busCounterClickedCallback.invoke(busCounterEntity)
+                busCounterClickedCallback.invoke(stoppageEntity)
             }),
         horizontalArrangement = Arrangement.SpaceBetween,
 
         ) {
 
-        Text(text = busCounterEntity.name, color = Color.White, fontSize = 22.sp)
+        Text(text = stoppageEntity.name, color = Color.White, fontSize = 22.sp)
         Spacer(modifier = Modifier.height(4.dp))
-        Text(text = busCounterEntity.fare.toString(), color = Color.White, fontSize = 24.sp)
+        Text(text = stoppageEntity.fare.toString(), color = Color.White, fontSize = 24.sp)
     }
 }
 
@@ -117,9 +115,9 @@ fun BusCounterItem(
 fun CompanyCounterPrev() {
     OfflineCounterTicketingTheme {
         Surface {
-            val list = mutableListOf<BusCounterEntity>()
-            list.add(BusCounterEntity(0, "Rxjava", 3, 2))
-            list.add(BusCounterEntity(0, "Rxjava", 3, 2))
+            val list = mutableListOf<StoppageEntity>()
+            list.add(StoppageEntity(0, "Rxjava", 3, 2))
+            list.add(StoppageEntity(0, "Rxjava", 3, 2))
             HomeScreen(list){
 
             }

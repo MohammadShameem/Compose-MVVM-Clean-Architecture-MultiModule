@@ -8,7 +8,6 @@ import androidx.compose.material.RadioButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -16,8 +15,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.jatri.domain.entity.CounterListEntity
+import com.jatri.domain.entity.StoppageEntity
 import com.jatri.entity.companylist.OfflineCompanyEntity
-import com.jatri.entity.counterlist.CounterListEntity
 import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
 import com.jatri.offlinecounterticketing.ui.components.DropDown
 import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
@@ -29,7 +29,8 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun Configuration(
-    companyList: List<OfflineCompanyEntity>
+    companyList: List<OfflineCompanyEntity>,
+    onConfigureClick: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -40,10 +41,13 @@ fun Configuration(
     ) {
         val viewModel: ConfigurationViewModel = viewModel()
 
-        var companyEntity: OfflineCompanyEntity? by rememberSaveable {
-            mutableStateOf(null)
-        }
-        var isStudentFareSelected by rememberSaveable { mutableStateOf(false) }
+        var companyEntity: OfflineCompanyEntity? by remember { mutableStateOf(null) }
+        var isStudentFareSelected by remember { mutableStateOf(false) }
+
+        val coroutineScope = rememberCoroutineScope()
+        val context = LocalContext.current
+        var stoppageEntityList: List<StoppageEntity> = listOf()
+
 
         JatriLogo()
         Text(
@@ -55,20 +59,9 @@ fun Configuration(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp)
             ) {
-                var companyDropDownTitle by rememberSaveable {
-                    mutableStateOf("Select Company")
-                }
-                var counterDropDownTitle by rememberSaveable {
-                    mutableStateOf("Select Counter")
-                }
-
-
-                var counterList: CounterListEntity? by rememberSaveable {
-                    mutableStateOf(null)
-                }
-
-                val coroutineScope = rememberCoroutineScope()
-                val context = LocalContext.current
+                var companyDropDownTitle by remember { mutableStateOf("Select Company") }
+                var counterDropDownTitle by remember { mutableStateOf("Select Counter") }
+                var counterList: CounterListEntity? by remember { mutableStateOf(null) }
 
 
                 //company drop down
@@ -92,6 +85,7 @@ fun Configuration(
                  * */
                 DropDownCounterList(counterDropDownTitle, counterList) {
                     counterDropDownTitle = it.counter_name
+                    stoppageEntityList = it.stoppage_list
                 }
 
                 Spacer(modifier = Modifier.size(8.dp))
@@ -114,11 +108,13 @@ fun Configuration(
             }
         }
 
-
-
         RoundJatriButton("Configure") {
-            if (companyEntity != null) {
-                viewModel.saveCompanyInfoToSharedPreference(companyEntity!!, isStudentFareSelected)
+            companyEntity?.let {
+                viewModel.saveCompanyInfoToSharedPreference(
+                    companyEntity!!,
+                    isStudentFareSelected, stoppageEntityList
+                )
+                onConfigureClick.invoke()
             }
         }
     }

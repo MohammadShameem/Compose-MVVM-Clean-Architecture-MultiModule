@@ -2,7 +2,7 @@ package com.jatri.cache
 
 import androidx.lifecycle.LiveData
 import com.jatri.cache.dao.OfflineCounterTicketingDao
-import com.jatri.domain.entity.BusCounterEntity
+import com.jatri.domain.entity.StoppageEntity
 import com.jatri.domain.entity.SoldTicketEntity
 import com.jatri.domain.entity.SoldTicketGroupWiseEntity
 import kotlinx.coroutines.flow.Flow
@@ -12,10 +12,10 @@ class CacheRepository @Inject constructor(
     private val cacheDao: OfflineCounterTicketingDao
 ) {
 
-    suspend fun insertSelectedBusCounterEntity(entity:List<BusCounterEntity>) =
+    suspend fun insertSelectedBusCounterEntity(entity:List<StoppageEntity>) =
         cacheDao.insertSelectedBusCounterEntity(entity)
 
-    fun fetchSelectedBusCounterEntityList():Flow<List<BusCounterEntity>>{
+    fun fetchSelectedBusCounterEntityList():Flow<List<StoppageEntity>>{
         return cacheDao.fetchSelectedBusCounterEntityList()
     }
 
