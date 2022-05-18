@@ -1,6 +1,7 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jatri.domain.usecase.dashboard.ChangePasswordApiUseCase
 import com.jatri.domain.usecase.dashboard.SyncedSoldTicketApiUseCase
@@ -8,12 +9,17 @@ import com.jatri.entity.dashboard.ChangePasswordApiEntity
 import com.jatri.entity.dashboard.SyncSoldTicketBody
 import com.jatri.entity.dashboard.SyncedSoldTicketApiEntity
 import com.jatri.entity.res.ApiResponse
+import com.jatri.offlinecounterticketing.R
+import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val changePasswordApiUseCase: ChangePasswordApiUseCase,
     private val syncedSoldTicketApiUseCase: SyncedSoldTicketApiUseCase
 ) : ViewModel() {
+
+   val errorMessageLiveDataOfValidation = MutableLiveData<Int>()
 
    fun changePassword(
        params: ChangePasswordApiUseCase.Params
@@ -23,5 +29,16 @@ class DashboardViewModel @Inject constructor(
     fun syncSoldTicket(
         soldTicketBody: SyncSoldTicketBody
     ): LiveData<ApiResponse<SyncedSoldTicketApiEntity>> = syncedSoldTicketApiUseCase.execute(soldTicketBody)
+
+
+    fun validateOldPasswordAndNewPassword(oldPassword: String, newPassword: String) : Boolean {
+        return if(oldPassword.isEmpty()){
+            errorMessageLiveDataOfValidation.value  = R.string.error_msg_enter_oldPassword
+            false
+        }else if(newPassword.isEmpty()){
+            errorMessageLiveDataOfValidation.value = R.string.error_msg_enter_newPassword
+            false
+        }else true
+    }
 
 }

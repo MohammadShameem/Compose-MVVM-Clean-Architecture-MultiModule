@@ -43,7 +43,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.errorMessageLiveData.observe(viewLifecycleOwner){
+        viewModel.errorMessageLiveDataOfValidation.observe(viewLifecycleOwner){
             Toast.makeText(requireContext(),getString(it),Toast.LENGTH_SHORT).show()
         }
     }

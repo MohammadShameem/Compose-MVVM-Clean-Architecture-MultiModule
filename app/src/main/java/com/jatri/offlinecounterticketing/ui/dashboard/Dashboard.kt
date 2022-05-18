@@ -3,14 +3,13 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.offlinecounterticketing.ui.components.JatriDropDown
 import com.jatri.offlinecounterticketing.ui.components.JatriRoundOutlinedButton
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
@@ -19,13 +18,14 @@ import com.jatri.offlinecounterticketing.ui.theme.*
 @Composable
 fun Dashboard(
     username: String,
-    phoneNumber: String
+    phoneNumber: String,
+    changePasswordCallBack: (String,String) -> Unit
 ) {
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(16.dp)
     ) {
-        UserInfo(username,phoneNumber)
+        UserInfo(username,phoneNumber,changePasswordCallBack)
         TicketCountAndFare()
         ChangeCounter()
         RoundJatriButton(
@@ -35,12 +35,13 @@ fun Dashboard(
     }
 }
 
-
 @Composable
 fun UserInfo(
     username: String,
-    phoneNumber: String
+    phoneNumber: String,
+    changePasswordCallBack: (String,String) -> Unit
 ) {
+    val isDialogOpen = remember { mutableStateOf(false)}
     DashboardCard {
         Row (modifier = Modifier.padding(18.dp)){
             Column {
@@ -48,18 +49,19 @@ fun UserInfo(
                 val number by remember { mutableStateOf(phoneNumber) }
                 Text(text = name)
                 Text(text = number)
+                ChangePasswordDialog(isDialogOpen,changePasswordCallBack)
+
                 JatriRoundOutlinedButton(
                     borderColor = darkGrey,
                     backgroundColor = lightGrey,
                     text = "Change Password"
                 ) {
-
+                    isDialogOpen.value = true
                 }
             }
         }
     }
 }
-
 
 @Composable
 fun ChangeCounter() {
