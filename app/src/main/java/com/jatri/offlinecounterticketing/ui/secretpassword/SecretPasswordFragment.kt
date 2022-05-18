@@ -43,11 +43,8 @@ class SecretPasswordFragment : Fragment() {
         }
 
         val navigateToConfiguration = { secretPassword: String ->
-            val action =
-                SecretPasswordFragmentDirections.actionSecretPasswordFragmentToConfigurationFragment(
-                    jsonString
-                )
             if (secretPassword == resources.getString(R.string.secretPassword)) {
+                findNavController().navigate(SecretPasswordFragmentDirections.actionSecretPasswordFragmentToConfigurationFragment(jsonString))
                 sharedPrefHelper.putBool(SpKey.passwordEntered, true)
                 findNavController().navigate(action)
             }

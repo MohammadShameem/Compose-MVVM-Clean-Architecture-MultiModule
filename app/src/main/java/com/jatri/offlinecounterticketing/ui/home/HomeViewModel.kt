@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jatri.cache.CacheRepository
-import com.jatri.domain.entity.BusCounterEntity
+import com.jatri.domain.entity.StoppageEntity
 import com.jatri.sharedpref.SharedPrefHelper
 import javax.inject.Inject
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,7 +30,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             cacheRepository.fetchSelectedBusCounterEntityList()
                 .catch {
-                    _uiState.value = BusCounterListUiState.Error("Some Things ")
+                    _uiState.value = BusCounterListUiState.Error("Some Things Went Wrong.")
                 }
                 .collect {
                     _uiState.value = BusCounterListUiState.Success(it)
@@ -40,7 +40,7 @@ class HomeViewModel @Inject constructor(
 }
 
 sealed class BusCounterListUiState {
-    data class Success(val busCounterList: List<BusCounterEntity>): BusCounterListUiState()
+    data class Success(val busCounterList: List<StoppageEntity>): BusCounterListUiState()
     data class Error(val errorMessage:String): BusCounterListUiState()
     object Empty: BusCounterListUiState()
     object Loading: BusCounterListUiState()

@@ -16,8 +16,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.jatri.domain.entity.CounterListEntity
+import com.jatri.domain.entity.StoppageEntity
 import com.jatri.entity.companylist.OfflineCompanyEntity
-import com.jatri.entity.counterlist.CounterListEntity
 import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
 import com.jatri.offlinecounterticketing.ui.components.DropDown
 import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
@@ -43,6 +44,11 @@ fun Configuration(
 
         var companyEntity: OfflineCompanyEntity? by remember { mutableStateOf(null) }
         var isStudentFareSelected by remember { mutableStateOf(false) }
+
+        val coroutineScope = rememberCoroutineScope()
+        val context = LocalContext.current
+        var stoppageEntityList: List<StoppageEntity> = listOf()
+
 
         JatriLogo()
         Text(text = "Please Setup Configuration", fontWeight = FontWeight.Bold)
@@ -78,6 +84,7 @@ fun Configuration(
                  * */
                 DropDownCounterList(counterDropDownTitle, counterList) {
                     counterDropDownTitle = it.counter_name
+                    stoppageEntityList = it.stoppage_list
                 }
 
                 Spacer(modifier = Modifier.size(8.dp))
@@ -101,8 +108,11 @@ fun Configuration(
         }
 
         RoundJatriButton("Configure") {
-            if (companyEntity != null) {
-                // viewModel.saveCompanyInfoToSharedPreference(companyEntity!!, isStudentFareSelected)
+            companyEntity?.let {
+                viewModel.saveCompanyInfoToSharedPreference(
+                    companyEntity!!,
+                    isStudentFareSelected, stoppageEntityList
+                )
                 onConfigureClick.invoke()
             }
         }

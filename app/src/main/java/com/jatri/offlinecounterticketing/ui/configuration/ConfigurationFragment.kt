@@ -26,7 +26,6 @@ class ConfigurationFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            //findNavController().popBackStack(R.id.configurationFragment,false)
             requireActivity().finish()
         }
     }
