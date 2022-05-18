@@ -8,7 +8,6 @@ import androidx.compose.material.RadioButton
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -60,8 +59,7 @@ fun Configuration(
                 var companyDropDownTitle by remember { mutableStateOf("Select Company") }
                 var counterDropDownTitle by remember { mutableStateOf("Select Counter") }
                 var counterList: CounterListEntity? by remember { mutableStateOf(null) }
-                val coroutineScope = rememberCoroutineScope()
-                val context = LocalContext.current
+
 
                 //company drop down
                 DropDown(companyDropDownTitle, companyList) { offlineCompanyEntity ->

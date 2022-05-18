@@ -11,9 +11,6 @@ import androidx.compose.ui.unit.dp
 import com.jatri.domain.entity.CounterEntity
 import com.jatri.domain.entity.CounterListEntity
 import com.jatri.entity.companylist.OfflineCompanyEntity
-import com.jatri.entity.companylist.OfflineCompanyListEntity
-import com.jatri.entity.counterlist.CounterEntity
-import com.jatri.entity.counterlist.CounterListEntity
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 
 @Composable
