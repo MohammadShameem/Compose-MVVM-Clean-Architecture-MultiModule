@@ -1,6 +1,5 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -16,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.domain.entity.CounterListEntity
 import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
-import com.jatri.offlinecounterticketing.ui.components.JatriDropDown
 import com.jatri.offlinecounterticketing.ui.components.JatriRoundOutlinedButton
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
 import com.jatri.offlinecounterticketing.ui.theme.darkGrey
