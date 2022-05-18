@@ -1,6 +1,6 @@
 package com.jatri.api.service.offlinecounterticketing
 
-import com.jatri.apiresponse.dashboard.ChangePasswordProfileInfoApiResponse
+import com.jatri.apiresponse.dashboard.ChangePasswordApiResponse
 import com.jatri.apiresponse.dashboard.SyncSoldTicketApiResponse
 import com.jatri.apiresponse.login.LoginApiResponse
 import com.jatri.entity.dashboard.SyncSoldTicketBody
@@ -21,7 +21,7 @@ interface OfflineCounterTicketingApiService {
     fun changePassword(
         @Field("old_password") oldPassword:String,
         @Field("new_password") newPassword:String
-    ): Single<ChangePasswordProfileInfoApiResponse>
+    ): Single<ChangePasswordApiResponse>
 
     @POST("/offline-counter-api/v1/sync-ticket-data")
     fun syncSoldTicketData(@Body entity: SyncSoldTicketBody):Single<SyncSoldTicketApiResponse>

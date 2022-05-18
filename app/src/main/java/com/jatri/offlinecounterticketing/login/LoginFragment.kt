@@ -13,11 +13,15 @@ import com.jatri.domain.usecase.login.LoginApiUseCase
 import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
+import com.jatri.sharedpref.SharedPrefHelper
+import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
-
+    @Inject
+    lateinit var sharedPrefHelper: SharedPrefHelper
     private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreateView(
@@ -54,6 +58,8 @@ class LoginFragment : Fragment() {
                 phoneNumber, password
             )).observe(viewLifecycleOwner){
                 if (it is ApiResponse.Success) {
+                    sharedPrefHelper.putString(SpKey.userName,it.data.name)
+                    sharedPrefHelper.putString(SpKey.phoneNumber,it.data.mobile)
                     findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToDashboardFragment())
                     Toast.makeText(requireContext(),getString(R.string.msg_login_success),Toast.LENGTH_LONG).show()
                 }

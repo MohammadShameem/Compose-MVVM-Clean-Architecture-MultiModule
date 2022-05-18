@@ -7,8 +7,16 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
+import com.jatri.sharedpref.SharedPrefHelper
+import com.jatri.sharedpref.SpKey
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class DashboardFragment : Fragment() {
+    @Inject
+    lateinit var sharedPrefHelper: SharedPrefHelper
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -17,10 +25,9 @@ class DashboardFragment : Fragment() {
         layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT)
-
         setContent {
             OfflineCounterTicketingTheme {
-                Dashboard()
+                Dashboard(sharedPrefHelper.getString(SpKey.userName), sharedPrefHelper.getString(SpKey.phoneNumber))
             }
         }
     }
