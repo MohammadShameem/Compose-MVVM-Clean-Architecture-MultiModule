@@ -11,8 +11,11 @@
         android:label="fragment_secret_password">
         <action
             android:id="@+id/action_secretPasswordFragment_to_configurationFragment"
-            app:destination="@id/configurationFragment"
-            app:popUpTo="@id/configurationFragment" />
+            app:destination="@id/configurationFragment" />
+        <action
+            android:id="@+id/action_secretPasswordFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/configurationFragment"

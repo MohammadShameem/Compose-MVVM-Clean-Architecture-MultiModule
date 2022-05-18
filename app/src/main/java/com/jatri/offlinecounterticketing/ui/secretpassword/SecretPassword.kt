@@ -18,10 +18,8 @@ import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 fun SecretPassword(
     onContinueClick : (String) -> Unit
 ) {
-
     Column(
         modifier = Modifier.fillMaxHeight(),
-
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by remember { mutableStateOf("") }
@@ -41,7 +39,6 @@ fun SecretPassword(
             onContinueClick.invoke(text)
         }
     }
-
 }
 
 @Preview

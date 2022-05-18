@@ -25,7 +25,9 @@ class SecretPasswordFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //findNavController().navigate(R.id.homeFragment)
+        if(sharedPrefHelper.getBoolean(SpKey.configured)){
+            findNavController().navigate(SecretPasswordFragmentDirections.actionSecretPasswordFragmentToHomeFragment())
+        }
     }
 
     override fun onCreateView(
