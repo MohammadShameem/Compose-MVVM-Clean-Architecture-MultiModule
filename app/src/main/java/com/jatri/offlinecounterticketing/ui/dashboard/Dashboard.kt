@@ -1,26 +1,24 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.jatri.domain.entity.CounterListEntity
+import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
 import com.jatri.offlinecounterticketing.ui.components.JatriDropDown
 import com.jatri.offlinecounterticketing.ui.components.JatriRoundOutlinedButton
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
-import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.offlinecounterticketing.ui.theme.darkGrey
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 
@@ -28,7 +26,7 @@ import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 fun Dashboard(
     username: String,
     phoneNumber: String,
-    changePasswordCallBack: (String,String) -> Unit
+    changePasswordCallBack: (String, String) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         UserInfo(username, phoneNumber, changePasswordCallBack)
@@ -46,7 +44,7 @@ fun Dashboard(
 fun UserInfo(
     username: String,
     phoneNumber: String,
-    changePasswordCallBack: (String,String) -> Unit
+    changePasswordCallBack: (String, String) -> Unit
 ) {
     val isDialogOpen = remember { mutableStateOf(false) }
     DashboardCard {
@@ -58,7 +56,8 @@ fun UserInfo(
                 Icon(
                     imageVector = Icons.Filled.AccountCircle,
                     contentDescription = "",
-                    modifier = Modifier.size(48.dp))
+                    modifier = Modifier.size(48.dp)
+                )
                 Spacer(modifier = Modifier.size(16.dp))
                 Column {
                     val name by remember { mutableStateOf(username) }
@@ -82,10 +81,23 @@ fun UserInfo(
 @Composable
 fun ChangeCounter() {
     DashboardCard {
+        val context = LocalContext.current
+        val coroutineScope = rememberCoroutineScope()
+        val viewModel: DashboardViewModel = viewModel()
+        var counterDropDownTitle by remember {
+            mutableStateOf(
+                viewModel.getCurrentCounterName()
+            )
+        }
+
+        var counterList: CounterListEntity? by remember { mutableStateOf(null) }
+
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = "Change Counter")
             Spacer(modifier = Modifier.size(8.dp))
-            JatriDropDown(text = "Select Counter", items = listOf("a", "b", "c")) {
+            DropDownCounterList(counterDropDownTitle, counterList) {
+                //counterDropDownTitle = it.counter_name
+                //stoppageEntityList = it.stoppage_list
             }
         }
     }

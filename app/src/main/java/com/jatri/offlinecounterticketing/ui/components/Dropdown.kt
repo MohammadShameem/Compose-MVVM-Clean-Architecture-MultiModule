@@ -80,6 +80,9 @@ fun DropDownCounterList(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = lightGrey
+            )
 
             ) {
             Row(

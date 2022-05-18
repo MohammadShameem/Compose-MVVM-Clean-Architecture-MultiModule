@@ -1,5 +1,6 @@
 package com.jatri.offlinecounterticketing.ui.configuration
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectableGroup
@@ -15,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.jatri.domain.entity.CounterEntity
 import com.jatri.domain.entity.CounterListEntity
 import com.jatri.domain.entity.StoppageEntity
 import com.jatri.entity.companylist.OfflineCompanyEntity
@@ -48,6 +50,13 @@ fun Configuration(
         val context = LocalContext.current
         var stoppageEntityList: List<StoppageEntity> = listOf()
 
+        var counterEntity by remember { mutableStateOf<CounterEntity?>(null) }
+
+        var companyDropDownTitle by remember { mutableStateOf("Select Company") }
+        var counterDropDownTitle by remember { mutableStateOf("Select Counter") }
+
+        var counterList: CounterListEntity? by remember { mutableStateOf(null) }
+
 
         JatriLogo()
         Text(
@@ -59,9 +68,7 @@ fun Configuration(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp)
             ) {
-                var companyDropDownTitle by remember { mutableStateOf("Select Company") }
-                var counterDropDownTitle by remember { mutableStateOf("Select Counter") }
-                var counterList: CounterListEntity? by remember { mutableStateOf(null) }
+
 
 
                 //company drop down
@@ -85,7 +92,10 @@ fun Configuration(
                  * */
                 DropDownCounterList(counterDropDownTitle, counterList) {
                     counterDropDownTitle = it.counter_name
+                    counterEntity = it
+                    //counterName = it.counter_name
                     stoppageEntityList = it.stoppage_list
+
                 }
 
                 Spacer(modifier = Modifier.size(8.dp))
@@ -111,11 +121,13 @@ fun Configuration(
         RoundJatriButton("Configure") {
             companyEntity?.let {
                 coroutineScope.launch {
-                    viewModel.saveCompanyInfoToSharedPreference(
-                        companyEntity!!, isStudentFareSelected, stoppageEntityList
-                    )
+                    counterEntity?.let { it1 ->
+                        viewModel.saveCompanyInfoToSharedPreference(
+                            companyEntity!!, isStudentFareSelected, it1
+                        )
+                        onConfigureClick.invoke()
+                    }
                 }
-                onConfigureClick.invoke()
             }
         }
     }

@@ -1,13 +1,14 @@
 package com.jatri.offlinecounterticketing.ui.configuration
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.jatri.cache.CacheRepository
+import com.jatri.domain.entity.CounterEntity
 import com.jatri.domain.entity.CounterListEntity
 import com.jatri.domain.entity.StoppageEntity
 import com.jatri.entity.companylist.OfflineCompanyEntity
-import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,16 +30,17 @@ class ConfigurationViewModel
     fun saveCompanyInfoToSharedPreference(
         companyEntity: OfflineCompanyEntity,
         studentFare: Boolean,
-        stoppageEntityList : List<StoppageEntity>
+        counterEntity: CounterEntity
     ) {
         viewModelScope.launch {
             sharedPrefHelper.putString(SpKey.companyName, companyEntity.name)
             sharedPrefHelper.putString(SpKey.counterFileName, companyEntity.counter_file_name)
+            sharedPrefHelper.putString(SpKey.counterName, counterEntity.counter_name)
             sharedPrefHelper.putString(
                 SpKey.ticketFormatFileName,
                 companyEntity.ticket_format_file_name)
             sharedPrefHelper.putBool(SpKey.studentFare, studentFare)
-            cacheRepository.insertSelectedBusCounterEntity(stoppageEntityList)
+            cacheRepository.insertSelectedBusCounterEntity(counterEntity.stoppage_list)
         }
 
     }

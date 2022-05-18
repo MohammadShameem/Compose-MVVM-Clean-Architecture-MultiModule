@@ -10,13 +10,16 @@ import com.jatri.entity.dashboard.SyncSoldTicketBody
 import com.jatri.entity.dashboard.SyncedSoldTicketApiEntity
 import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.R
+import com.jatri.sharedpref.SharedPrefHelper
+import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
     private val changePasswordApiUseCase: ChangePasswordApiUseCase,
-    private val syncedSoldTicketApiUseCase: SyncedSoldTicketApiUseCase
+    private val syncedSoldTicketApiUseCase: SyncedSoldTicketApiUseCase,
+    private val sharedPrefHelper: SharedPrefHelper
 ) : ViewModel() {
 
    val errorMessageLiveDataOfValidation = MutableLiveData<Int>()
@@ -39,6 +42,9 @@ class DashboardViewModel @Inject constructor(
             errorMessageLiveDataOfValidation.value = R.string.error_msg_enter_newPassword
             false
         }else true
+    }
+    fun getCurrentCounterName() : String {
+        return sharedPrefHelper.getString(SpKey.counterName)
     }
 
 }

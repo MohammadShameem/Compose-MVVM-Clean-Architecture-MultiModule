@@ -122,6 +122,7 @@ fun CompanyCounterPrev() {
             val list = mutableListOf<StoppageEntity>()
             list.add(StoppageEntity(0, "Rxjava", 3, 2))
             list.add(StoppageEntity(0, "Rxjava", 3, 2))
+            HomeScreen(syncClickedCallBack = { /*TODO*/ }, busCounterClickedCallback = {})
 
         }
     }
