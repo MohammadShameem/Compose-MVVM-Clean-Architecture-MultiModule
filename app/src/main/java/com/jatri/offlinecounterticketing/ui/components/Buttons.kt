@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.jatri.offlinecounterticketing.ui.theme.darkGrey
+import com.jatri.offlinecounterticketing.ui.theme.lightViolet
 
 @Composable
 fun RoundJatriButton(text: String, onClick: () -> Unit) {
@@ -70,6 +71,6 @@ fun JatriRoundOutlinedButton(
             .fillMaxWidth()
             .padding(start = 16.dp, end = 16.dp)
     ) {
-        Text(text = text)
+        Text(text = text, color = lightViolet)
     }
 }

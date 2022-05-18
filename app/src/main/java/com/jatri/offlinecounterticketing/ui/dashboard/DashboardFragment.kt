@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 
 class DashboardFragment : Fragment() {
@@ -20,7 +24,11 @@ class DashboardFragment : Fragment() {
 
         setContent {
             OfflineCounterTicketingTheme {
-                Dashboard()
+                Scaffold(topBar = { ToolbarWithButtonLarge(toolbarTitle = "XYZ", toolbarIcon = Icons.Filled.ArrowBack) {
+                    
+                }}) {
+                    Dashboard()
+                }
             }
         }
     }
