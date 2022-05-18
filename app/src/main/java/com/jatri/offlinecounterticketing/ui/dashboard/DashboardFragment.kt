@@ -4,9 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.material.Scaffold
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import android.widget.Toast
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.jatri.domain.usecase.dashboard.ChangePasswordApiUseCase
@@ -41,6 +45,14 @@ class DashboardFragment : Fragment() {
                 changePasswordCallBack = { oldPassword, newPassword ->
                     changePassword(oldPassword,newPassword)
                 })
+                Scaffold(topBar = { ToolbarWithButtonLarge(toolbarTitle = "XYZ", toolbarIcon = Icons.Filled.ArrowBack) {
+
+                }}) {
+                    Dashboard(sharedPrefHelper.getString(SpKey.userName), sharedPrefHelper.getString(SpKey.phoneNumber),
+                        changePasswordCallBack = { oldPassword, newPassword ->
+                            changePassword(oldPassword,newPassword)
+                        })
+                }
             }
         }
     }

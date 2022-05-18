@@ -14,6 +14,7 @@ val colorSecondaryDark = Color(0xFFa80000)
 
 val lightGrey = Color(0xffF7F7F7)
 val darkGrey = Color(0xFF756F6F)
+val lightViolet = Color(0xFF6750A4)
 
 //For Dashboard Gradient
 val darkGreen = Color(0xFF197C7B)
