@@ -33,7 +33,6 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeFragment : Fragment(){
     private val viewModel: HomeViewModel by viewModels()
-    //private var counterList = listOf<StoppageEntity>(StoppageEntity(0, "Rxjava", 3, 2), StoppageEntity(0, "Rxjava", 3, 2))
     private var counterStoppageList = listOf<StoppageEntity>()
     @Inject lateinit var sharedPrefHelper: SharedPrefHelper
 
@@ -54,44 +53,17 @@ class HomeFragment : Fragment(){
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT)
 
-        lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.uiState.collect {uiState->
-                    when (uiState) {
-                        is BusCounterListUiState.Success -> {
-                            counterStoppageList = uiState.counterStoppageList
-                            Timber.e("counterStoppageList $counterStoppageList")
-                        }
-                        is BusCounterListUiState.Error -> {
-                            Toast.makeText(requireActivity(),uiState.errorMessage, Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
-
-        }
-
         setContent {
             OfflineCounterTicketingTheme {
                 Surface( modifier = Modifier.fillMaxSize()) {
-                    Scaffold(topBar = {
-                        ToolbarWithButtonLarge(toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
-                            toolbarIcon =Icons.Filled.ArrowBack ) {
-                            requireActivity().finish()
+                    HomeScreen(
+                        syncClickedCallBack = {
+                            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
+                        },
+                        busCounterClickedCallback = {
+                            Toast.makeText(requireActivity(),"Hello World- Clicked", Toast.LENGTH_SHORT).show()
                         }
-                    }) {
-                        HomeScreen(
-                            counterList = counterStoppageList,
-                            syncClickedCallBack = {
-                                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
-                            },
-                            busCounterClickedCallback = {
-                                Toast.makeText(requireActivity(),"Hello World- Clicked", Toast.LENGTH_SHORT).show()
-                            }
-                        )
-                    }
-
-
+                    )
                 }
 
             }

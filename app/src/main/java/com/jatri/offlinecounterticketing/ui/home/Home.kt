@@ -7,10 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,17 +15,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.domain.entity.StoppageEntity
+import com.jatri.offlinecounterticketing.ui.configuration.ConfigurationViewModel
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 
 
 @Composable
 fun HomeScreen(
-    counterList: List<StoppageEntity>,
     syncClickedCallBack: () -> Unit,
     busCounterClickedCallback: (stoppageEntity: StoppageEntity) -> Unit
 ) {
-    //Home page of offline counter
+    val viewModel: HomeViewModel = viewModel()
+    val stoppageListState by viewModel.uiState.collectAsState()
+
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxHeight()
@@ -36,9 +36,10 @@ fun HomeScreen(
         Card(modifier = Modifier.weight(1f)) {
             Column(
                 modifier = Modifier.padding(all = 8.dp)) {
-                val stoppageList by remember { mutableStateOf(counterList)}
+
+
                 LazyColumn{
-                    items(stoppageList) { busCounter ->
+                    items(stoppageListState) { busCounter ->
                         BusCounterItem(
                             StoppageEntity(
                                 busCounter.id, busCounter.name,

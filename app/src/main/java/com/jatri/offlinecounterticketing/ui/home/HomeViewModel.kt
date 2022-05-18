@@ -1,6 +1,8 @@
 package com.jatri.offlinecounterticketing.ui.home
 
 import android.app.Application
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jatri.cache.CacheRepository
@@ -18,8 +20,8 @@ class HomeViewModel @Inject constructor(
     private val application: Application
 ): ViewModel() {
 
-    private val _uiState = MutableStateFlow<BusCounterListUiState>(BusCounterListUiState.Empty)
-    val uiState : StateFlow<BusCounterListUiState> = _uiState
+    private val _uiState = MutableStateFlow<List<StoppageEntity>>(listOf())
+    val uiState : StateFlow<List<StoppageEntity>> = _uiState
 
     init {
         getBusCounterList()
@@ -28,18 +30,9 @@ class HomeViewModel @Inject constructor(
     private fun getBusCounterList(){
         viewModelScope.launch {
             cacheRepository.fetchSelectedBusCounterEntityList()
-                .catch {
-                    _uiState.value = BusCounterListUiState.Error("Some Things Went Wrong.")
-                }
                 .collect {
-                    _uiState.value = BusCounterListUiState.Success(it)
+                    _uiState.value = it
                 }
         }
     }
-}
-
-sealed class BusCounterListUiState {
-    data class Success(val counterStoppageList: List<StoppageEntity>): BusCounterListUiState()
-    data class Error(val errorMessage:String): BusCounterListUiState()
-    object Empty: BusCounterListUiState()
 }
