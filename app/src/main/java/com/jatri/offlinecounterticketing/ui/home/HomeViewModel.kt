@@ -40,13 +40,7 @@ class HomeViewModel @Inject constructor(
     private var currentSerial = 0
     private var incrementSerial = 0
 
-    init {
-        fetchBusCounterList()
-        fetchSoldTicketCount()
-        fetchSoldTicketTotalFare()
-    }
-
-    private fun fetchBusCounterList(){
+    fun fetchBusCounterList(){
         viewModelScope.launch {
             cacheRepository.fetchSelectedBusCounterEntityList()
                 .collect {
@@ -55,7 +49,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun fetchSoldTicketCount(){
+    fun fetchSoldTicketCount(){
         viewModelScope.launch {
             cacheRepository.fetchSoldTicketCount()
                 .collect {
@@ -64,7 +58,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun fetchSoldTicketTotalFare(){
+    fun fetchSoldTicketTotalFare(){
         viewModelScope.launch {
             cacheRepository.fetchSoldTicketTotalFare()
                 .collect {

@@ -34,7 +34,14 @@ fun HomeScreen(
     val stoppageListState by viewModel.stoppageState.collectAsState()
     val unSyncTicketCountState by viewModel.unSyncTicketCountState.collectAsState()
     val unSyncTicketAmountState by viewModel.unSyncTicketAmountState.collectAsState()
+
     val studentState = remember { mutableStateOf(true) }
+
+    LaunchedEffect(stoppageListState,unSyncTicketCountState,unSyncTicketAmountState, block ={
+        viewModel.fetchBusCounterList()
+        viewModel.fetchSoldTicketCount()
+        viewModel.fetchSoldTicketTotalFare()
+    })
 
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
@@ -42,7 +49,7 @@ fun HomeScreen(
     ) {
         val context = LocalContext.current
 
-        Card(modifier = Modifier.weight(1f)) {
+        Card(modifier = Modifier.weight(.8f)) {
             Column(
                 modifier = Modifier.padding(all = 8.dp)
             ) {
@@ -59,11 +66,11 @@ fun HomeScreen(
                 }
             }
         }
-        Card(elevation = 8.dp, modifier = Modifier.weight(.11f)) {
+        Card(elevation = 8.dp, modifier = Modifier.weight(.2f)) {
             Column(
                 modifier = Modifier
                     .padding(8.dp)
-                    .height(100.dp)
+                    .height(120.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -71,8 +78,8 @@ fun HomeScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column {
-                        if (isStudentFareEnable) {
-                            Row() {
+                        if (isStudentFareEnable){
+                            Row(verticalAlignment = Alignment.CenterVertically) {
                                 Checkbox(
                                     checked = studentState.value,
                                     onCheckedChange = { studentState.value = it }
@@ -84,6 +91,7 @@ fun HomeScreen(
                                 )
                             }
                         }
+
                         Text(
                             text = context.getString(
                                 R.string.format_total_ticket_count,
@@ -103,7 +111,7 @@ fun HomeScreen(
                     }
                     Button(
                         onClick = { syncClickedCallBack.invoke() },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Red)
+                        colors = ButtonDefaults.buttonColors(backgroundColor = colorPrimary)
                     ) {
                         Text(text = "Sync", color = Color.White)
                     }
