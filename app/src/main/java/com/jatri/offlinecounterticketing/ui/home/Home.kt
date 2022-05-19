@@ -68,7 +68,7 @@ fun HomeScreen(
         Card(
             elevation = 8.dp, modifier = Modifier
             .fillMaxHeight()
-            .weight(.2f)
+            .weight(if(isStudentFareEnable).2f else .1f)
         ) {
             Column(
                 modifier = Modifier
