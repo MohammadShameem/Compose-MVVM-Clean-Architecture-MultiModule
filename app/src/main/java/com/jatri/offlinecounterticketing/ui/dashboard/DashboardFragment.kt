@@ -4,25 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import android.widget.Toast
-import androidx.compose.runtime.MutableState
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.jatri.domain.usecase.dashboard.ChangePasswordApiUseCase
-import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint

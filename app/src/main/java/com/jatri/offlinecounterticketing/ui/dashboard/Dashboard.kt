@@ -1,5 +1,6 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
+import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -45,11 +46,11 @@ fun Dashboard(
         Spacer(modifier = Modifier.size(8.dp))
         TicketCountAndFare()
         Spacer(modifier = Modifier.size(8.dp))
-        ChangeCounter()
+        ChangeCounter(viewModel,context)
         Spacer(modifier = Modifier.size(16.dp))
         RoundJatriButton(text = "ReportPrint", backgroundColor = lightGrey) {
            coroutineScope.launch {
-              Toast.makeText(context,"Report print clicked",Toast.LENGTH_LONG).show()
+
            }
         }
     }
@@ -93,10 +94,10 @@ fun UserInfo(
 }
 
 @Composable
-fun ChangeCounter() {
-    val viewModel: DashboardViewModel = viewModel()
-    val coroutineScope = rememberCoroutineScope()
-    val context = LocalContext.current
+fun ChangeCounter(
+    viewModel: DashboardViewModel,
+    context : Context
+) {
     DashboardCard {
 
         var counterListEntity: CounterListEntity? by remember { mutableStateOf(null) }
