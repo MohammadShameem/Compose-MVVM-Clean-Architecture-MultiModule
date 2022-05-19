@@ -51,7 +51,7 @@ fun HomeScreen(
         Card(
             modifier = Modifier
             .fillMaxHeight()
-            .weight(.8f)
+            .weight(if(isStudentFareEnable).8f else .9f)
         ) {
             LazyColumn(modifier = Modifier.padding(all = 8.dp)) {
                 items(stoppageListState) { busCounter ->
