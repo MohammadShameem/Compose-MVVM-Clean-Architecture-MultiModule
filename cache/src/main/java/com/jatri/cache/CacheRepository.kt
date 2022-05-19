@@ -31,11 +31,11 @@ class CacheRepository @Inject constructor(
     suspend fun fetchSoldTicketGroupWise():List<SoldTicketGroupWiseEntity> =
         cacheDao.fetchSoldTicketGroupWise()
 
-    fun fetchSoldTicketCountLiveData(): LiveData<Int> =
-        cacheDao.fetchSoldTicketCountLiveData()
+    fun fetchSoldTicketCount(): Flow<Int> =
+        cacheDao.fetchSoldTicketCount()
 
-    fun fetchSoldTicketTotalFareLiveData(): LiveData<Int> =
-        cacheDao.fetchSoldTicketTotalFareLiveData()
+    fun fetchSoldTicketTotalFare(): Flow<Int> =
+        cacheDao.fetchSoldTicketTotalFare()
 
     suspend fun deleteAllSoldTicket() =
         cacheDao.deleteAllSoldTicket()

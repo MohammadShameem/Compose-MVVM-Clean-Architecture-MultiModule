@@ -8,6 +8,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jatri.common.constant.AppConstant
 import com.jatri.domain.entity.StoppageEntity
+import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
+import com.jatri.cache.CacheRepository
+import com.jatri.domain.entity.CounterEntity
+import com.jatri.domain.entity.CounterListEntity
 import com.jatri.domain.usecase.dashboard.ChangePasswordApiUseCase
 import com.jatri.domain.usecase.dashboard.SyncedSoldTicketApiUseCase
 import com.jatri.entity.dashboard.ChangePasswordApiEntity
@@ -21,13 +26,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import timber.log.Timber
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class DashboardViewModel @Inject constructor(
+    private val gson: Gson,
     private val changePasswordApiUseCase: ChangePasswordApiUseCase,
     private val syncedSoldTicketApiUseCase: SyncedSoldTicketApiUseCase,
-    private val sharedPrefHelper: SharedPrefHelper
+    private val sharedPrefHelper: SharedPrefHelper,
+    private val cacheRepository: CacheRepository
 ) : ViewModel() {
 
     fun changePassword(
@@ -50,7 +58,25 @@ class DashboardViewModel @Inject constructor(
     }
 
     fun getCurrentCounterName() : String {
+
+    fun getCurrentCounterName(): String {
         return sharedPrefHelper.getString(SpKey.counterName)
+    }
+
+    fun getCounterFileName(): String {
+        return sharedPrefHelper.getString(SpKey.counterFileName)
+    }
+
+    fun getCounterListFromJson(jsonString: String): CounterListEntity {
+        return gson.fromJson(jsonString, CounterListEntity::class.java)
+    }
+
+    fun updateStoppageList(counterEntity: CounterEntity) {
+        viewModelScope.launch {
+            sharedPrefHelper.putString(SpKey.counterName, counterEntity.counter_name)
+            cacheRepository.deleteSelectedBusCounterEntity()
+            cacheRepository.insertSelectedBusCounterEntity(counterEntity.stoppage_list)
+        }
     }
 
 }

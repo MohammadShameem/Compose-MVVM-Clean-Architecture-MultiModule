@@ -29,4 +29,6 @@
     <string name="label_text_password">password</string>
     <string name="btn_text_login">Login</string>
 
+    <string name="format_total_ticket_count">Total Ticket Count: %d</string>
+    <string name="format_total_ticket_fare">Total Ticket Fare: %d</string>
 </resources>

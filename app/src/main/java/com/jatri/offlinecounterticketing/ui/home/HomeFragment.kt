@@ -7,23 +7,31 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.jatri.common.dateparser.DateTimeFormat
+import com.jatri.common.dateparser.DateTimeParser
+import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
+import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(){
     @Inject lateinit var sharedPrefHelper: SharedPrefHelper
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             requireActivity().finish()
         }
@@ -41,17 +49,36 @@ class HomeFragment : Fragment(){
         setContent {
             OfflineCounterTicketingTheme {
                 Surface( modifier = Modifier.fillMaxSize()) {
-                    HomeScreen(
-                        syncClickedCallBack = {
-                            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
-                        },
-                        busCounterClickedCallback = {
-                            Toast.makeText(requireActivity(),"Hello World- Clicked", Toast.LENGTH_SHORT).show()
+                    Scaffold(topBar = {
+                        ToolbarWithButtonLarge(toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
+                            toolbarIcon = Icons.Filled.ArrowBack) {
                         }
-                    )
+                    }) {
+                        HomeScreen(
+                            sharedPrefHelper.getBoolean(SpKey.studentFare),
+                            syncClickedCallBack = {
+                                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
+                            },
+                            busCounterClickedCallback = {
+                                viewModel.printAndInsertTicket(it)
+                            }
+                        )
+                    }
+
                 }
 
             }
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        if (sharedPrefHelper.getString(SpKey.soldTicketSerialCurrentDate) !=
+            DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY)){
+            sharedPrefHelper.putString(SpKey.soldTicketSerialCurrentDate,
+                DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY))
+            sharedPrefHelper.putInt(SpKey.soldTicketSerial,0)
         }
 
     }

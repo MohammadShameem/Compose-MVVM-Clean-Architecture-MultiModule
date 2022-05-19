@@ -17,14 +17,17 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.jatri.domain.entity.CounterEntity
 import com.jatri.domain.entity.CounterListEntity
+import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
 import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
-import com.jatri.offlinecounterticketing.ui.components.JatriDropDown
 import com.jatri.offlinecounterticketing.ui.components.JatriRoundOutlinedButton
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
+import com.jatri.offlinecounterticketing.ui.configuration.ConfigurationViewModel
 import com.jatri.offlinecounterticketing.ui.theme.darkGrey
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.launch
 
 @Composable
@@ -91,25 +94,49 @@ fun UserInfo(
 
 @Composable
 fun ChangeCounter() {
+    val viewModel: DashboardViewModel = viewModel()
+    val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
     DashboardCard {
-        val context = LocalContext.current
-        val coroutineScope = rememberCoroutineScope()
-        val viewModel: DashboardViewModel = viewModel()
+
+        var counterListEntity: CounterListEntity? by remember { mutableStateOf(null) }
+        var selectedCounterEntity by remember { mutableStateOf<CounterEntity?>(null) }
+        var counterList: CounterListEntity? by remember { mutableStateOf(null) }
 
         var counterDropDownTitle by remember {
             mutableStateOf(
                 viewModel.getCurrentCounterName()
             )
         }
+        LaunchedEffect(counterList){
+            context.loadJsonFromAsset(viewModel.getCounterFileName())
+                .onSuccess {
+                    counterList = viewModel.getCounterListFromJson(it)
 
-        var counterList: CounterListEntity? by remember { mutableStateOf(null) }
+                    /**
+                     * Set the first counter name on the Counter Dropdown Menu
+                     * */
+                    /*counterDropDownTitle =
+                        counterListEntity?.counter_list?.get(0)?.counter_name
+                            ?: "No Counters"*/
+                    /**
+                     * Set the first counterEntity as selected counter                                 * */
+                    //selectedCounterEntity = counterListEntity?.counter_list?.get(0)
+                }
+
+        }
+
+
+
+
 
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = "Change Counter")
             Spacer(modifier = Modifier.size(8.dp))
             DropDownCounterList(counterDropDownTitle, counterList) {
-                //counterDropDownTitle = it.counter_name
-                //stoppageEntityList = it.stoppage_list
+                counterDropDownTitle = it.counter_name
+                selectedCounterEntity = it //Set selected counter state
+                viewModel.updateStoppageList(it)
             }
         }
     }
