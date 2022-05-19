@@ -40,10 +40,10 @@ class DashboardViewModel @Inject constructor(
     private val cacheRepository: CacheRepository,
     private val application: Application,
 ) : ViewModel() {
-    private val _unSyncTicketCountState = MutableStateFlow<Int>(0)
+    private val _unSyncTicketCountState = MutableStateFlow(0)
     val unSyncTicketCountState : StateFlow<Int> = _unSyncTicketCountState
 
-    private val _unSyncTicketAmountState = MutableStateFlow<Int>(0)
+    private val _unSyncTicketAmountState = MutableStateFlow(0)
     val unSyncTicketAmountState : StateFlow<Int> = _unSyncTicketAmountState
 
 
@@ -61,12 +61,10 @@ class DashboardViewModel @Inject constructor(
         syncedSoldTicketApiUseCase.execute(soldTicketBody)
 
     fun validateOldPasswordAndNewPassword(oldPassword: String, newPassword: String): Int {
-        var message = 0
-        message = if (oldPassword.isEmpty()) R.string.error_msg_enter_oldPassword
+        return if (oldPassword.isEmpty()) R.string.error_msg_enter_oldPassword
         else if (newPassword.isEmpty()) R.string.error_msg_enter_newPassword
         else if (newPassword.length < 6) R.string.error_msg_6_character_required
         else AppConstant.validation_successful
-        return message
     }
 
     fun fetchAllSoldTicketGroupWiseDataList(){
