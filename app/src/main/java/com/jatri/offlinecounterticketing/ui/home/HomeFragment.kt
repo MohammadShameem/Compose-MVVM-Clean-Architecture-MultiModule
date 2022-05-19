@@ -64,7 +64,7 @@ class HomeFragment : Fragment(){
                             busCounterClickedCallback = { stoppage, studentFare ->
                                 lifecycleScope.launch {
                                     val ticketFormatEntity = viewModel.getTicketFormatEntity()
-                                    viewModel.printAndInsertTicket(stoppage, studentFare,ticketFormatEntity)
+                                    viewModel.printAndInsertTicket(stoppage,ticketFormatEntity,studentFare)
                                 }
 
                             }

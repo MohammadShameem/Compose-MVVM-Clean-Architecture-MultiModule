@@ -16,10 +16,10 @@
       },
       {
          "type":"route_name",
-         "is_dynamic":null,
+         "is_dynamic":true,
          "name":"BRTC",
          "is_bold":true,
-         "is_center":true,
+         "is_center":null,
          "font_size":35
       },
       {
