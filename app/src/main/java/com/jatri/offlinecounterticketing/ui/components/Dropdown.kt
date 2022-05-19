@@ -30,8 +30,12 @@ fun DropDown(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = lightGrey
+            )
 
-            ) {
+
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -61,8 +65,6 @@ fun DropDown(
 }
 
 
-
-
 @Composable
 fun DropDownCounterList(
     text: String,
@@ -84,7 +86,7 @@ fun DropDownCounterList(
                 backgroundColor = lightGrey
             )
 
-            ) {
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
@@ -134,7 +136,7 @@ fun JatriDropDown(
             colors = ButtonDefaults.buttonColors(
                 backgroundColor = lightGrey
             )
-            ) {
+        ) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
