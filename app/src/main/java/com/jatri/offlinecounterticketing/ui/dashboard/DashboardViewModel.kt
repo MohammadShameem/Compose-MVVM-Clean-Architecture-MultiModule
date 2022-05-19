@@ -28,6 +28,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
@@ -41,6 +44,12 @@ class DashboardViewModel @Inject constructor(
     private val cacheRepository: CacheRepository,
     private val application: Application,
 ) : ViewModel() {
+    private val _unSyncTicketCountState = MutableStateFlow<Int>(0)
+    val unSyncTicketCountState : StateFlow<Int> = _unSyncTicketCountState
+
+    private val _unSyncTicketAmountState = MutableStateFlow<Int>(0)
+    val unSyncTicketAmountState : StateFlow<Int> = _unSyncTicketAmountState
+
 
 
     private val _soldTicketListState = MutableStateFlow<List<SoldTicketGroupWiseEntity>>(listOf())
@@ -107,6 +116,23 @@ class DashboardViewModel @Inject constructor(
             sharedPrefHelper.putString(SpKey.counterName, counterEntity.counter_name)
             cacheRepository.deleteSelectedBusCounterEntity()
             cacheRepository.insertSelectedBusCounterEntity(counterEntity.stoppage_list)
+        }
+    }
+    fun fetchSoldTicketCount(){
+        viewModelScope.launch {
+            cacheRepository.fetchSoldTicketCount()
+                .collect {
+                    _unSyncTicketCountState.value = it
+                }
+        }
+    }
+
+    fun fetchSoldTicketTotalFare(){
+        viewModelScope.launch {
+            cacheRepository.fetchSoldTicketTotalFare()
+                .collect {
+                    _unSyncTicketAmountState.value = it
+                }
         }
     }
 

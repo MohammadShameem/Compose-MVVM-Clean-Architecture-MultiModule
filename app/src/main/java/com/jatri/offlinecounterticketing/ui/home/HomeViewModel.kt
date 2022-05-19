@@ -67,7 +67,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun printAndInsertTicket(stoppageEntity: StoppageEntity){
+    fun printAndInsertTicket(stoppageEntity: StoppageEntity, studentFare: Boolean){
         if (SunmiPrintHelper.instance.showPrinterStatus(application)){
             currentSerial = sharedPrefHelper.getInt(SpKey.soldTicketSerial)
             try {
@@ -115,7 +115,7 @@ class HomeViewModel @Inject constructor(
                             SoldTicketEntity(
                                 serial = incrementSerial,
                                 name = stoppageEntity.name,
-                                fare = stoppageEntity.fare
+                                fare = if (studentFare) stoppageEntity.fare_student else stoppageEntity.fare
                             )
                         )
                     }

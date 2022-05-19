@@ -1,8 +1,6 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
 import android.content.Context
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -16,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.domain.entity.CounterEntity
 import com.jatri.domain.entity.CounterListEntity
@@ -26,11 +23,8 @@ import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
 import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
 import com.jatri.offlinecounterticketing.ui.components.JatriRoundOutlinedButton
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
-import com.jatri.offlinecounterticketing.ui.configuration.ConfigurationViewModel
 import com.jatri.offlinecounterticketing.ui.theme.darkGrey
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
-import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.launch
 
 @Composable
@@ -44,16 +38,20 @@ fun Dashboard(
     val viewModel : DashboardViewModel = viewModel()
     val soldTicketListState by viewModel.soldTicketListState.collectAsState()
 
-    LaunchedEffect(soldTicketListState, block = {
+    val unSyncTicketCountState by viewModel.unSyncTicketCountState.collectAsState()
+    val unSyncTicketAmountState by viewModel.unSyncTicketAmountState.collectAsState()
+    LaunchedEffect(soldTicketListState,unSyncTicketCountState, unSyncTicketAmountState, block = {
         viewModel.fetchAllSoldTicketGroupWiseDataList()
+        viewModel.fetchSoldTicketCount()
+        viewModel.fetchSoldTicketTotalFare()
     })
 
     Column(modifier = Modifier.fillMaxSize()) {
         UserInfo(username, phoneNumber)
         Spacer(modifier = Modifier.size(8.dp))
-        TicketCountAndFare()
+        TicketCountAndFare(unSyncTicketCountState, unSyncTicketAmountState)
         Spacer(modifier = Modifier.size(8.dp))
-        ChangeCounter(viewModel,context)
+        ChangeCounter(viewModel, context)
         Spacer(modifier = Modifier.size(16.dp))
         RoundJatriButton(text = "ReportPrint", backgroundColor = lightGrey) {
             coroutineScope.launch {
@@ -118,8 +116,7 @@ fun ChangeCounter(
     context : Context
 ) {
     DashboardCard {
-        var counterListEntity: CounterListEntity? by remember { mutableStateOf(null) }
-        var selectedCounterEntity by remember { mutableStateOf<CounterEntity?>(null) }
+
         var counterList: CounterListEntity? by remember { mutableStateOf(null) }
 
         var counterDropDownTitle by remember {
@@ -127,42 +124,26 @@ fun ChangeCounter(
                 viewModel.getCurrentCounterName()
             )
         }
-        LaunchedEffect(counterList){
+        LaunchedEffect(counterList) {
             context.loadJsonFromAsset(viewModel.getCounterFileName())
                 .onSuccess {
                     counterList = viewModel.getCounterListFromJson(it)
-
-                    /**
-                     * Set the first counter name on the Counter Dropdown Menu
-                     * */
-                    /*counterDropDownTitle =
-                        counterListEntity?.counter_list?.get(0)?.counter_name
-                            ?: "No Counters"*/
-                    /**
-                     * Set the first counterEntity as selected counter                                 * */
-                    //selectedCounterEntity = counterListEntity?.counter_list?.get(0)
                 }
-
         }
-
-
-
-
 
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = "Change Counter")
             Spacer(modifier = Modifier.size(8.dp))
-            DropDownCounterList(counterDropDownTitle, counterList) {
-                counterDropDownTitle = it.counter_name
-                selectedCounterEntity = it //Set selected counter state
-                viewModel.updateStoppageList(it)
+            DropDownCounterList(counterDropDownTitle, counterList) { counterEntity ->
+                counterDropDownTitle = counterEntity.counter_name
+                viewModel.updateStoppageList(counterEntity)
             }
         }
     }
 }
 
 @Composable
-fun TicketCountAndFare() {
+fun TicketCountAndFare(unSyncTicketCountState: Int, unSyncTicketAmountState: Int) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -171,39 +152,40 @@ fun TicketCountAndFare() {
         TicketCount(
             modifier = Modifier
                 .weight(1.0f)
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            unSyncTicketCountState
         )
         TicketFare(
             modifier = Modifier
                 .weight(1.0f)
-                .fillMaxWidth()
+                .fillMaxWidth(),
+            unSyncTicketAmountState
         )
     }
-
 }
 
 @Composable
-fun TicketCount(modifier: Modifier = Modifier) {
+fun TicketCount(modifier: Modifier = Modifier, unSyncTicketCountState: Int) {
     DashboardCard(modifier = modifier) {
         Column(
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "Total Ticket Count")
-            Text(text = "100")
+            Text(text = "$unSyncTicketCountState")
         }
     }
 }
 
 @Composable
-fun TicketFare(modifier: Modifier = Modifier) {
+fun TicketFare(modifier: Modifier = Modifier, unSyncTicketAmountState: Int) {
     DashboardCard(modifier = modifier) {
         Column(
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(text = "Total Ticket Fare")
-            Text(text = "100")
+            Text(text = "$unSyncTicketAmountState")
         }
     }
 }
