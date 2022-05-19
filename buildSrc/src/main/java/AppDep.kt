@@ -81,6 +81,7 @@ object AppDep {
     const val composeViewModel = "androidx.lifecycle:lifecycle-viewmodel-compose:${DepVersion.composeViewModel}"
     const val composeViewBinding = "androidx.compose.ui:ui-viewbinding:${DepVersion.compose}"
     const val composeRuntimeLivedata = "androidx.compose.runtime:runtime-livedata:${DepVersion.compose}"
+    const val composeConstraintLayout = "androidx.constraintlayout:constraintlayout-compose:${DepVersion.composeConstraintLayout}"
 
     const val sunmiPrinter = "com.sunmi:printerlibrary:${DepVersion.sunmiPrinter}"
 

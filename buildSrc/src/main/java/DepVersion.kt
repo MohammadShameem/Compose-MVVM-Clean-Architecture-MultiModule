@@ -49,11 +49,8 @@ object DepVersion {
     const val imageZoom = "2.3.0"
 
     const val composeActivity = "1.4.0"
-
-    const val composeMaterial = "1.1.1"
-    const val composeAnimation = "1.1.1"
-    const val composeUiTooling = "1.1.1"
     const val compose = "1.1.1"
     const val composeViewModel = "2.4.1"
+    const val composeConstraintLayout = "1.0.0"
     const val sunmiPrinter = "1.0.13"
 }

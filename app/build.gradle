@@ -101,6 +101,8 @@ dependencies {
     implementation AppDep.composeViewModel
     implementation AppDep.composeViewBinding
     implementation AppDep.composeRuntimeLivedata
+    implementation AppDep.composeConstraintLayout
+
 
     implementation AppDep.navigationFragment
     implementation AppDep.navigationCompose
