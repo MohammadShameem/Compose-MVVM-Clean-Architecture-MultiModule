@@ -74,13 +74,12 @@ class HomeViewModel @Inject constructor(
                 incrementSerial = currentSerial + 1
                 if (incrementSerial>currentSerial){
                     sharedPrefHelper.putInt(SpKey.soldTicketSerial, incrementSerial)
-/*
 
                     val currentDeviceDate = BanglaConverterUtil.convertMonthNumberToBengali(
                         DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY))
                     val currentDeviceTime = BanglaConverterUtil.convertNumberToBengaliNumber(
                         DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputHMSA))
-
+/*
                     //print ticket here
                     SunmiPrintHelper.instance.setAlign(1)
                     SunmiPrintHelper.instance.printText("মেট্রো প্রভাতী / সোনার বাংলা\n", 25f, isBold = false, isUnderLine = false)
@@ -107,8 +106,8 @@ class HomeViewModel @Inject constructor(
                     SunmiPrintHelper.instance.setAlign(1)
                     val qrText = "$incrementSerial"+" , "+ busCounterEntity.name +" , "+currentDeviceDate + " " + currentDeviceTime
                     SunmiPrintHelper.instance.printQr(qrText,3,1)
-                    SunmiPrintHelper.instance.feedPaper()
-*/
+                    SunmiPrintHelper.instance.feedPaper()*/
+
 
                     //Insert to database
                     viewModelScope.launch {

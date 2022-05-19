@@ -52,6 +52,7 @@ class HomeFragment : Fragment(){
                     Scaffold(topBar = {
                         ToolbarWithButtonLarge(toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
                             toolbarIcon = Icons.Filled.ArrowBack) {
+                            requireActivity().finish()
                         }
                     }) {
                         HomeScreen(
