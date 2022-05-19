@@ -1,6 +1,7 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
 import android.app.Activity
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -14,6 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -21,21 +24,23 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.jatri.common.constant.AppConstant
 import com.jatri.domain.usecase.dashboard.ChangePasswordApiUseCase
 import com.jatri.entity.res.ApiResponse
+import com.jatri.offlinecounterticketing.R
 import kotlinx.coroutines.launch
 
 @Composable
 fun ChangePasswordDialog(
-    isDialogOpen : MutableState<Boolean>,
-    owner: LifecycleOwner
+    isDialogOpen : MutableState<Boolean>
 ) {
     val dashboardViewModel: DashboardViewModel = viewModel()
     val coroutineScope = rememberCoroutineScope()
-   // val isPasswordUpdated by dashboardViewModel.isPasswordUpdated.observeAsState(initial = false)
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     var oldPassword by remember { mutableStateOf("") }
     var newPassword by remember { mutableStateOf("") }
-
 
     if(isDialogOpen.value){
         Dialog(
@@ -59,7 +64,7 @@ fun ChangePasswordDialog(
                     ) {
                         Spacer(modifier = Modifier.height(10.dp))
                         Text(
-                            text = "Change Password",
+                            text = stringResource(R.string.text_change_password),
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -67,7 +72,7 @@ fun ChangePasswordDialog(
                         OutlinedTextField(
                             value = oldPassword,
                             onValueChange = { oldPassword = it },
-                            label = { Text(text = "Enter old password") },
+                            label = { Text(text = stringResource(R.string.text_enter_old_password)) },
                             modifier = Modifier
                                 .fillMaxWidth(),
                             maxLines = 1,
@@ -77,7 +82,7 @@ fun ChangePasswordDialog(
                         OutlinedTextField(
                             value = newPassword,
                             onValueChange = { newPassword = it },
-                            label = { Text(text = "Enter new password") },
+                            label = { Text(text = stringResource(R.string.text_enter_new_password)) },
                             modifier = Modifier
                                 .fillMaxWidth(),
                             maxLines = 1,
@@ -95,24 +100,31 @@ fun ChangePasswordDialog(
                                     isDialogOpen.value = false
                                 }
                             ) {
-                                Text(text = "Cancel")
+                                Text(text = stringResource(R.string.btn_text_cancel))
                             }
                             Spacer(modifier = Modifier.width(10.dp))
                             Button(
                                 onClick = {
                                     coroutineScope.launch {
-                                        dashboardViewModel.changePassword(ChangePasswordApiUseCase.Params(
-                                            oldPassword,newPassword
-                                        )).observe(owner) {
-                                            if(it is ApiResponse.Success){
-                                                isDialogOpen.value = false
+                                        val message  = dashboardViewModel.validateOldPasswordAndNewPassword(oldPassword,newPassword)
+                                        if(message == AppConstant.validation_successful){
+                                            dashboardViewModel.changePassword(ChangePasswordApiUseCase.Params(
+                                                oldPassword,newPassword
+                                            )).observe(lifecycleOwner) {
+                                                if(it is ApiResponse.Success){
+                                                    isDialogOpen.value = false
+                                                    Toast.makeText(context,context.getString(R.string.msg_success_update_password),Toast.LENGTH_SHORT).show()
+                                                }else if(it is ApiResponse.Failure){
+                                                    Toast.makeText(context,it.message,Toast.LENGTH_SHORT).show()
+                                                }
                                             }
-                                        }
+                                        }else  Toast.makeText(context,context.getString(message),Toast.LENGTH_SHORT).show()
+
                                     }
 
                                 }
                             ) {
-                                Text(text = "Update")
+                                Text(text = stringResource(R.string.btn_text_update))
                             }
                         }
                     }

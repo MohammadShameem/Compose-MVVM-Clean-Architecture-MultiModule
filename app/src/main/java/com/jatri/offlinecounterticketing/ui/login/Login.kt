@@ -7,10 +7,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
 
 @Composable
@@ -19,7 +21,6 @@ fun LoginScreen(
 ){
     var phoneNumber by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    //val viewModel : LoginViewModel = viewModel()
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -29,7 +30,7 @@ fun LoginScreen(
             .fillMaxWidth()
     ) {
         Text(
-            text = "Sign in to your account",
+            text = stringResource(R.string.text_sign_in_to_your_account),
             fontSize = 20.sp,
             fontWeight = FontWeight.Bold
         )
@@ -37,7 +38,7 @@ fun LoginScreen(
         OutlinedTextField(
             value = phoneNumber ,
             onValueChange = { phoneNumber = it },
-            label = { Text(text = "phone number") },
+            label = { Text(text = stringResource(R.string.label_text_phone_number)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
@@ -48,7 +49,7 @@ fun LoginScreen(
         OutlinedTextField(
             value = password ,
             onValueChange = { password = it },
-            label = { Text(text = "password") },
+            label = { Text(text = stringResource(R.string.label_text_password)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
@@ -57,7 +58,7 @@ fun LoginScreen(
         )
         Spacer(modifier = Modifier.height(20.dp))
 
-        RoundJatriButton("Login") {
+        RoundJatriButton(stringResource(R.string.btn_text_login)) {
             clickCallBack.invoke(phoneNumber,password)
         }
     }

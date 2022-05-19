@@ -1,6 +1,7 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -12,6 +13,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -22,21 +24,30 @@ import com.jatri.offlinecounterticketing.ui.components.JatriRoundOutlinedButton
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
 import com.jatri.offlinecounterticketing.ui.theme.darkGrey
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun Dashboard(
     username: String,
-    phoneNumber: String,
-    owner: LifecycleOwner
+    phoneNumber: String
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val viewModel : DashboardViewModel = viewModel()
+
     Column(modifier = Modifier.fillMaxSize()) {
-        UserInfo(username, phoneNumber,owner)
+        UserInfo(username, phoneNumber)
         Spacer(modifier = Modifier.size(8.dp))
         TicketCountAndFare()
         Spacer(modifier = Modifier.size(8.dp))
         ChangeCounter()
         Spacer(modifier = Modifier.size(16.dp))
         RoundJatriButton(text = "ReportPrint", backgroundColor = lightGrey) {
+           coroutineScope.launch {
+              Toast.makeText(context,"Report print clicked",Toast.LENGTH_LONG).show()
+           }
         }
     }
 }
@@ -44,8 +55,7 @@ fun Dashboard(
 @Composable
 fun UserInfo(
     username: String,
-    phoneNumber: String,
-    owner: LifecycleOwner,
+    phoneNumber: String
 ) {
     val isDialogOpen = remember { mutableStateOf(false) }
     DashboardCard {
@@ -65,7 +75,7 @@ fun UserInfo(
                     val number by remember { mutableStateOf(phoneNumber) }
                     Text(text = name)
                     Text(text = number)
-                    ChangePasswordDialog(isDialogOpen,owner)
+                    ChangePasswordDialog(isDialogOpen)
                     JatriRoundOutlinedButton(
                         borderColor = darkGrey,
                         backgroundColor = lightGrey,

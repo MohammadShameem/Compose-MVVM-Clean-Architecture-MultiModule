@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Offline Counter</string>
 
-    <!--Login Screen-->
+    <!--Login Screen and Dashboard-->
     <string name="retry">Retry</string>
     <string name="dev_text">%s, (DEV VERSION)</string>
     <string name="error_message_empty_number">Enter phone number</string>
@@ -10,5 +10,23 @@
     <string name="error_msg_enter_password">Enter password</string>
     <string name="error_msg_enter_oldPassword">Enter old password</string>
     <string name="error_msg_enter_newPassword">Enter new password</string>
+    <string name="error_msg_6_character_required">Minimum 6 character required</string>
+    <string name="error_msg_login_successful">Login Successful</string>
+    <string name="error_msg_password_updated">Password updated successfully</string>
+    <string name="text_change_password">Change Password</string>
+    <string name="text_enter_old_password">Enter old password</string>
+    <string name="text_enter_new_password">Enter new password</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_login">Login</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="secretPassword">abcd</string>
+    <string name="msg_login_success">Login Successful</string>
+    <string name="msg_success_update_password">Updated Password Successfully</string>
+    <string name="btn_text_cancel">Cancel</string>
+    <string name="btn_text_update">Update</string>
+    <string name="text_sign_in_to_your_account">Sign in to your account</string>
+    <string name="label_text_phone_number">phone number</string>
+    <string name="label_text_password">password</string>
+    <string name="btn_text_login">Login</string>
 
 </resources>

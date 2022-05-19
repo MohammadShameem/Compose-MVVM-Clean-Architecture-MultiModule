@@ -6,6 +6,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.jatri.common.constant.AppConstant
 import com.jatri.domain.entity.StoppageEntity
 import com.jatri.domain.usecase.dashboard.ChangePasswordApiUseCase
 import com.jatri.domain.usecase.dashboard.SyncedSoldTicketApiUseCase
@@ -29,10 +30,6 @@ class DashboardViewModel @Inject constructor(
     private val sharedPrefHelper: SharedPrefHelper
 ) : ViewModel() {
 
-    val errorMessageLiveDataOfValidation = MutableLiveData<Int>()
-    //val isPasswordUpdated = MutableLiveData<Boolean>()
-
-
     fun changePassword(
         params: ChangePasswordApiUseCase.Params
     ): LiveData<ApiResponse<ChangePasswordApiEntity>> = changePasswordApiUseCase.execute(params)
@@ -43,15 +40,13 @@ class DashboardViewModel @Inject constructor(
     ): LiveData<ApiResponse<SyncedSoldTicketApiEntity>> =
         syncedSoldTicketApiUseCase.execute(soldTicketBody)
 
-
-    fun validateOldPasswordAndNewPassword(oldPassword: String, newPassword: String): Boolean {
-        return if (oldPassword.isEmpty()) {
-            errorMessageLiveDataOfValidation.value = R.string.error_msg_enter_oldPassword
-            false
-        } else if (newPassword.isEmpty()) {
-            errorMessageLiveDataOfValidation.value = R.string.error_msg_enter_newPassword
-            false
-        } else true
+    fun validateOldPasswordAndNewPassword(oldPassword: String, newPassword: String): Int {
+        var message = 0
+        message = if (oldPassword.isEmpty()) R.string.error_msg_enter_oldPassword
+        else if (newPassword.isEmpty()) R.string.error_msg_enter_newPassword
+        else if(newPassword.length < 6) R.string.error_msg_6_character_required
+        else AppConstant.validation_successful
+        return message
     }
 
     fun getCurrentCounterName() : String {

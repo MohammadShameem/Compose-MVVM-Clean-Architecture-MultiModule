@@ -85,5 +85,6 @@ object AppConstant {
 
     const val YES = "YES"
     const val NO = "NO"
+    const val validation_successful = 1
 
 }

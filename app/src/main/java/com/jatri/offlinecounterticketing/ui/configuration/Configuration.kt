@@ -68,9 +68,6 @@ fun Configuration(
                 modifier = Modifier
                     .padding(start = 16.dp, end = 16.dp)
             ) {
-
-
-
                 //company drop down
                 DropDown(companyDropDownTitle, companyList) { offlineCompanyEntity ->
                     companyDropDownTitle = offlineCompanyEntity.name
