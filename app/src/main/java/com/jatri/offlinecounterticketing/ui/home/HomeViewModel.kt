@@ -102,10 +102,12 @@ class HomeViewModel @Inject constructor(
                             DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputHMSA))
 
                         ticketFormatEntity.ticket_format.forEach{
-                            if (it.is_center){
-                                SunmiPrintHelper.instance.setAlign(1)
-                            } else{
-                                SunmiPrintHelper.instance.setAlign(0)
+                            if (it.is_center!=null){
+                                if (it.is_center!!){
+                                    SunmiPrintHelper.instance.setAlign(1)
+                                } else{
+                                    SunmiPrintHelper.instance.setAlign(0)
+                                }
                             }
 
                             if (it.type== AppConstant.companyName) {
