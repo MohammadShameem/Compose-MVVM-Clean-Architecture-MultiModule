@@ -20,6 +20,8 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.domain.entity.CounterEntity
 import com.jatri.domain.entity.CounterListEntity
+import com.jatri.entity.dashboard.SyncSoldTicketBody
+import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
 import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
 import com.jatri.offlinecounterticketing.ui.components.JatriRoundOutlinedButton
@@ -40,6 +42,11 @@ fun Dashboard(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val viewModel : DashboardViewModel = viewModel()
+    val soldTicketListState by viewModel.soldTicketListState.collectAsState()
+
+    LaunchedEffect(soldTicketListState, block = {
+        viewModel.fetchAllSoldTicketGroupWiseDataList()
+    })
 
     Column(modifier = Modifier.fillMaxSize()) {
         UserInfo(username, phoneNumber)
@@ -49,9 +56,21 @@ fun Dashboard(
         ChangeCounter(viewModel,context)
         Spacer(modifier = Modifier.size(16.dp))
         RoundJatriButton(text = "ReportPrint", backgroundColor = lightGrey) {
-           coroutineScope.launch {
-
-           }
+            coroutineScope.launch {
+                val soldTicketBody = viewModel.getSoldTicketBodyToSync(soldTicketListState)
+                viewModel.syncSoldTicket(soldTicketBody)
+                    .observe(lifecycleOwner) {
+                        when(it){
+                            is ApiResponse.Success -> {
+                                Toast.makeText(context,it.data.message,Toast.LENGTH_LONG).show()
+                                 //viewModel.printReport()
+                            }
+                            is ApiResponse.Failure ->
+                                Toast.makeText(context, it.message,Toast.LENGTH_LONG).show()
+                            else -> {}
+                        }
+                    }
+            }
         }
     }
 }
@@ -99,7 +118,6 @@ fun ChangeCounter(
     context : Context
 ) {
     DashboardCard {
-
         var counterListEntity: CounterListEntity? by remember { mutableStateOf(null) }
         var selectedCounterEntity by remember { mutableStateOf<CounterEntity?>(null) }
         var counterList: CounterListEntity? by remember { mutableStateOf(null) }

@@ -111,11 +111,13 @@ fun ChangePasswordDialog(
                                             dashboardViewModel.changePassword(ChangePasswordApiUseCase.Params(
                                                 oldPassword,newPassword
                                             )).observe(lifecycleOwner) {
-                                                if(it is ApiResponse.Success){
-                                                    isDialogOpen.value = false
-                                                    Toast.makeText(context,context.getString(R.string.msg_success_update_password),Toast.LENGTH_SHORT).show()
-                                                }else if(it is ApiResponse.Failure){
-                                                    Toast.makeText(context,it.message,Toast.LENGTH_SHORT).show()
+                                                when(it){
+                                                    is ApiResponse.Success -> {
+                                                        isDialogOpen.value = false
+                                                        Toast.makeText(context,context.getString(R.string.msg_success_update_password),Toast.LENGTH_SHORT).show()
+                                                    }
+                                                    is ApiResponse.Failure -> Toast.makeText(context,it.message,Toast.LENGTH_SHORT).show()
+                                                    else -> {}
                                                 }
                                             }
                                         }else  Toast.makeText(context,context.getString(message),Toast.LENGTH_SHORT).show()

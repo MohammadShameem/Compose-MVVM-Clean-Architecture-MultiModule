@@ -1,6 +1,8 @@
 package com.jatri.offlinecounterticketing.ui.login
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -67,6 +69,7 @@ class LoginFragment : Fragment() {
     * Login user to system
    * */
     private fun login(phoneNumber: String, password: String) {
+        getDeviceId()
         val validationMessage = viewModel.validatePhoneNumberAndPassword(phoneNumber,password)
         if(validationMessage){
             viewModel.login(params = LoginApiUseCase.Params(
@@ -76,11 +79,26 @@ class LoginFragment : Fragment() {
                     sharedPrefHelper.putString(SpKey.userName,it.data.name)
                     sharedPrefHelper.putString(SpKey.phoneNumber,it.data.mobile)
                     sharedPrefHelper.putString(SpKey.userAuthKey,it.data.token)
+
                     findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToDashboardFragment())
                     Toast.makeText(requireContext(),getString(R.string.msg_login_success),Toast.LENGTH_LONG).show()
                 }
                 else if (it is ApiResponse.Failure) Toast.makeText(requireContext(),it.message, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    /**
+     * Get Device id and save to shared Preference
+     * */
+    @SuppressLint("HardwareIds")
+    private fun getDeviceId() {
+        try {
+            val androidId = Settings.Secure.getString(requireActivity().contentResolver, Settings.Secure.ANDROID_ID)
+            sharedPrefHelper.putString(SpKey.deviceId, androidId?:"")
+        } catch (e: Exception) {
+            sharedPrefHelper.putString(SpKey.deviceId, sharedPrefHelper.getString(SpKey.deviceId))
+        }
+
     }
 }

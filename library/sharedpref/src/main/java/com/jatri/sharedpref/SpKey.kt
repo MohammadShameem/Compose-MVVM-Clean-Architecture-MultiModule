@@ -11,6 +11,7 @@ object SpKey {
     const val soldTicketSerial = "soldTicketSerial"
     const val soldTicketSerialCurrentDate = "soldTicketSerialCurrentDate"
     const val appLanguage  = "appLanguage"
+    const val deviceId  = "deviceId"
 
     //Secret Password
     const val passwordEntered = "passwordEntered"
