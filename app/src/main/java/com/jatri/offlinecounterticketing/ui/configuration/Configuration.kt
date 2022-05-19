@@ -88,8 +88,8 @@ fun Configuration(
                  * Dropdown Menu of Counters
                  * */
                 DropDownCounterList(counterDropDownTitle, counterListEntity) {
-                    counterDropDownTitle = it.counter_name
-                    selectedCounterEntity = it
+                    counterDropDownTitle = it.counter_name //Set the dropdown title
+                    selectedCounterEntity = it //Set selected counter state
                 }
                 Spacer(modifier = Modifier.size(8.dp))
                 Text(text = "Student Fare", fontWeight = FontWeight.Bold)
