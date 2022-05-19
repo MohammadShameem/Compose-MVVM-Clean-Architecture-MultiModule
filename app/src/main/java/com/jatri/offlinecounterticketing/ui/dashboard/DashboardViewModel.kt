@@ -18,6 +18,9 @@ import com.jatri.offlinecounterticketing.R
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,6 +32,12 @@ class DashboardViewModel @Inject constructor(
     private val sharedPrefHelper: SharedPrefHelper,
     private val cacheRepository: CacheRepository
 ) : ViewModel() {
+    private val _unSyncTicketCountState = MutableStateFlow<Int>(0)
+    val unSyncTicketCountState : StateFlow<Int> = _unSyncTicketCountState
+
+    private val _unSyncTicketAmountState = MutableStateFlow<Int>(0)
+    val unSyncTicketAmountState : StateFlow<Int> = _unSyncTicketAmountState
+
 
     fun changePassword(
         params: ChangePasswordApiUseCase.Params
@@ -65,6 +74,23 @@ class DashboardViewModel @Inject constructor(
             sharedPrefHelper.putString(SpKey.counterName, counterEntity.counter_name)
             cacheRepository.deleteSelectedBusCounterEntity()
             cacheRepository.insertSelectedBusCounterEntity(counterEntity.stoppage_list)
+        }
+    }
+    fun fetchSoldTicketCount(){
+        viewModelScope.launch {
+            cacheRepository.fetchSoldTicketCount()
+                .collect {
+                    _unSyncTicketCountState.value = it
+                }
+        }
+    }
+
+    fun fetchSoldTicketTotalFare(){
+        viewModelScope.launch {
+            cacheRepository.fetchSoldTicketTotalFare()
+                .collect {
+                    _unSyncTicketAmountState.value = it
+                }
         }
     }
 

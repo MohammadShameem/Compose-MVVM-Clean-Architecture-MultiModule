@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
@@ -62,10 +61,10 @@ class HomeFragment : Fragment(){
                             syncClickedCallBack = {
                                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
                             },
-                            busCounterClickedCallback = {
+                            busCounterClickedCallback = { stoppage, studentFare ->
                                 lifecycleScope.launch {
                                     val ticketFormatEntity = viewModel.getTicketFormatEntity()
-                                    viewModel.printAndInsertTicket(it,ticketFormatEntity)
+                                    viewModel.printAndInsertTicket(stoppage, studentFare,ticketFormatEntity)
                                 }
 
                             }
@@ -87,8 +86,5 @@ class HomeFragment : Fragment(){
                 DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY))
             sharedPrefHelper.putInt(SpKey.soldTicketSerial,0)
         }
-
     }
-
-
 }

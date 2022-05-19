@@ -87,14 +87,13 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun printAndInsertTicket(stoppageEntity: StoppageEntity,ticketFormatEntity: TicketFormatEntity){
-        viewModelScope.launch {
-            if (SunmiPrintHelper.instance.showPrinterStatus(application)){
-                currentSerial = sharedPrefHelper.getInt(SpKey.soldTicketSerial)
-                try {
-                    incrementSerial = currentSerial + 1
-                    if (incrementSerial>currentSerial){
-                        sharedPrefHelper.putInt(SpKey.soldTicketSerial, incrementSerial)
+    fun printAndInsertTicket(stoppageEntity: StoppageEntity,,ticketFormatEntity: TicketFormatEntity, studentFare: Boolean){
+        if (SunmiPrintHelper.instance.showPrinterStatus(application)){
+            currentSerial = sharedPrefHelper.getInt(SpKey.soldTicketSerial)
+            try {
+                incrementSerial = currentSerial + 1
+                if (incrementSerial>currentSerial){
+                    sharedPrefHelper.putInt(SpKey.soldTicketSerial, incrementSerial)
 
                         val currentDeviceDate = BanglaConverterUtil.convertMonthNumberToBengali(
                             DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY))
@@ -188,7 +187,9 @@ class HomeViewModel @Inject constructor(
                             SoldTicketEntity(
                                 serial = incrementSerial,
                                 name = stoppageEntity.name,
-                                fare = stoppageEntity.fare))
+                                fare = if (studentFare) stoppageEntity.fare_student else stoppageEntity.fare
+                            )
+                        )
 
                     }else{
                         Toast.makeText(application, "Printer is abnormal. Please try again", Toast.LENGTH_SHORT).show()

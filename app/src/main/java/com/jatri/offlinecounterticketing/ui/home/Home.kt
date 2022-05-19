@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.domain.entity.StoppageEntity
 import com.jatri.offlinecounterticketing.R
-import com.jatri.offlinecounterticketing.ui.configuration.ConfigurationViewModel
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 
@@ -28,7 +27,7 @@ import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 fun HomeScreen(
     isStudentFareEnable: Boolean,
     syncClickedCallBack: () -> Unit,
-    busCounterClickedCallback: (stoppageEntity: StoppageEntity) -> Unit
+    busCounterClickedCallback: (stoppageEntity: StoppageEntity, studentFare: Boolean) -> Unit
 ) {
     val viewModel: HomeViewModel = viewModel()
     val stoppageListState by viewModel.stoppageState.collectAsState()
@@ -37,7 +36,7 @@ fun HomeScreen(
 
     val studentState = remember { mutableStateOf(true) }
 
-    LaunchedEffect(stoppageListState,unSyncTicketCountState,unSyncTicketAmountState, block ={
+    LaunchedEffect(stoppageListState, unSyncTicketCountState, unSyncTicketAmountState, block = {
         viewModel.fetchBusCounterList()
         viewModel.fetchSoldTicketCount()
         viewModel.fetchSoldTicketTotalFare()
@@ -49,30 +48,32 @@ fun HomeScreen(
     ) {
         val context = LocalContext.current
 
-        Card(modifier = Modifier.weight(.8f)) {
-            Column(
-                modifier = Modifier.padding(all = 8.dp)
-            ) {
-                LazyColumn {
-                    items(stoppageListState) { busCounter ->
-                        BusCounterItem(
-                            StoppageEntity(
-                                busCounter.id, busCounter.name,
-                                busCounter.fare, busCounter.fare_student
-                            ), busCounterClickedCallback
-
-
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-                    }
+        Card(
+            modifier = Modifier
+            .fillMaxHeight()
+            .weight(if(isStudentFareEnable).8f else .9f)
+        ) {
+            LazyColumn(modifier = Modifier.padding(all = 8.dp)) {
+                items(stoppageListState) { busCounter ->
+                    BusCounterItem(
+                        StoppageEntity(
+                            busCounter.id, busCounter.name,
+                            busCounter.fare, busCounter.fare_student
+                        ), busCounterClickedCallback, studentState
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
                 }
             }
         }
-        Card(elevation = 8.dp, modifier = Modifier.weight(.2f)) {
+        Card(
+            elevation = 8.dp, modifier = Modifier
+            .fillMaxHeight()
+            .weight(if(isStudentFareEnable).2f else .1f)
+        ) {
             Column(
                 modifier = Modifier
                     .padding(8.dp)
-                    .height(120.dp)
+                //.height(120.dp)
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -80,7 +81,7 @@ fun HomeScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column {
-                        if (isStudentFareEnable){
+                        if (isStudentFareEnable) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Checkbox(
                                     checked = studentState.value,
@@ -130,7 +131,8 @@ fun HomeScreen(
 @Composable
 fun BusCounterItem(
     stoppageEntity: StoppageEntity,
-    busCounterClickedCallback: (stoppageEntity: StoppageEntity) -> Unit
+    busCounterClickedCallback: (stoppageEntity: StoppageEntity, studentFare: Boolean) -> Unit,
+    studentState: MutableState<Boolean>
 ) {
     Row(
         modifier = Modifier
@@ -138,7 +140,7 @@ fun BusCounterItem(
             .background(color = colorPrimary, shape = RoundedCornerShape(15))
             .padding(all = 8.dp)
             .clickable(onClick = {
-                busCounterClickedCallback.invoke(stoppageEntity)
+                busCounterClickedCallback.invoke(stoppageEntity, studentState.value)
             }),
         horizontalArrangement = Arrangement.SpaceBetween,
 
@@ -152,7 +154,7 @@ fun BusCounterItem(
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = stoppageEntity.fare.toString(),
+            text = if (studentState.value) stoppageEntity.fare_student.toString() else stoppageEntity.fare.toString(),
             color = Color.White,
             fontSize = 24.sp,
             modifier = Modifier.weight(0.1f)
