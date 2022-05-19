@@ -31,10 +31,10 @@ interface OfflineCounterTicketingDao {
     suspend fun fetchSoldTicketGroupWise():List<SoldTicketGroupWiseEntity>
 
     @Query("SELECT IFNULL((SELECT COUNT(id) FROM sold_ticket),0)")
-    fun fetchSoldTicketCountLiveData(): LiveData<Int>
+    fun fetchSoldTicketCount(): Flow<Int>
 
     @Query("SELECT IFNULL((SELECT SUM (fare) FROM sold_ticket),0)")
-    fun fetchSoldTicketTotalFareLiveData(): LiveData<Int>
+    fun fetchSoldTicketTotalFare(): Flow<Int>
 
     @Query("DELETE FROM sold_ticket")
     suspend fun deleteAllSoldTicket()

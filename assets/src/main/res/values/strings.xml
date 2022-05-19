@@ -11,4 +11,6 @@
     <string name="error_msg_enter_oldPassword">Enter old password</string>
     <string name="error_msg_enter_newPassword">Enter new password</string>
 
+    <string name="format_total_ticket_count">Total Ticket Count: %d</string>
+    <string name="format_total_ticket_fare">Total Ticket Fare: %d</string>
 </resources>

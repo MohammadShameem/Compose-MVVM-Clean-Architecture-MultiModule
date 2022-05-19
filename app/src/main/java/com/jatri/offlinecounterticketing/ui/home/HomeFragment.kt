@@ -11,19 +11,23 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import com.jatri.common.dateparser.DateTimeFormat
+import com.jatri.common.dateparser.DateTimeParser
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
+import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(){
     @Inject lateinit var sharedPrefHelper: SharedPrefHelper
+    private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             requireActivity().finish()
         }
@@ -42,16 +46,28 @@ class HomeFragment : Fragment(){
             OfflineCounterTicketingTheme {
                 Surface( modifier = Modifier.fillMaxSize()) {
                     HomeScreen(
+                        sharedPrefHelper.getBoolean(SpKey.studentFare),
                         syncClickedCallBack = {
                             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
                         },
                         busCounterClickedCallback = {
-                            Toast.makeText(requireActivity(),"Hello World- Clicked", Toast.LENGTH_SHORT).show()
+                            viewModel.printAndInsertTicket(it)
                         }
                     )
                 }
 
             }
+        }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        if (sharedPrefHelper.getString(SpKey.soldTicketSerialCurrentDate) !=
+            DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY)){
+            sharedPrefHelper.putString(SpKey.soldTicketSerialCurrentDate,
+                DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY))
+            sharedPrefHelper.putInt(SpKey.soldTicketSerial,0)
         }
 
     }
