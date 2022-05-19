@@ -24,13 +24,9 @@ import com.jatri.offlinecounterticketing.printer.SunmiPrintHelper
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import javax.inject.Inject
@@ -145,8 +141,8 @@ class DashboardViewModel @Inject constructor(
                     val currentDeviceTime = BanglaConverterUtil.convertNumberToBengaliNumber(DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputHMSA))
 
                     SunmiPrintHelper.instance.setAlign(1)
-                    SunmiPrintHelper.instance.printText("সী মেরিটাইম সার্ভিসেস\n", 35f, isBold = true, isUnderLine = false)
-                    SunmiPrintHelper.instance.printText("${sharedPrefHelper.getString(SpKey.companyName)}\n\n", 28f, isBold = true, isUnderLine = false)
+                    SunmiPrintHelper.instance.printText("${sharedPrefHelper.getString(SpKey.companyName)}\n", 40f, isBold = true, isUnderLine = false)
+                    SunmiPrintHelper.instance.printText("${sharedPrefHelper.getString(SpKey.counterName)}\n\n", 30f, isBold = true, isUnderLine = false)
 
                     SunmiPrintHelper.instance.setAlign(0)
                     val soldTicketList = cacheRepository.fetchSoldTicketGroupWise()

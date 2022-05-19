@@ -1,6 +1,7 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -15,16 +16,18 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.jatri.domain.entity.CounterEntity
 import com.jatri.domain.entity.CounterListEntity
-import com.jatri.entity.dashboard.SyncSoldTicketBody
 import com.jatri.entity.res.ApiResponse
+import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
+import com.jatri.offlinecounterticketing.ui.components.CircularProgressBar
 import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
 import com.jatri.offlinecounterticketing.ui.components.JatriRoundOutlinedButton
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
+import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 import com.jatri.offlinecounterticketing.ui.theme.darkGrey
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -37,15 +40,16 @@ fun Dashboard(
     val lifecycleOwner = LocalLifecycleOwner.current
     val viewModel : DashboardViewModel = viewModel()
     val soldTicketListState by viewModel.soldTicketListState.collectAsState()
+    var isProgressBarLoading by remember { mutableStateOf(false) }
 
     val unSyncTicketCountState by viewModel.unSyncTicketCountState.collectAsState()
     val unSyncTicketAmountState by viewModel.unSyncTicketAmountState.collectAsState()
+
     LaunchedEffect(soldTicketListState,unSyncTicketCountState, unSyncTicketAmountState, block = {
         viewModel.fetchAllSoldTicketGroupWiseDataList()
         viewModel.fetchSoldTicketCount()
         viewModel.fetchSoldTicketTotalFare()
     })
-
     Column(modifier = Modifier.fillMaxSize()) {
         UserInfo(username, phoneNumber)
         Spacer(modifier = Modifier.size(8.dp))
@@ -53,25 +57,37 @@ fun Dashboard(
         Spacer(modifier = Modifier.size(8.dp))
         ChangeCounter(viewModel, context)
         Spacer(modifier = Modifier.size(16.dp))
-        RoundJatriButton(text = "ReportPrint", backgroundColor = lightGrey) {
-            coroutineScope.launch {
-                val soldTicketBody = viewModel.getSoldTicketBodyToSync(soldTicketListState)
-                viewModel.syncSoldTicket(soldTicketBody)
-                    .observe(lifecycleOwner) {
-                        when(it){
-                            is ApiResponse.Success -> {
-                                Toast.makeText(context,it.data.message,Toast.LENGTH_LONG).show()
-                                 //viewModel.printReport()
+        RoundJatriButton(text = "ReportPrint", backgroundColor = colorPrimary) {
+                coroutineScope.launch {
+                    if(unSyncTicketCountState > 0) isProgressBarLoading = true
+                    val soldTicketBody = viewModel.getSoldTicketBodyToSync(soldTicketListState)
+                    if(unSyncTicketCountState > 0){
+                        viewModel.syncSoldTicket(soldTicketBody)
+                            .observe(lifecycleOwner) {
+                                isProgressBarLoading = when(it){
+                                    is ApiResponse.Success -> {
+                                        Toast.makeText(context,it.data.message,Toast.LENGTH_LONG).show()
+                                        viewModel.printReport(unSyncTicketCountState,unSyncTicketAmountState)
+                                        false
+                                    }
+                                    is ApiResponse.Failure ->{
+                                        Toast.makeText(context, it.message,Toast.LENGTH_LONG).show()
+                                        false
+                                    }
+                                    else -> {
+                                        false
+                                    }
+                                }
                             }
-                            is ApiResponse.Failure ->
-                                Toast.makeText(context, it.message,Toast.LENGTH_LONG).show()
-                            else -> {}
-                        }
-                    }
+                    }else  Toast.makeText(context,context.getString(R.string.msg_noting_to_print),Toast.LENGTH_LONG).show()
+
+                }
             }
+
         }
+        Spacer(modifier = Modifier.height(15.dp))
+        CircularProgressBar(isDisplayed = isProgressBarLoading)
     }
-}
 
 @Composable
 fun UserInfo(

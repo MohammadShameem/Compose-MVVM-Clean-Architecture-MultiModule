@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -19,6 +20,7 @@ import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
 import com.jatri.offlinecounterticketing.ui.dashboard.Dashboard
+import com.jatri.offlinecounterticketing.ui.dashboard.DashboardFragmentDirections
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
@@ -30,6 +32,14 @@ class LoginFragment : Fragment() {
     @Inject
     lateinit var sharedPrefHelper: SharedPrefHelper
     private val viewModel: LoginViewModel by viewModels()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().popBackStack()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,7 +56,7 @@ class LoginFragment : Fragment() {
                         toolbarTitle = context.getString(R.string.title_login),
                         toolbarIcon = Icons.Filled.ArrowBack
                     ) {
-                        findNavController().navigate(R.id.homeFragment)
+                        findNavController().popBackStack()
                     }
                 }) {
                     LoginScreen{ phoneNumber,password ->

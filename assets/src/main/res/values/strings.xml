@@ -31,4 +31,5 @@
 
     <string name="format_total_ticket_count">Total Ticket Count: %d</string>
     <string name="format_total_ticket_fare">Total Ticket Fare: %d</string>
+    <string name="msg_noting_to_print">Noting to print</string>
 </resources>
