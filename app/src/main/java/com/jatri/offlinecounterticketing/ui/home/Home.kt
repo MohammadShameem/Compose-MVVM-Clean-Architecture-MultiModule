@@ -107,9 +107,9 @@ fun BusCounterItem(
 
         ) {
 
-        Text(text = stoppageEntity.name, color = Color.White, fontSize = 22.sp)
+        Text(text = stoppageEntity.name, color = Color.White, fontSize = 22.sp, modifier = Modifier.weight(0.9f))
         Spacer(modifier = Modifier.height(4.dp))
-        Text(text = stoppageEntity.fare.toString(), color = Color.White, fontSize = 24.sp)
+        Text(text = stoppageEntity.fare.toString(), color = Color.White, fontSize = 24.sp, modifier = Modifier.weight(0.1f))
     }
 }
 
