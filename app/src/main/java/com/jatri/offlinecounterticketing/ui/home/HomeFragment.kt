@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.jatri.common.dateparser.DateTimeFormat
 import com.jatri.common.dateparser.DateTimeParser
@@ -23,6 +24,7 @@ import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -61,7 +63,11 @@ class HomeFragment : Fragment(){
                                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
                             },
                             busCounterClickedCallback = {
-                                viewModel.printAndInsertTicket(it)
+                                lifecycleScope.launch {
+                                    val ticketFormatEntity = viewModel.getTicketFormatEntity()
+                                    viewModel.printAndInsertTicket(it,ticketFormatEntity)
+                                }
+
                             }
                         )
                     }

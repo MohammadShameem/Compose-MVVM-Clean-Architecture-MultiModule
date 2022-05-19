@@ -2,17 +2,17 @@
    "ticket_format":[
       {
          "type":"company_name",
-         "name":"Metro provati",
-         "is_bold":true,
+         "name":"মেট্রো প্রভাতী / সোনার বাংলা",
+         "is_bold":false,
          "is_center":true,
-         "font_size":15
+         "font_size":25
       },
       {
          "type":"text",
          "is_center":true,
-         "text":"BRTC",
-         "is_bold":true,
-         "font_size":15
+         "text":"বাস কাউন্টার সার্ভিস ",
+         "is_bold":false,
+         "font_size":20
       },
       {
          "type":"route_name",
@@ -20,57 +20,56 @@
          "name":"BRTC",
          "is_bold":true,
          "is_center":true,
-         "font_size":15
+         "font_size":35
       },
       {
          "type":"fare",
-         "leading_text":"",
-         "leading_student_fare_text":"",
+         "leading_text":"ভাড়া - ",
+         "leading_student_fare_text":"স্টুডেন্ট ভাড়া - ",
          "trailing_text":"",
-         "is_center":true,
+         "is_center":false,
          "is_bold":true,
-         "font_size":15
+         "font_size":40
       },
       {
          "type":"ticket_serial",
-         "leading_text":"",
+         "leading_text":"সিরিয়াল নং - ",
          "is_bold":true,
-         "is_center":true,
-         "font_size":15
+         "is_center":false,
+         "font_size":26
       },
       {
          "type":"date",
-         "leading_text":"",
+         "leading_text":"তারিখ - ",
          "is_bold":true,
-         "font_size":15
+         "font_size":26
       },
       {
          "type":"time",
-         "leading_text":"",
+         "leading_text":"সময় - ",
          "is_bold":true,
-         "font_size":15
+         "font_size":26
       },
       {
          "type":"text",
          "is_center":true,
-         "text":"BRTC",
+         "text":"অভিযোগ / পরামর্শ ",
          "is_bold":true,
-         "font_size":15
+         "font_size":24
       },
       {
          "type":"complain_number",
-         "leading_text":"",
-         "trailing_text":"",
          "is_center":true,
-         "is_bold":true,
-         "font_size":15
+         "text":"০১৯৮৬৩২৩২৩২/০১৯৯৭৭০৪০৬৪",
+         "is_bold":false,
+         "font_size":24
       },
       {
          "type":"text",
          "is_center":true,
-         "text":"BRTC",
+         "text":"সহযোগিতায়: যাত্রী সার্ভিস লি।",
          "is_bold":true,
-         "font_size":15
+         "font_size":20
       }
    ]
 }

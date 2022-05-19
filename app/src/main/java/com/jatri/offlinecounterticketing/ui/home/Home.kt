@@ -60,6 +60,8 @@ fun HomeScreen(
                                 busCounter.id, busCounter.name,
                                 busCounter.fare, busCounter.fare_student
                             ), busCounterClickedCallback
+
+
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                     }
