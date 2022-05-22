@@ -46,8 +46,6 @@ class DashboardViewModel @Inject constructor(
     private val _unSyncTicketAmountState = MutableStateFlow(0)
     val unSyncTicketAmountState : StateFlow<Int> = _unSyncTicketAmountState
 
-
-
     private val _soldTicketListState = MutableStateFlow<List<SoldTicketGroupWiseEntity>>(listOf())
     var soldTicketListState : StateFlow<List<SoldTicketGroupWiseEntity>> = _soldTicketListState
 
@@ -92,19 +90,31 @@ class DashboardViewModel @Inject constructor(
         )
     }
 
-
+    /**
+     * Get Current Counter name from shared preference
+     * @return counterName : String
+     * */
     fun getCurrentCounterName(): String {
         return sharedPrefHelper.getString(SpKey.counterName)
     }
-
+    /**
+     * Get Current Counter Json File name from shared preference
+     * @return json file name : String
+     * */
     fun getCounterFileName(): String {
         return sharedPrefHelper.getString(SpKey.counterFileName)
     }
-
+    /**
+     * Get CounterListEntity generated from Json String Using Gson
+     * @return CounterListEntity
+     * */
     fun getCounterListFromJson(jsonString: String): CounterListEntity {
         return gson.fromJson(jsonString, CounterListEntity::class.java)
     }
-
+    /**
+     * @param counterEntity
+     * Update stoppage list if the user changes counter from dashboard screen.
+     * */
     fun updateStoppageList(counterEntity: CounterEntity) {
         viewModelScope.launch {
             sharedPrefHelper.putString(SpKey.counterName, counterEntity.counter_name)

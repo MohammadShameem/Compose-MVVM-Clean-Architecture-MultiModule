@@ -1,14 +1,10 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.activity.compose.BackHandler
-import androidx.appcompat.app.AlertDialog
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
