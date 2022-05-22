@@ -11,13 +11,17 @@ import androidx.activity.addCallback
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.jatri.common.extfun.showAlertDialog
 import com.jatri.domain.usecase.login.LoginApiUseCase
 import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.R
+import com.jatri.offlinecounterticketing.ui.components.BackPressAlertDialog
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
 import com.jatri.offlinecounterticketing.ui.dashboard.Dashboard
 import com.jatri.offlinecounterticketing.ui.dashboard.DashboardFragmentDirections
@@ -35,9 +39,8 @@ class LoginFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController().popBackStack()
+            findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
         }
     }
 
@@ -56,7 +59,7 @@ class LoginFragment : Fragment() {
                         toolbarTitle = context.getString(R.string.title_login),
                         toolbarIcon = Icons.Filled.ArrowBack
                     ) {
-                        findNavController().popBackStack()
+                        findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
                     }
                 }) {
                     LoginScreen{ phoneNumber,password ->

@@ -21,6 +21,8 @@ import com.jatri.domain.entity.StoppageEntity
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
+import com.jatri.offlinecounterticketing.ui.theme.itemColor
+import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 
 
 @Composable
@@ -41,7 +43,6 @@ fun HomeScreen(
         viewModel.fetchSoldTicketCount()
         viewModel.fetchSoldTicketTotalFare()
     })
-
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxHeight()
@@ -61,7 +62,7 @@ fun HomeScreen(
                             busCounter.fare, busCounter.fare_student
                         ), busCounterClickedCallback, studentState
                     )
-                    Spacer(modifier = Modifier.height(4.dp))
+                    Spacer(modifier = Modifier.height(8.dp))
                 }
             }
         }
@@ -137,7 +138,7 @@ fun BusCounterItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .background(color = colorPrimary, shape = RoundedCornerShape(15))
+            .background(color = lightGrey, shape = RoundedCornerShape(15))
             .padding(all = 8.dp)
             .clickable(onClick = {
                 busCounterClickedCallback.invoke(stoppageEntity, studentState.value)
@@ -148,14 +149,14 @@ fun BusCounterItem(
 
         Text(
             text = stoppageEntity.name,
-            color = Color.White,
+            color = Color.Black,
             fontSize = 22.sp,
             modifier = Modifier.weight(0.9f)
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = if (studentState.value) stoppageEntity.fare_student.toString() else stoppageEntity.fare.toString(),
-            color = Color.White,
+            color = Color.Black,
             fontSize = 24.sp,
             modifier = Modifier.weight(0.1f)
         )

@@ -10,15 +10,22 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.jatri.common.dateparser.DateTimeFormat
 import com.jatri.common.dateparser.DateTimeParser
+import com.jatri.common.extfun.showAlertDialog
+import com.jatri.offlinecounterticketing.R
+import com.jatri.offlinecounterticketing.ui.components.BackPressAlertDialog
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
+import com.jatri.offlinecounterticketing.ui.dashboard.DashboardFragmentDirections
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
@@ -34,7 +41,17 @@ class HomeFragment : Fragment(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            requireActivity().finish()
+            requireActivity().showAlertDialog(
+                positiveBtn = getString(R.string.btn_text_conform),
+                negativeBtn = getString(R.string.btn_text_cancel),
+                title = getString(R.string.title_are_you_sure),
+                message = getString(R.string.msg_exit),
+                cancelable = true,
+                positiveBtnCallback = {
+                    requireActivity().finish()
+                },
+                negativeBtnCallback = {}
+            )
         }
     }
 
@@ -49,11 +66,20 @@ class HomeFragment : Fragment(){
 
         setContent {
             OfflineCounterTicketingTheme {
+                val isAlertDialogDialogOpen = remember { mutableStateOf(false) }
+                BackPressAlertDialog(
+                    titleText = getString(R.string.title_are_you_sure),
+                    messageText = getString(R.string.msg_exit),
+                    isAlertDialogOpen = isAlertDialogDialogOpen,
+                    navigateTo = {
+                        requireActivity().finish()
+                    })
+
                 Surface( modifier = Modifier.fillMaxSize()) {
                     Scaffold(topBar = {
                         ToolbarWithButtonLarge(toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
                             toolbarIcon = Icons.Filled.ArrowBack) {
-                            requireActivity().finish()
+                            isAlertDialogDialogOpen.value = true
                         }
                     }) {
                         HomeScreen(

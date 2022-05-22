@@ -1,17 +1,25 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.activity.compose.BackHandler
+import androidx.appcompat.app.AlertDialog
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.jatri.common.extfun.showAlertDialog
 import com.jatri.offlinecounterticketing.R
+import com.jatri.offlinecounterticketing.ui.components.BackPressAlertDialog
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
@@ -26,9 +34,18 @@ class DashboardFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToHomeFragment())
+            requireActivity().showAlertDialog(
+                positiveBtn = getString(R.string.btn_text_conform),
+                negativeBtn = getString(R.string.btn_text_cancel),
+                title = getString(R.string.title_are_you_sure),
+                message = getString(R.string.msg_back_to_home),
+                cancelable = true,
+                positiveBtnCallback = {
+                    findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToHomeFragment())
+                },
+                negativeBtnCallback = {}
+            )
         }
     }
 
@@ -43,12 +60,20 @@ class DashboardFragment : Fragment() {
         )
         setContent {
             OfflineCounterTicketingTheme {
+                val isAlertDialogDialogOpen = remember { mutableStateOf(false) }
+                BackPressAlertDialog(
+                    titleText = getString(R.string.title_are_you_sure),
+                    messageText = getString(R.string.msg_back_to_home),
+                    isAlertDialogOpen = isAlertDialogDialogOpen,
+                navigateTo = {
+                    findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToHomeFragment())
+                })
                 Scaffold(topBar = {
                     ToolbarWithButtonLarge(
                         toolbarTitle = context.getString(R.string.title_dashboard),
                         toolbarIcon = Icons.Filled.ArrowBack
                     ) {
-                        findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToHomeFragment())
+                        isAlertDialogDialogOpen.value = true
                     }
                 }) {
                     Dashboard(

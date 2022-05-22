@@ -4,6 +4,7 @@ import android.app.Activity
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
@@ -18,6 +19,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,6 +30,7 @@ import com.jatri.common.constant.AppConstant
 import com.jatri.domain.usecase.dashboard.ChangePasswordApiUseCase
 import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.R
+import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 import kotlinx.coroutines.launch
 
 @Composable
@@ -53,7 +56,7 @@ fun ChangePasswordDialog(
                     .width(300.dp)
                     .height(300.dp),
                 shape = RoundedCornerShape(5.dp),
-                color = Color.LightGray
+                color = lightGrey
             ) {
                 Column {
                     Column(
@@ -76,7 +79,10 @@ fun ChangePasswordDialog(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             maxLines = 1,
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Next
+                            )
                         )
                         Spacer(modifier = Modifier.height(10.dp))
                         OutlinedTextField(
@@ -86,7 +92,10 @@ fun ChangePasswordDialog(
                             modifier = Modifier
                                 .fillMaxWidth(),
                             maxLines = 1,
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+                            keyboardOptions = KeyboardOptions(
+                                keyboardType = KeyboardType.Text,
+                                imeAction = ImeAction.Done
+                            )
                         )
                         Spacer(modifier = Modifier.height(10.dp))
                         Row(
