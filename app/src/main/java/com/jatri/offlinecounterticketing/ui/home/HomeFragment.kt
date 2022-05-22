@@ -18,14 +18,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.jatri.common.dateparser.DateTimeFormat
 import com.jatri.common.dateparser.DateTimeParser
 import com.jatri.common.extfun.showAlertDialog
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.BackPressAlertDialog
+import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
 import com.jatri.offlinecounterticketing.ui.dashboard.DashboardFragmentDirections
+import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLargeWithMenu
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
@@ -75,12 +76,24 @@ class HomeFragment : Fragment(){
                         requireActivity().finish()
                     })
 
-                Surface( modifier = Modifier.fillMaxSize()) {
+
+                Surface(modifier = Modifier.fillMaxSize()) {
                     Scaffold(topBar = {
                         ToolbarWithButtonLarge(toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
                             toolbarIcon = Icons.Filled.ArrowBack) {
                             isAlertDialogDialogOpen.value = true
                         }
+                        ToolbarWithButtonLargeWithMenu(
+                            toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
+                            toolbarIcon = Icons.Filled.ArrowBack,
+                            onBackButtonPressed = {
+                                requireActivity().finish()
+                            },
+                            onMenuDashboardClicked = {
+                                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSecretPasswordFragment(true))
+                            }
+                        )
+
                     }) {
                         HomeScreen(
                             sharedPrefHelper.getBoolean(SpKey.studentFare),
@@ -90,16 +103,17 @@ class HomeFragment : Fragment(){
                             busCounterClickedCallback = { stoppage, studentFare ->
                                 lifecycleScope.launch {
                                     val ticketFormatEntity = viewModel.getTicketFormatEntity()
-                                    viewModel.printAndInsertTicket(stoppage,ticketFormatEntity,studentFare)
+                                    viewModel.printAndInsertTicket(
+                                        stoppage,
+                                        ticketFormatEntity,
+                                        studentFare
+                                    )
                                 }
-
                             }
                         )
                     }
-
                 }
 
-            }
         }
     }
 
@@ -107,10 +121,13 @@ class HomeFragment : Fragment(){
     override fun onResume() {
         super.onResume()
         if (sharedPrefHelper.getString(SpKey.soldTicketSerialCurrentDate) !=
-            DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY)){
-            sharedPrefHelper.putString(SpKey.soldTicketSerialCurrentDate,
-                DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY))
-            sharedPrefHelper.putInt(SpKey.soldTicketSerial,0)
+            DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY)
+        ) {
+            sharedPrefHelper.putString(
+                SpKey.soldTicketSerialCurrentDate,
+                DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY)
+            )
+            sharedPrefHelper.putInt(SpKey.soldTicketSerial, 0)
         }
     }
 }

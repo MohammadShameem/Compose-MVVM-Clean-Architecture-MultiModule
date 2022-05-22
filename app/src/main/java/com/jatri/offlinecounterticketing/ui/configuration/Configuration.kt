@@ -116,6 +116,7 @@ fun Configuration(
             selectedCompanyEntity?.let {
                 coroutineScope.launch {
                     selectedCounterEntity?.let { counterEntity ->
+                        viewModel.clearCache()
                         viewModel.saveCompanyInfoToSharedPreference(
                             selectedCompanyEntity!!, isStudentFareSelected, counterEntity
                         )

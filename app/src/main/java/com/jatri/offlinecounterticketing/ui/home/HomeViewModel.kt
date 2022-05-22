@@ -1,6 +1,7 @@
 package com.jatri.offlinecounterticketing.ui.home
 
 import android.app.Application
+import android.graphics.BitmapFactory
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -102,49 +103,61 @@ class HomeViewModel @Inject constructor(
                                 SunmiPrintHelper.instance.setAlign(0)
                             }
                         }
-                        if (it.type== AppConstant.companyName) {
-                            SunmiPrintHelper.instance.printText("${it.name}\n", it.font_size.toFloat(),
-                                isBold = it.is_bold, isUnderLine = false)
-                        }
-                        else if(it.type==AppConstant.ticketSerial){
-                            SunmiPrintHelper.instance.printText("${it.leading_text+incrementSerial}\n", it.font_size.toFloat(),
-                                isBold = it.is_bold, isUnderLine = false)
-                        }
-                        else if(it.type==AppConstant.text){
-                            SunmiPrintHelper.instance.printText("${it.text}\n", it.font_size.toFloat(),
-                                isBold = it.is_bold, isUnderLine = false)
-                        }
-                        else if(it.type==AppConstant.complainNumber){
-                            SunmiPrintHelper.instance.printText("${it.text}\n", it.font_size.toFloat(),
-                                isBold = it.is_bold, isUnderLine = false)
-                        }
-                        else if(it.type==AppConstant.date){
-                            SunmiPrintHelper.instance.printText("${it.leading_text+currentDeviceDate}\n", it.font_size.toFloat(),
-                                isBold = it.is_bold, isUnderLine = false)
-                        }
-                        else if(it.type==AppConstant.time){
-                            SunmiPrintHelper.instance.printText("${it.leading_text+currentDeviceTime}\n", it.font_size.toFloat(),
-                                isBold = it.is_bold, isUnderLine = false)
-                        }
-                        else if (it.type==AppConstant.routeName){
-                            if (it.is_dynamic){
-                                SunmiPrintHelper.instance.printText("${stoppageEntity.name}\n",
-                                    it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
+
+                        when (it.type) {
+                            AppConstant.companyName -> {
+                                SunmiPrintHelper.instance.printText("${it.name}\n", it.font_size.toFloat(),
+                                    isBold = it.is_bold, isUnderLine = false)
                             }
-                            else{
-                                SunmiPrintHelper.instance.printText("${it.name}\n",
-                                    it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
+                            AppConstant.ticketSerial -> {
+                                SunmiPrintHelper.instance.printText("${it.leading_text+incrementSerial}\n", it.font_size.toFloat(),
+                                    isBold = it.is_bold, isUnderLine = false)
+                            }
+                            AppConstant.text -> {
+                                SunmiPrintHelper.instance.printText("${it.text}\n", it.font_size.toFloat(),
+                                    isBold = it.is_bold, isUnderLine = false)
+                            }
+                            AppConstant.complainNumber -> {
+                                SunmiPrintHelper.instance.printText("${it.leading_text+it.text}\n", it.font_size.toFloat(),
+                                    isBold = it.is_bold, isUnderLine = false)
+                            }
+                            AppConstant.date -> {
+                                SunmiPrintHelper.instance.printText("${it.leading_text+currentDeviceDate}\n", it.font_size.toFloat(),
+                                    isBold = it.is_bold, isUnderLine = false)
+                            }
+                            AppConstant.time -> {
+                                SunmiPrintHelper.instance.printText("${it.leading_text+currentDeviceTime}\n", it.font_size.toFloat(),
+                                    isBold = it.is_bold, isUnderLine = false)
+                            }
+                            AppConstant.dateTime -> {
+                                SunmiPrintHelper.instance.printText("${it.leading_text}$currentDeviceDate $currentDeviceTime\n", it.font_size.toFloat(),
+                                    isBold = it.is_bold, isUnderLine = false)
+                            }
+                            AppConstant.routeName -> {
+                                if (it.is_dynamic){
+                                    SunmiPrintHelper.instance.printText("${stoppageEntity.name}\n",
+                                        it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
+                                } else{
+                                    SunmiPrintHelper.instance.printText("${it.name}\n",
+                                        it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
+                                }
+                            }
+                            AppConstant.fare -> {
+                                if (studentFare&&sharedPrefHelper.getBoolean(SpKey.studentFare)){
+                                    SunmiPrintHelper.instance.printText("${it.leading_student_fare_text+stoppageEntity.fare_student}\n",
+                                        it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
+                                }else{
+                                    SunmiPrintHelper.instance.printText("${it.leading_text+stoppageEntity.fare}\n",
+                                        it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
+                                }
+                            }
+                            AppConstant.image->{
+                                val imageId: Int = application.resources.getIdentifier(it.text, "drawable", application.packageName)
+                                SunmiPrintHelper.instance.printBitmap(BitmapFactory.decodeResource(application.resources, imageId),0)
+                                SunmiPrintHelper.instance.printText("\n" ,10f,isBold = true, isUnderLine = false)
                             }
                         }
-                        else if (it.type == AppConstant.fare){
-                            if (studentFare){
-                                SunmiPrintHelper.instance.printText("${it.leading_student_fare_text+stoppageEntity.fare_student}\n",
-                                    it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
-                            }else{
-                                SunmiPrintHelper.instance.printText("${it.leading_text+stoppageEntity.fare}\n",
-                                    it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
-                            }
-                        }
+
                     }
                     SunmiPrintHelper.instance.feedPaper()
 /*

@@ -60,6 +60,7 @@
       {
          "type":"complain_number",
          "is_center":null,
+         "leading_text":"",
          "text":"০১৯৮৬৩২৩২৩২/০১৯৯৭৭০৪০৬৪",
          "is_bold":false,
          "font_size":24
@@ -67,7 +68,7 @@
       {
          "type":"text",
          "is_center":null,
-         "text":"সহযোগিতায়: যাত্রী সার্ভিস লি।",
+         "text":"সহযোগিতায়: যাত্রী সার্ভিসেস লি।",
          "is_bold":true,
          "font_size":20
       }

@@ -2,75 +2,90 @@
    "ticket_format":[
       {
          "type":"company_name",
-         "name":"Metro provati",
-         "is_bold":true,
+         "name":"চট্টগ্রাম বন্দর কর্তৃপক্ষ কর্তৃক",
+         "is_bold":false,
          "is_center":true,
-         "font_size":15
+         "font_size":30
       },
       {
          "type":"text",
-         "is_center":true,
-         "text":"BRTC",
-         "is_bold":true,
-         "font_size":15
+         "is_center":null,
+         "text":"ইজারাকৃত",
+         "is_bold":false,
+         "font_size":30
       },
       {
-         "type":"route_name",
-         "is_dynamic":true,
-         "name":"BRTC",
+         "type":"image",
+         "is_center":null,
+         "text":"logo_port",
+         "is_bold":false,
+         "font_size":30
+      },
+      {
+         "type":"text",
+         "is_center":null,
+         "text":"দক্ষিন পতেঙ্গা চর পাড়া ঘাট",
+         "is_bold":false,
+         "font_size":30
+      },
+      {
+         "type":"text",
+         "is_center":null,
+         "text":"ইজারাদার",
+         "is_bold":false,
+         "font_size":30
+      },
+      {
+         "type":"text",
+         "is_center":null,
+         "text":"সী মেরিটাইম সার্ভিসেস",
          "is_bold":true,
-         "is_center":true,
-         "font_size":15
+         "font_size":35
+      },
+      {
+         "type":"image",
+         "is_center":null,
+         "text":"logo_maritime",
+         "is_bold":false,
+         "font_size":30
+      },
+      {
+         "type":"text",
+         "is_center":false,
+         "text":"যাত্রার তারিখঃ",
+         "is_bold":false,
+         "font_size":28
+      },
+      {
+         "type":"date_time",
+         "leading_text":"",
+         "is_center":null,
+         "is_bold":true,
+         "font_size":28
       },
       {
          "type":"fare",
-         "leading_text":"",
+         "leading_text":"ভাড়া - ",
          "leading_student_fare_text":"",
          "trailing_text":"",
-         "is_center":true,
+         "is_center":null,
          "is_bold":true,
-         "font_size":15
-      },
-      {
-         "type":"ticket_serial",
-         "leading_text":"",
-         "is_bold":true,
-         "is_center":true,
-         "font_size":15
-      },
-      {
-         "type":"date",
-         "leading_text":"",
-         "is_bold":true,
-         "font_size":15
-      },
-      {
-         "type":"time",
-         "leading_text":"",
-         "is_bold":true,
-         "font_size":15
-      },
-      {
-         "type":"text",
-         "is_center":true,
-         "text":"BRTC",
-         "is_bold":true,
-         "font_size":15
+         "font_size":40
       },
       {
          "type":"complain_number",
-         "leading_text":"",
-         "trailing_text":"",
-         "is_center":true,
-         "is_bold":true,
-         "font_size":15
+         "is_center":null,
+         "leading_text":"অভিযোগ নাম্বারঃ ",
+         "text":"০১৭১১৩০৭৭১৩",
+         "is_bold":false,
+         "font_size":24
       },
       {
          "type":"text",
-         "is_center":true,
-         "text":"BRTC",
+         "is_center":null,
+         "text":"সহযোগিতায়: যাত্রী সার্ভিসেস লি।",
          "is_bold":true,
-         "font_size":15
+         "font_size":20
       }
    ]
 }
