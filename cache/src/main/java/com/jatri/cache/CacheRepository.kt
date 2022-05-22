@@ -1,6 +1,5 @@
 package com.jatri.cache
 
-import androidx.lifecycle.LiveData
 import com.jatri.cache.dao.OfflineCounterTicketingDao
 import com.jatri.domain.entity.StoppageEntity
 import com.jatri.domain.entity.SoldTicketEntity
@@ -25,8 +24,8 @@ class CacheRepository @Inject constructor(
     suspend fun insertSoldTicketEntity(entity: SoldTicketEntity) =
         cacheDao.insertSoldTicketEntity(entity)
 
-    fun fetchSoldTicketGroupWiseLiveData():LiveData<List<SoldTicketGroupWiseEntity>> =
-        cacheDao.fetchSoldTicketGroupWiseLiveData()
+    fun fetchSoldTicketGroupWiseDataFlow():Flow<List<SoldTicketGroupWiseEntity>> =
+        cacheDao.fetchSoldTicketGroupWiseDataFlow()
 
     suspend fun fetchSoldTicketGroupWise():List<SoldTicketGroupWiseEntity> =
         cacheDao.fetchSoldTicketGroupWise()

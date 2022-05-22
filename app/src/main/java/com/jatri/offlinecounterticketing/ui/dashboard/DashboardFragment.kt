@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -23,6 +24,14 @@ class DashboardFragment : Fragment() {
     @Inject
     lateinit var sharedPrefHelper: SharedPrefHelper
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToHomeFragment())
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,7 +48,7 @@ class DashboardFragment : Fragment() {
                         toolbarTitle = context.getString(R.string.title_dashboard),
                         toolbarIcon = Icons.Filled.ArrowBack
                     ) {
-                        findNavController().navigate(R.id.loginFragment)
+                        findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToHomeFragment())
                     }
                 }) {
                     Dashboard(

@@ -25,7 +25,7 @@ interface OfflineCounterTicketingDao {
     suspend fun insertSoldTicketEntity(entity: SoldTicketEntity)
 
     @Query("SELECT sum(fare) as total_fare, count(*) as ticket_count, name, fare FROM sold_ticket GROUP BY name, fare")
-    fun fetchSoldTicketGroupWiseLiveData(): LiveData<List<SoldTicketGroupWiseEntity>>
+    fun fetchSoldTicketGroupWiseDataFlow(): Flow<List<SoldTicketGroupWiseEntity>>
 
     @Query("SELECT sum(fare) as total_fare, count(*) as ticket_count, name, fare FROM sold_ticket GROUP BY name, fare")
     suspend fun fetchSoldTicketGroupWise():List<SoldTicketGroupWiseEntity>
