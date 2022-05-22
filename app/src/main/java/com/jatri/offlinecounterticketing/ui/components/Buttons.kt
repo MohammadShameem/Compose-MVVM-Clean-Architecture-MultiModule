@@ -13,6 +13,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.jatri.offlinecounterticketing.ui.theme.lightViolet
 
+/**
+ * @param text Button Text
+ * @param onClick Button On CLick Behaviour
+ * */
 @Composable
 fun RoundJatriButton(text: String, onClick: () -> Unit) {
     Button(

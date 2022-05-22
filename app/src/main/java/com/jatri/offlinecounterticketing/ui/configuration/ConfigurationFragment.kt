@@ -28,8 +28,12 @@ class ConfigurationFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         requireActivity().onBackPressedDispatcher.addCallback(this) {
-            //requireActivity().finish()
-
+            if(sharedPrefHelper.getBoolean(SpKey.configured)){
+                findNavController().navigate(R.id.homeFragment)
+            }
+            else {
+                requireActivity().finish()
+            }
         }
     }
 

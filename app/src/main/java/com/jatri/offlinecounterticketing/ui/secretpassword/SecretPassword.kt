@@ -9,17 +9,19 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.JatriLogo
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 
 @Composable
 fun SecretPassword(
-    onContinueClick : (String) -> Unit
+    onContinueClick: (String) -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxHeight(),
@@ -27,12 +29,15 @@ fun SecretPassword(
     ) {
         var text by remember { mutableStateOf("") }
         JatriLogo()
-        Text(text = "Please Setup Configuration", fontWeight = FontWeight.Bold)
+        Text(
+            text = stringResource(R.string.please_setup_configuration),
+            fontWeight = FontWeight.Bold
+        )
         Spacer(modifier = Modifier.size(48.dp))
         OutlinedTextField(
             value = text,
             onValueChange = { text = it },
-            label = { Text("Secret Password") },
+            label = { Text(stringResource(R.string.label_secret_password)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
@@ -41,12 +46,20 @@ fun SecretPassword(
             ),
             keyboardActions = KeyboardActions(
                 onDone = {
+                    /**
+                     * Send the entered text if user clicks soft keyboards done button
+                     * to check if it matched with our predefined password
+                     * */
                     onContinueClick.invoke(text)
                 }
             ),
         )
         Spacer(modifier = Modifier.size(48.dp))
-        RoundJatriButton("Continue"){
+        RoundJatriButton(stringResource(R.string.btn_continue)) {
+            /**
+             * Send the entered text if user clicks Continue button
+             * to check if it matched with our predefined password
+             * */
             onContinueClick.invoke(text)
         }
     }
@@ -57,8 +70,7 @@ fun SecretPassword(
 fun SecretPasswordPrev() {
     OfflineCounterTicketingTheme {
         Surface {
-            SecretPassword{
-
+            SecretPassword {
             }
         }
     }

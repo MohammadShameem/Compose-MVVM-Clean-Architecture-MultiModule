@@ -10,12 +10,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.domain.entity.CounterEntity
 import com.jatri.domain.entity.CounterListEntity
 import com.jatri.entity.companylist.OfflineCompanyEntity
+import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
 import com.jatri.offlinecounterticketing.ui.components.DropDown
 import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
@@ -53,7 +55,7 @@ fun Configuration(
 
         JatriLogo()
         Text(
-            text = "Please Setup Configuration",
+            text = stringResource(id = R.string.please_setup_configuration),
             fontWeight = FontWeight.Bold
         )
         Box {
@@ -102,17 +104,17 @@ fun Configuration(
                         selected = isStudentFareSelected,
                         onClick = { isStudentFareSelected = true }
                     )
-                    Text(text = "Enabled")
+                    Text(text = stringResource(R.string.checkBox_enabled))
                     RadioButton(
                         selected = !isStudentFareSelected,
                         onClick = { isStudentFareSelected = false }
                     )
-                    Text(text = "Disabled")
+                    Text(text = stringResource(R.string.checkBox_disabled))
                 }
             }
         }
 
-        RoundJatriButton("Configure") {
+        RoundJatriButton(stringResource(R.string.btn_configure)) {
             selectedCompanyEntity?.let {
                 coroutineScope.launch {
                     selectedCounterEntity?.let { counterEntity ->

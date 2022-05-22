@@ -52,7 +52,8 @@
             app:destination="@id/loginFragment" />
         <action
             android:id="@+id/action_homeFragment_to_secretPasswordFragment"
-            app:destination="@id/secretPasswordFragment" />
+            app:destination="@id/secretPasswordFragment"
+            app:popUpTo="@id/secretPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/dashboardFragment"

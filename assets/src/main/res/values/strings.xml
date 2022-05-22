@@ -38,6 +38,14 @@
     <string name="format_total_ticket_count">Total Ticket Count: %d</string>
     <string name="format_total_ticket_fare">Total Ticket Fare: %d</string>
     <string name="msg_noting_to_print">Noting to print</string>
+    <string name="please_setup_configuration">Please Setup Configuration</string>
+    <string name="msg_wrong_password">Wrong Password!</string>
+    <string name="label_secret_password">Secret Password</string>
+    <string name="btn_continue">Continue</string>
+    <string name="label_select_company">Select Company</string>
+    <string name="btn_configure">Configure</string>
+    <string name="checkBox_enabled">Enabled</string>
+    <string name="checkBox_disabled">Disabled</string>
     <string name="btn_text_change_password">Change Password</string>
     <string name="change_counter">Change Counter</string>
     <string name="total_ticket_count">Total Ticket Count</string>

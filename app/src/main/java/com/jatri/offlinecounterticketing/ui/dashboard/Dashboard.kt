@@ -25,10 +25,8 @@ import com.jatri.offlinecounterticketing.ui.components.CircularProgressBar
 import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
 import com.jatri.offlinecounterticketing.ui.components.JatriRoundOutlinedButton
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
-import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 import com.jatri.offlinecounterticketing.ui.theme.darkGrey
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -215,7 +213,8 @@ fun DashboardCard(
     Card(
         modifier = modifier.padding(all = 8.dp),
         shape = RoundedCornerShape(10),
-        backgroundColor = lightGrey
+        backgroundColor = lightGrey,
+        elevation = 0.dp,
     ) {
         content.invoke()
     }
