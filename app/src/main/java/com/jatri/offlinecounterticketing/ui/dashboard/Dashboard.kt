@@ -56,7 +56,7 @@ fun Dashboard(
         Spacer(modifier = Modifier.size(8.dp))
         ChangeCounter(viewModel, context)
         Spacer(modifier = Modifier.size(16.dp))
-        RoundJatriButton(text = stringResource(R.string.btn_text_report_print), backgroundColor = colorPrimary) {
+        RoundJatriButton(text = stringResource(R.string.btn_text_report_print), backgroundColor = lightGrey) {
                 coroutineScope.launch {
                     if(unSyncTicketCountState > 0) isProgressBarLoading = true
                     val soldTicketBody = viewModel.getSoldTicketBodyToSync(soldTicketListState)
