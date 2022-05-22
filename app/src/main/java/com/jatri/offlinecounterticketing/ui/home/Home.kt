@@ -13,19 +13,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.domain.entity.StoppageEntity
 import com.jatri.offlinecounterticketing.R
-import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 
 
 @Composable
 fun HomeScreen(
-    isStudentFareEnable: Boolean,
+    isStudentFareEnable: Boolean, //student fare enable from config page
     syncClickedCallBack: () -> Unit,
     busCounterClickedCallback: (stoppageEntity: StoppageEntity, studentFare: Boolean) -> Unit
 ) {
@@ -34,7 +32,11 @@ fun HomeScreen(
     val unSyncTicketCountState by viewModel.unSyncTicketCountState.collectAsState()
     val unSyncTicketAmountState by viewModel.unSyncTicketAmountState.collectAsState()
 
-    val studentState = remember { mutableStateOf(true) }
+    /**
+     * If Student Fare is enable from config then It will default
+     * set student fare enable in checkbox in view
+     * */
+    val studentCheckboxState = remember { mutableStateOf(true) }
 
     LaunchedEffect(stoppageListState, unSyncTicketCountState, unSyncTicketAmountState, block = {
         viewModel.fetchBusCounterList()
@@ -59,7 +61,7 @@ fun HomeScreen(
                         StoppageEntity(
                             busCounter.id, busCounter.name,
                             busCounter.fare, busCounter.fare_student
-                        ), busCounterClickedCallback, studentState
+                        ), busCounterClickedCallback, studentCheckboxState
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                 }
@@ -84,8 +86,8 @@ fun HomeScreen(
                         if (isStudentFareEnable) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Checkbox(
-                                    checked = studentState.value,
-                                    onCheckedChange = { studentState.value = it }
+                                    checked = studentCheckboxState.value,
+                                    onCheckedChange = { studentCheckboxState.value = it }
                                 )
                                 Text(
                                     text = "Student Fare",
@@ -159,20 +161,5 @@ fun BusCounterItem(
             fontSize = 24.sp,
             modifier = Modifier.weight(0.1f)
         )
-    }
-}
-
-
-@Preview
-@Composable
-fun CompanyCounterPrev() {
-    OfflineCounterTicketingTheme {
-        Surface {
-            val list = mutableListOf<StoppageEntity>()
-            list.add(StoppageEntity(0, "Rxjava", 3, 2))
-            list.add(StoppageEntity(0, "Rxjava", 3, 2))
-            // HomeScreen(syncClickedCallBack = { /*TODO*/ }, busCounterClickedCallback = {})
-
-        }
     }
 }

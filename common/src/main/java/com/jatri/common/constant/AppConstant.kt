@@ -10,6 +10,8 @@ object AppConstant {
     const val fare = "fare"
     const val date = "date"
     const val time = "time"
+    const val dateTime = "date_time"
+    const val image = "image"
     const val complainNumber = "complain_number"
     const val ticketSerial = "ticket_serial"
     const val routeName = "route_name"
