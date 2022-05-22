@@ -71,6 +71,13 @@
          "text":"সহযোগিতায়: যাত্রী সার্ভিসেস লি।",
          "is_bold":true,
          "font_size":20
+      },
+      {
+         "type":"qr_code",
+         "is_center":null,
+         "text":"qr_serial,qr_name,qr_date,qr_time",
+         "is_bold":false,
+         "font_size":20
       }
    ]
 }

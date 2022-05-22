@@ -21,10 +21,15 @@ import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 
-
+/**
+ * Home Screen Stoppage list show
+ * @param isStudentFareEnable fare enable from config page
+ * @param syncClickedCallBack sync button click callback
+ * @param busCounterClickedCallback stoppage item click listener from stoppage list items
+ * */
 @Composable
 fun HomeScreen(
-    isStudentFareEnable: Boolean, //student fare enable from config page
+    isStudentFareEnable: Boolean,
     syncClickedCallBack: () -> Unit,
     busCounterClickedCallback: (stoppageEntity: StoppageEntity, studentFare: Boolean) -> Unit
 ) {
@@ -129,7 +134,12 @@ fun HomeScreen(
     }
 }
 
-
+/**
+ * Stoppage Item show in home page
+ * @param stoppageEntity stoppage entity
+ * @param busCounterClickedCallback list item click
+ * @param studentState student fare State
+ * */
 @Composable
 fun BusCounterItem(
     stoppageEntity: StoppageEntity,
@@ -140,7 +150,7 @@ fun BusCounterItem(
         modifier = Modifier
             .fillMaxWidth()
             .background(color = lightGrey, shape = RoundedCornerShape(15))
-            .padding(all = 8.dp)
+            .padding(start = 8.dp, top = 8.dp, bottom = 8.dp, end = 16.dp)
             .clickable(onClick = {
                 busCounterClickedCallback.invoke(stoppageEntity, studentState.value)
             }),

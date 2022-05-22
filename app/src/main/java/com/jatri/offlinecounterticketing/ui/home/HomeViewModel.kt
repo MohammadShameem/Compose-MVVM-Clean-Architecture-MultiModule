@@ -144,10 +144,10 @@ class HomeViewModel @Inject constructor(
                             }
                             AppConstant.fare -> {
                                 if (studentFare&&sharedPrefHelper.getBoolean(SpKey.studentFare)){
-                                    SunmiPrintHelper.instance.printText("${it.leading_student_fare_text+stoppageEntity.fare_student}\n",
+                                    SunmiPrintHelper.instance.printText("${it.leading_student_fare_text}${BanglaConverterUtil.convertNumberToBengaliNumber("${stoppageEntity.fare_student}")}\n",
                                         it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
                                 }else{
-                                    SunmiPrintHelper.instance.printText("${it.leading_text+stoppageEntity.fare}\n",
+                                    SunmiPrintHelper.instance.printText("${it.leading_text}${BanglaConverterUtil.convertNumberToBengaliNumber("${stoppageEntity.fare}")}\n",
                                         it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
                                 }
                             }
@@ -156,37 +156,33 @@ class HomeViewModel @Inject constructor(
                                 SunmiPrintHelper.instance.printBitmap(BitmapFactory.decodeResource(application.resources, imageId),0)
                                 SunmiPrintHelper.instance.printText("\n" ,10f,isBold = true, isUnderLine = false)
                             }
+                            AppConstant.qrCode ->{
+                                var qrCodeData = ""
+                                it.text.split(",").forEach { textQrCodeData->
+                                    when(textQrCodeData){
+                                        AppConstant.qrSerial ->{
+                                            qrCodeData += "$incrementSerial,"
+                                        }
+                                        AppConstant.qrName ->{
+                                            qrCodeData += "${stoppageEntity.name},"
+                                        }
+                                        AppConstant.qrDate ->{
+                                            qrCodeData += "$currentDeviceDate,"
+                                        }
+                                        AppConstant.qrTime ->{
+                                            qrCodeData += "$currentDeviceTime,"
+                                        }
+                                    }
+                                }
+                                SunmiPrintHelper.instance.printText("\n" ,10f,isBold = true, isUnderLine = false)
+                                SunmiPrintHelper.instance.printQr(qrCodeData,3,1)
+                                SunmiPrintHelper.instance.printText("\n" ,10f,isBold = true, isUnderLine = false)
+                            }
                         }
 
                     }
                     SunmiPrintHelper.instance.feedPaper()
-/*
-                    //print ticket here
-                    SunmiPrintHelper.instance.setAlign(1)
-                    SunmiPrintHelper.instance.printText("মেট্রো প্রভাতী / সোনার বাংলা\n", 25f, isBold = false, isUnderLine = false)
-                    SunmiPrintHelper.instance.printText("বাস কাউন্টার সার্ভিস \n", 20f, isBold = false, isUnderLine = false)
-                    SunmiPrintHelper.instance.printText("${busCounterEntity.name}\n", 35f, isBold = true, isUnderLine = false)
-                    SunmiPrintHelper.instance.setAlign(0)
-                    if (sharedPrefHelper.getBoolean(SpKey.studentFare)) SunmiPrintHelper.instance
-                        .printText("স্টুডেন্ট ভাড়া - ${BanglaConverterUtil.convertNumberToBengaliNumber("${busCounterEntity.fare_student}")}\n",
-                            40f, isBold = true, isUnderLine = false)
-                    else SunmiPrintHelper.instance.printText("ভাড়া - ${BanglaConverterUtil.convertNumberToBengaliNumber("${busCounterEntity.fare}")}\n",
-                        40f, isBold = true, isUnderLine = false)
-                    SunmiPrintHelper.instance.printText("সিরিয়াল নং - ${BanglaConverterUtil.convertNumberToBengaliNumber("$incrementSerial")}\n",
-                        26f, isBold = true, isUnderLine = false)
-                    SunmiPrintHelper.instance.setAlign(0)
-                    SunmiPrintHelper.instance.printText("তারিখ - $currentDeviceDate\n", 26f, isBold = true, isUnderLine = false)
-                    SunmiPrintHelper.instance.printText("সময় - $currentDeviceTime\n", 26f, isBold = true, isUnderLine = false)
 
-                    SunmiPrintHelper.instance.setAlign(1)
-                    SunmiPrintHelper.instance.printText("অভিযোগ / পরামর্শ \n", 24f, isBold = false, isUnderLine = false)
-                    SunmiPrintHelper.instance.printText("০১৯৮৬৩২৩২৩২/০১৯৯৭৭০৪০৬৪\n", 24f, isBold = false, isUnderLine = false)
-                    SunmiPrintHelper.instance.printText("সহযোগিতায়: যাত্রী সার্ভিস লি।\n", 20f, isBold = true, isUnderLine = false)
-
-                    SunmiPrintHelper.instance.setAlign(1)
-                    val qrText = "$incrementSerial"+" , "+ busCounterEntity.name +" , "+currentDeviceDate + " " + currentDeviceTime
-                    SunmiPrintHelper.instance.printQr(qrText,3,1)
-                    SunmiPrintHelper.instance.feedPaper()*/
                     viewModelScope.launch {
                         cacheRepository.insertSoldTicketEntity(
                             SoldTicketEntity(
