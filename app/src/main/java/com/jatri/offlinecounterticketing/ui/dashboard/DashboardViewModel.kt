@@ -46,8 +46,6 @@ class DashboardViewModel @Inject constructor(
     private val _unSyncTicketAmountState = MutableStateFlow(0)
     val unSyncTicketAmountState : StateFlow<Int> = _unSyncTicketAmountState
 
-
-
     private val _soldTicketListState = MutableStateFlow<List<SoldTicketGroupWiseEntity>>(listOf())
     var soldTicketListState : StateFlow<List<SoldTicketGroupWiseEntity>> = _soldTicketListState
 
