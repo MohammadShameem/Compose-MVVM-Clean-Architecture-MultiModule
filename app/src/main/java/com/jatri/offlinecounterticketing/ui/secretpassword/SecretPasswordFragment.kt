@@ -9,8 +9,10 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
+import com.jatri.offlinecounterticketing.ui.configuration.ConfigurationFragmentArgs
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
@@ -23,10 +25,11 @@ class SecretPasswordFragment : Fragment() {
     @Inject
     lateinit var sharedPrefHelper: SharedPrefHelper
     private lateinit var jsonString: String
+    private val args: SecretPasswordFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if(sharedPrefHelper.getBoolean(SpKey.configured)){
+        if (!args.cameFromHomeFragment && sharedPrefHelper.getBoolean(SpKey.configured)) {
             findNavController().navigate(SecretPasswordFragmentDirections.actionSecretPasswordFragmentToHomeFragment())
         }
     }
@@ -47,11 +50,14 @@ class SecretPasswordFragment : Fragment() {
 
         val navigateToConfiguration = { secretPassword: String ->
             if (secretPassword == resources.getString(R.string.secretPassword)) {
-                findNavController().navigate(SecretPasswordFragmentDirections.actionSecretPasswordFragmentToConfigurationFragment(jsonString))
+                findNavController().navigate(
+                    SecretPasswordFragmentDirections.actionSecretPasswordFragmentToConfigurationFragment(
+                        jsonString
+                    )
+                )
                 sharedPrefHelper.putBool(SpKey.passwordEntered, true)
-            }
-            else {
-                Toast.makeText(requireContext(),"Wrong Password!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Wrong Password!", Toast.LENGTH_SHORT).show()
             }
         }
         setContent {

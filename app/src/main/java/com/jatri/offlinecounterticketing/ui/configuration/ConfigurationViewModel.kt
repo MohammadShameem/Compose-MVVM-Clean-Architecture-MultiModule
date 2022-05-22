@@ -39,4 +39,9 @@ class ConfigurationViewModel
             cacheRepository.insertSelectedBusCounterEntity(counterEntity.stoppage_list)
         }
     }
+    fun clearCache(){
+        viewModelScope.launch {
+            cacheRepository.deleteSelectedBusCounterEntity()
+        }
+    }
 }

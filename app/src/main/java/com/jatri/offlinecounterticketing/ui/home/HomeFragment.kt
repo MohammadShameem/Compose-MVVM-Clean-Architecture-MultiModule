@@ -18,7 +18,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.jatri.common.dateparser.DateTimeFormat
 import com.jatri.common.dateparser.DateTimeParser
+import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
+import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLargeWithMenu
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
@@ -27,8 +29,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(){
-    @Inject lateinit var sharedPrefHelper: SharedPrefHelper
+class HomeFragment : Fragment() {
+    @Inject
+    lateinit var sharedPrefHelper: SharedPrefHelper
     private val viewModel: HomeViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,19 +45,27 @@ class HomeFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View= ComposeView(inflater.context).apply {
+    ): View = ComposeView(inflater.context).apply {
         layoutParams = ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT)
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
 
         setContent {
             OfflineCounterTicketingTheme {
-                Surface( modifier = Modifier.fillMaxSize()) {
+                Surface(modifier = Modifier.fillMaxSize()) {
                     Scaffold(topBar = {
-                        ToolbarWithButtonLarge(toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
-                            toolbarIcon = Icons.Filled.ArrowBack) {
-                            requireActivity().finish()
-                        }
+                        ToolbarWithButtonLargeWithMenu(
+                            toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
+                            toolbarIcon = Icons.Filled.ArrowBack,
+                            onBackButtonPressed = {
+                                requireActivity().finish()
+                            },
+                            onMenuDashboardClicked = {
+                                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSecretPasswordFragment(true))
+                            }
+                        )
+
                     }) {
                         HomeScreen(
                             sharedPrefHelper.getBoolean(SpKey.studentFare),
@@ -64,15 +75,16 @@ class HomeFragment : Fragment(){
                             busCounterClickedCallback = { stoppage, studentFare ->
                                 lifecycleScope.launch {
                                     val ticketFormatEntity = viewModel.getTicketFormatEntity()
-                                    viewModel.printAndInsertTicket(stoppage,ticketFormatEntity,studentFare)
+                                    viewModel.printAndInsertTicket(
+                                        stoppage,
+                                        ticketFormatEntity,
+                                        studentFare
+                                    )
                                 }
-
                             }
                         )
                     }
-
                 }
-
             }
         }
     }
@@ -81,10 +93,13 @@ class HomeFragment : Fragment(){
     override fun onResume() {
         super.onResume()
         if (sharedPrefHelper.getString(SpKey.soldTicketSerialCurrentDate) !=
-            DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY)){
-            sharedPrefHelper.putString(SpKey.soldTicketSerialCurrentDate,
-                DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY))
-            sharedPrefHelper.putInt(SpKey.soldTicketSerial,0)
+            DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY)
+        ) {
+            sharedPrefHelper.putString(
+                SpKey.soldTicketSerialCurrentDate,
+                DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY)
+            )
+            sharedPrefHelper.putInt(SpKey.soldTicketSerial, 0)
         }
     }
 }
