@@ -23,9 +23,7 @@ import com.jatri.common.dateparser.DateTimeParser
 import com.jatri.common.extfun.showAlertDialog
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.BackPressAlertDialog
-import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
-import com.jatri.offlinecounterticketing.ui.dashboard.DashboardFragmentDirections
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLargeWithMenu
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
@@ -79,18 +77,18 @@ class HomeFragment : Fragment(){
 
                 Surface(modifier = Modifier.fillMaxSize()) {
                     Scaffold(topBar = {
-                        ToolbarWithButtonLarge(toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
-                            toolbarIcon = Icons.Filled.ArrowBack) {
-                            isAlertDialogDialogOpen.value = true
-                        }
                         ToolbarWithButtonLargeWithMenu(
                             toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
                             toolbarIcon = Icons.Filled.ArrowBack,
                             onBackButtonPressed = {
-                                requireActivity().finish()
+                                isAlertDialogDialogOpen.value = true
                             },
                             onMenuDashboardClicked = {
-                                findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToSecretPasswordFragment(true))
+                                findNavController().navigate(
+                                    HomeFragmentDirections.actionHomeFragmentToSecretPasswordFragment(
+                                        true
+                                    )
+                                )
                             }
                         )
 
@@ -113,11 +111,9 @@ class HomeFragment : Fragment(){
                         )
                     }
                 }
-
+            }
         }
     }
-
-
     override fun onResume() {
         super.onResume()
         if (sharedPrefHelper.getString(SpKey.soldTicketSerialCurrentDate) !=

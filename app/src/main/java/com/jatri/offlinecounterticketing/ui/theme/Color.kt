@@ -3,7 +3,7 @@ package com.jatri.offlinecounterticketing.ui.theme
 import androidx.compose.ui.graphics.Color
 
 //Primary Colors
-val colorPrimary = Color(0xFFF52A06)
+val colorPrimary = Color(0xFFF04935)
 val colorPrimaryDark = Color(0xFFF73426)
 val colorAccent = Color(0xFFff6347)
 
@@ -22,4 +22,3 @@ val lightGreen = Color(0XFF2EBEBB)
 
 val darkRed = Color(0xFFF73E6B)
 val lightRed = Color(0xFFF65D81)
-val itemColor = Color(0xE5E5E5)
