@@ -66,8 +66,7 @@ fun ToolbarWithButtonLargeWithMenu(
     Box(Modifier.background(color = colorPrimary)) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = 8.dp, end = 8.dp, top = 16.dp, bottom = 16.dp),
+                .fillMaxWidth(),
             //verticalArrangement = Arrangement.Center
         ) {
             TopAppBar(
@@ -86,8 +85,8 @@ fun ToolbarWithButtonLargeWithMenu(
                 backgroundColor = colorPrimary,
                 elevation = 0.dp
             )
-            Spacer(modifier = Modifier.size(8.dp))
             Text(
+                modifier = Modifier.padding(start = 16.dp, bottom = 4.dp),
                 text = toolbarTitle,
                 fontSize = MaterialTheme.typography.h5.fontSize,
                 color = Color.White
