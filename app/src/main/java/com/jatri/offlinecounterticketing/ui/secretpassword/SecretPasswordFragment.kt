@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -48,6 +49,9 @@ class SecretPasswordFragment : Fragment() {
             if (secretPassword == resources.getString(R.string.secretPassword)) {
                 findNavController().navigate(SecretPasswordFragmentDirections.actionSecretPasswordFragmentToConfigurationFragment(jsonString))
                 sharedPrefHelper.putBool(SpKey.passwordEntered, true)
+            }
+            else {
+                Toast.makeText(requireContext(),"Wrong Password!", Toast.LENGTH_SHORT).show()
             }
         }
         setContent {
