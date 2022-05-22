@@ -19,7 +19,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.domain.entity.StoppageEntity
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
-import com.jatri.offlinecounterticketing.ui.theme.itemColor
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 
 
