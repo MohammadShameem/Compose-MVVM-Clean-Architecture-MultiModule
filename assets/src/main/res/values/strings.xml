@@ -26,6 +26,9 @@
     <string name="btn_text_update">Update</string>
     <string name="btn_text_conform">Conform</string>
     <string name="title_are_you_sure">Are you sure?</string>
+    <string name="ticket_info">%s \nভাড়া = %d</string>
+    <string name="ticket_counter">%s</string>
+    <string name="ticket_fare">ভাড়া = %d</string>
     <string name="msg_back_to_home">Press conform to back to home</string>
     <string name="msg_exit">Press conform to exit!</string>
     <string name="text_sign_in_to_your_account">Sign in to your account</string>

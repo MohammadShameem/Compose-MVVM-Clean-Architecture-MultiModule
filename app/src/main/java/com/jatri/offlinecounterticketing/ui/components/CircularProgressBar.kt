@@ -7,6 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 
+/**
+ * This will be used at the time of reportPrint and sync data
+ * @param: isDisplayed as Boolean which will be used to determined when our progressBar will be shown or hide
+ * */
 @Composable
 fun CircularProgressBar(isDisplayed: Boolean) {
     Row(

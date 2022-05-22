@@ -10,10 +10,12 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -21,9 +23,10 @@ import androidx.navigation.findNavController
 import com.jatri.common.dateparser.DateTimeFormat
 import com.jatri.common.dateparser.DateTimeParser
 import com.jatri.common.extfun.showAlertDialog
+import com.jatri.domain.entity.StoppageEntity
 import com.jatri.offlinecounterticketing.R
-import com.jatri.offlinecounterticketing.ui.components.BackPressAlertDialog
-import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
+import com.jatri.offlinecounterticketing.ui.components.AlertDialogWithoutTitle
+import com.jatri.offlinecounterticketing.ui.components.AlertDialogWithTitle
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLargeWithMenu
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
@@ -36,7 +39,6 @@ import javax.inject.Inject
 class HomeFragment : Fragment(){
     @Inject lateinit var sharedPrefHelper: SharedPrefHelper
     private val viewModel: HomeViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
@@ -65,15 +67,14 @@ class HomeFragment : Fragment(){
 
         setContent {
             OfflineCounterTicketingTheme {
-                val isAlertDialogDialogOpen = remember { mutableStateOf(false) }
-                BackPressAlertDialog(
+                val isAlertDialogDialogOpenWithTitle = remember { mutableStateOf(false) }
+                AlertDialogWithTitle(
                     titleText = getString(R.string.title_are_you_sure),
                     messageText = getString(R.string.msg_exit),
-                    isAlertDialogOpen = isAlertDialogDialogOpen,
-                    navigateTo = {
-                        requireActivity().finish()
-                    })
-
+                    isAlertDialogOpen = isAlertDialogDialogOpenWithTitle
+                ) {
+                    requireActivity().finish()
+                }
 
                 Surface(modifier = Modifier.fillMaxSize()) {
                     Scaffold(topBar = {
@@ -81,7 +82,7 @@ class HomeFragment : Fragment(){
                             toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
                             toolbarIcon = Icons.Filled.ArrowBack,
                             onBackButtonPressed = {
-                                isAlertDialogDialogOpen.value = true
+                                isAlertDialogDialogOpenWithTitle.value = true
                             },
                             onMenuDashboardClicked = {
                                 findNavController().navigate(
@@ -93,20 +94,27 @@ class HomeFragment : Fragment(){
                         )
 
                     }) {
+                        val itemStoppageEntity: MutableState<StoppageEntity> = remember { mutableStateOf(StoppageEntity(0,"",0,0)) }
+                        val itemStudentFare = remember { mutableStateOf(false) }
+
+                        val isAlertDialogDialogOpenWithOutTitle = remember { mutableStateOf(false) }
+
+                        AlertDialogWithoutTitle(
+                            messageText = stringResource(R.string.ticket_info,itemStoppageEntity.value.name,itemStoppageEntity.value.fare),
+                            isAlertDialogOpen = isAlertDialogDialogOpenWithOutTitle
+                        ) {
+                            onBusCounterItemClick(itemStoppageEntity.value, itemStudentFare.value)
+                        }
+
                         HomeScreen(
                             sharedPrefHelper.getBoolean(SpKey.studentFare),
                             syncClickedCallBack = {
                                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
                             },
                             busCounterClickedCallback = { stoppage, studentFare ->
-                                lifecycleScope.launch {
-                                    val ticketFormatEntity = viewModel.getTicketFormatEntity()
-                                    viewModel.printAndInsertTicket(
-                                        stoppage,
-                                        ticketFormatEntity,
-                                        studentFare
-                                    )
-                                }
+                                itemStoppageEntity.value = stoppage
+                                itemStudentFare.value = studentFare
+                                isAlertDialogDialogOpenWithOutTitle.value = true
                             }
                         )
                     }
@@ -114,6 +122,19 @@ class HomeFragment : Fragment(){
             }
         }
     }
+
+    private fun onBusCounterItemClick(stoppage: StoppageEntity, studentFare: Boolean) {
+        lifecycleScope.launch {
+            val ticketFormatEntity = viewModel.getTicketFormatEntity()
+            viewModel.printAndInsertTicket(
+                stoppage,
+                ticketFormatEntity,
+                studentFare
+            )
+        }
+    }
+
+
     override fun onResume() {
         super.onResume()
         if (sharedPrefHelper.getString(SpKey.soldTicketSerialCurrentDate) !=

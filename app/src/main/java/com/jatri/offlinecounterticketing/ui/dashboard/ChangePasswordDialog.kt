@@ -32,7 +32,11 @@ import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 import kotlinx.coroutines.launch
-
+/**
+ * This is our custom dialog
+ * Which will be used at the time of Change Password
+ * @param:isDialogOpen as boolean value which will determine when dialog will be shown or hide
+ * */
 @Composable
 fun ChangePasswordDialog(
     isDialogOpen : MutableState<Boolean>

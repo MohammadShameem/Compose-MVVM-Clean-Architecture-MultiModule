@@ -1,14 +1,10 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
-import androidx.activity.compose.BackHandler
-import androidx.appcompat.app.AlertDialog
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -19,7 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.jatri.common.extfun.showAlertDialog
 import com.jatri.offlinecounterticketing.R
-import com.jatri.offlinecounterticketing.ui.components.BackPressAlertDialog
+import com.jatri.offlinecounterticketing.ui.components.AlertDialogWithTitle
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
@@ -32,6 +28,11 @@ class DashboardFragment : Fragment() {
     @Inject
     lateinit var sharedPrefHelper: SharedPrefHelper
 
+
+    /**
+     * This will be executed at the time of our system backPressClick
+     * By clicking conform button it proms to navigate you to home screen
+     * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
@@ -60,14 +61,17 @@ class DashboardFragment : Fragment() {
         )
         setContent {
             OfflineCounterTicketingTheme {
+                /**
+                 * This dialog will be shown at the time of appBar back button click
+                 * */
                 val isAlertDialogDialogOpen = remember { mutableStateOf(false) }
-                BackPressAlertDialog(
+                AlertDialogWithTitle(
                     titleText = getString(R.string.title_are_you_sure),
                     messageText = getString(R.string.msg_back_to_home),
-                    isAlertDialogOpen = isAlertDialogDialogOpen,
-                navigateTo = {
+                    isAlertDialogOpen = isAlertDialogDialogOpen
+                ) {
                     findNavController().navigate(DashboardFragmentDirections.actionDashboardFragmentToHomeFragment())
-                })
+                }
                 Scaffold(topBar = {
                     ToolbarWithButtonLarge(
                         toolbarTitle = context.getString(R.string.title_dashboard),
