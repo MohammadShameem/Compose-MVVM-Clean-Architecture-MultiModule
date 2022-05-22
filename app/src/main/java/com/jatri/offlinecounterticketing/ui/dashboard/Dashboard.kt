@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.domain.entity.CounterListEntity
@@ -57,7 +58,7 @@ fun Dashboard(
         Spacer(modifier = Modifier.size(8.dp))
         ChangeCounter(viewModel, context)
         Spacer(modifier = Modifier.size(16.dp))
-        RoundJatriButton(text = "ReportPrint", backgroundColor = colorPrimary) {
+        RoundJatriButton(text = stringResource(R.string.btn_text_report_print), backgroundColor = colorPrimary) {
                 coroutineScope.launch {
                     if(unSyncTicketCountState > 0) isProgressBarLoading = true
                     val soldTicketBody = viewModel.getSoldTicketBodyToSync(soldTicketListState)
@@ -116,7 +117,7 @@ fun UserInfo(
                     JatriRoundOutlinedButton(
                         borderColor = darkGrey,
                         backgroundColor = lightGrey,
-                        text = "Change Password"
+                        text = stringResource(R.string.btn_text_change_password)
                     ) {
                         isDialogOpen.value = true
                     }
@@ -148,7 +149,7 @@ fun ChangeCounter(
         }
 
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(text = "Change Counter")
+            Text(text = stringResource(R.string.change_counter))
             Spacer(modifier = Modifier.size(8.dp))
             DropDownCounterList(counterDropDownTitle, counterList) { counterEntity ->
                 counterDropDownTitle = counterEntity.counter_name
@@ -187,7 +188,7 @@ fun TicketCount(modifier: Modifier = Modifier, unSyncTicketCountState: Int) {
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Total Ticket Count")
+            Text(text = stringResource(R.string.total_ticket_count))
             Text(text = "$unSyncTicketCountState")
         }
     }
@@ -200,7 +201,7 @@ fun TicketFare(modifier: Modifier = Modifier, unSyncTicketAmountState: Int) {
             modifier = Modifier.padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Total Ticket Fare")
+            Text(text = stringResource(R.string.total_ticket_fare))
             Text(text = "$unSyncTicketAmountState")
         }
     }
