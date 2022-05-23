@@ -6,17 +6,17 @@
         {
           "name": "যাত্রী পারাপার",
           "fare": 10,
-          "fare_student": 5
+          "fare_student": 0
         },
         {
           "name": "পণ্য (২০ থেকে ৪০ কেজি)",
           "fare": 20,
-          "fare_student": 10
+          "fare_student": 0
         },
         {
           "name": "পণ্য (৪০ কেজি উর্ধে)",
           "fare": 50,
-          "fare_student": 25
+          "fare_student": 0
         }
       ]
     }
