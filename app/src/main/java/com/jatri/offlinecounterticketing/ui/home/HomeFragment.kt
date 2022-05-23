@@ -102,20 +102,22 @@ class HomeFragment : Fragment(){
                         )
 
                     }) {
+                        val enableConfigStudentFare = sharedPrefHelper.getBoolean(SpKey.studentFare)
                         val itemStoppageEntity: MutableState<StoppageEntity> = remember { mutableStateOf(StoppageEntity(0,"",0,0)) }
                         val itemStudentFare = remember { mutableStateOf(false) }
 
                         val isAlertDialogDialogOpenWithOutTitle = remember { mutableStateOf(false) }
 
                         AlertDialogTicketPrint(
-                            messageText = stringResource(R.string.ticket_info,itemStoppageEntity.value.name,itemStoppageEntity.value.fare),
+                            messageText = stringResource(R.string.ticket_info,itemStoppageEntity.value.name,
+                                if (itemStudentFare.value)itemStoppageEntity.value.fare_student else itemStoppageEntity.value.fare ),
                             isAlertDialogOpen = isAlertDialogDialogOpenWithOutTitle
                         ) {
-                            onBusCounterItemClick(itemStoppageEntity.value, itemStudentFare.value)
+                            onBusCounterItemClick(itemStoppageEntity.value,itemStudentFare.value)
                         }
 
                         HomeScreen(
-                            sharedPrefHelper.getBoolean(SpKey.studentFare),
+                            enableConfigStudentFare,
                             syncClickedCallBack = {
                                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
                             },

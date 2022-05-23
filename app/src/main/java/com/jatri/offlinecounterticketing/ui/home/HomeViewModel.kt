@@ -83,8 +83,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun printAndInsertTicket(stoppageEntity: StoppageEntity,ticketFormatEntity: TicketFormatEntity, studentFare: Boolean){
-        if (SunmiPrintHelper.instance.showPrinterStatus(application)&&stoppageEntity.fare_student>0){
+    fun printAndInsertTicket(stoppageEntity: StoppageEntity,ticketFormatEntity: TicketFormatEntity,studentFare: Boolean){
+        if (SunmiPrintHelper.instance.showPrinterStatus(application)){
             currentSerial = sharedPrefHelper.getInt(SpKey.soldTicketSerial)
             try {
                 incrementSerial = currentSerial + 1
@@ -110,7 +110,7 @@ class HomeViewModel @Inject constructor(
                                     isBold = it.is_bold, isUnderLine = false)
                             }
                             AppConstant.ticketSerial -> {
-                                SunmiPrintHelper.instance.printText("${it.leading_text+incrementSerial}\n", it.font_size.toFloat(),
+                                SunmiPrintHelper.instance.printText("${it.leading_text}${BanglaConverterUtil.convertNumberToBengaliNumber("$incrementSerial")}\n", it.font_size.toFloat(),
                                     isBold = it.is_bold, isUnderLine = false)
                             }
                             AppConstant.text -> {
@@ -143,7 +143,7 @@ class HomeViewModel @Inject constructor(
                                 }
                             }
                             AppConstant.fare -> {
-                                if (studentFare&&sharedPrefHelper.getBoolean(SpKey.studentFare)){
+                                if (studentFare){
                                     SunmiPrintHelper.instance.printText("${it.leading_student_fare_text}${BanglaConverterUtil.convertNumberToBengaliNumber("${stoppageEntity.fare_student}")}\n",
                                         it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
                                 }else{

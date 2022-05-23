@@ -138,13 +138,13 @@ fun HomeScreen(
  * Stoppage Item show in home page
  * @param stoppageEntity stoppage entity
  * @param busCounterClickedCallback list item click
- * @param studentState student fare State
+ * @param studentCheckBoxState student fare State
  * */
 @Composable
 fun BusCounterItem(
     stoppageEntity: StoppageEntity,
     busCounterClickedCallback: (stoppageEntity: StoppageEntity, studentFare: Boolean) -> Unit,
-    studentState: MutableState<Boolean>
+    studentCheckBoxState: MutableState<Boolean>
 ) {
     Row(
         modifier = Modifier
@@ -152,7 +152,7 @@ fun BusCounterItem(
             .background(color = lightGrey, shape = RoundedCornerShape(15))
             .padding(start = 8.dp, top = 8.dp, bottom = 8.dp, end = 16.dp)
             .clickable(onClick = {
-                busCounterClickedCallback.invoke(stoppageEntity, studentState.value)
+                busCounterClickedCallback.invoke(stoppageEntity, studentCheckBoxState.value)
             }),
         horizontalArrangement = Arrangement.SpaceBetween,
 
@@ -166,7 +166,7 @@ fun BusCounterItem(
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = if (studentState.value) stoppageEntity.fare_student.toString() else stoppageEntity.fare.toString(),
+            text = if (studentCheckBoxState.value) stoppageEntity.fare_student.toString() else stoppageEntity.fare.toString(),
             color = Color.Black,
             fontSize = 24.sp,
             modifier = Modifier.weight(0.1f)
