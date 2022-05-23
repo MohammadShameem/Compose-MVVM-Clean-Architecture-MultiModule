@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.stringResource
@@ -39,6 +38,7 @@ import javax.inject.Inject
 class HomeFragment : Fragment(){
     @Inject lateinit var sharedPrefHelper: SharedPrefHelper
     private val viewModel: HomeViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
@@ -77,6 +77,7 @@ class HomeFragment : Fragment(){
                 }
 
                 Surface(modifier = Modifier.fillMaxSize()) {
+                    val unSyncTicketCountState by viewModel.unSyncTicketCountState.collectAsState()
                     Scaffold(topBar = {
                         ToolbarWithButtonLargeWithMenu(
                             toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
@@ -85,6 +86,10 @@ class HomeFragment : Fragment(){
                                 isAlertDialogDialogOpenWithTitle.value = true
                             },
                             onMenuDashboardClicked = {
+                                if(unSyncTicketCountState > 0){
+                                   Toast.makeText(requireContext(),requireActivity().getString(R.string.msg_print_report),Toast.LENGTH_LONG).show()
+                                    return@ToolbarWithButtonLargeWithMenu
+                                }
                                 findNavController().navigate(
                                     HomeFragmentDirections.actionHomeFragmentToSecretPasswordFragment(
                                         true
