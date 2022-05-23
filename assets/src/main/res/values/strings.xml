@@ -10,7 +10,7 @@
     <string name="error_msg_enter_password">Enter password</string>
     <string name="error_msg_enter_oldPassword">Enter old password</string>
     <string name="error_msg_enter_newPassword">Enter new password</string>
-    <string name="error_msg_6_character_required">Minimum 6 character required</string>
+    <string name="error_msg_6_character_required">Minimum 6 characters required</string>
     <string name="error_msg_login_successful">Login Successful</string>
     <string name="error_msg_password_updated">Password updated successfully</string>
     <string name="text_change_password">Change Password</string>
@@ -21,16 +21,16 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="secretPassword">abcd</string>
     <string name="msg_login_success">Login Successful</string>
-    <string name="msg_success_update_password">Updated Password Successfully</string>
+    <string name="msg_success_update_password">Password Updated Successfully</string>
     <string name="btn_text_cancel">Cancel</string>
     <string name="btn_text_update">Update</string>
-    <string name="btn_text_conform">Conform</string>
+    <string name="btn_text_conform">Confirm</string>
     <string name="title_are_you_sure">Are you sure?</string>
     <string name="ticket_info">%s \nভাড়া = %d</string>
     <string name="ticket_counter">%s</string>
     <string name="ticket_fare">ভাড়া = %d</string>
-    <string name="msg_back_to_home">Press conform to back to home</string>
-    <string name="msg_exit">Press conform to exit!</string>
+    <string name="msg_back_to_home">Press confirm to back to home</string>
+    <string name="msg_exit">Press confirm to exit!</string>
     <string name="text_sign_in_to_your_account">Sign in to your account</string>
     <string name="label_text_phone_number">Phone number</string>
     <string name="label_text_password">Password</string>
