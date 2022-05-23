@@ -32,8 +32,8 @@
     <string name="msg_back_to_home">Press conform to back to home</string>
     <string name="msg_exit">Press conform to exit!</string>
     <string name="text_sign_in_to_your_account">Sign in to your account</string>
-    <string name="label_text_phone_number">phone number</string>
-    <string name="label_text_password">password</string>
+    <string name="label_text_phone_number">Phone number</string>
+    <string name="label_text_password">Password</string>
     <string name="btn_text_login">Login</string>
     <string name="format_total_ticket_count">Total Ticket Count: %d</string>
     <string name="format_total_ticket_fare">Total Ticket Fare: %d</string>
