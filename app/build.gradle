@@ -64,7 +64,7 @@ def renameAPK(applicationVariants, defaultConfig) {
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
             def formattedDate = new Date().format('dd-MM-yy')
-            outputFileName = "App" + "_" +  defaultConfig.versionName + "_" + defaultConfig.versionCode + "_" + formattedDate + "_" + variant.name + ".apk"
+            outputFileName = "Offline_Counter" + "_" +  defaultConfig.versionName + "_" + defaultConfig.versionCode + "_" + formattedDate + "_" + variant.name + ".apk"
         }
     }
 }
