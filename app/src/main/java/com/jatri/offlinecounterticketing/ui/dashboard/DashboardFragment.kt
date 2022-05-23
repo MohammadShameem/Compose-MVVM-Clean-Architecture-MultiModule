@@ -15,7 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.jatri.common.extfun.showAlertDialog
 import com.jatri.offlinecounterticketing.R
-import com.jatri.offlinecounterticketing.ui.components.AlertDialogWithTitle
+import com.jatri.offlinecounterticketing.ui.components.AlertDialog
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
@@ -65,7 +65,7 @@ class DashboardFragment : Fragment() {
                  * This dialog will be shown at the time of appBar back button click
                  * */
                 val isAlertDialogDialogOpen = remember { mutableStateOf(false) }
-                AlertDialogWithTitle(
+                AlertDialog(
                     titleText = getString(R.string.title_are_you_sure),
                     messageText = getString(R.string.msg_back_to_home),
                     isAlertDialogOpen = isAlertDialogDialogOpen

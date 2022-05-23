@@ -54,7 +54,7 @@ fun Dashboard(
         Spacer(modifier = Modifier.size(8.dp))
         TicketCountAndFare(unSyncTicketCountState, unSyncTicketAmountState)
         Spacer(modifier = Modifier.size(8.dp))
-        ChangeCounter(viewModel, context)
+        ChangeCounter(viewModel, context, unSyncTicketCountState)
         Spacer(modifier = Modifier.size(16.dp))
         RoundJatriButton(text = stringResource(R.string.btn_text_report_print), backgroundColor = lightGrey) {
                 coroutineScope.launch {
@@ -128,7 +128,8 @@ fun UserInfo(
 @Composable
 fun ChangeCounter(
     viewModel: DashboardViewModel,
-    context : Context
+    context: Context,
+    ticketCount: Int
 ) {
     DashboardCard {
 
@@ -145,11 +146,10 @@ fun ChangeCounter(
                     counterList = viewModel.getCounterListFromJson(it)
                 }
         }
-
         Column(modifier = Modifier.padding(16.dp)) {
             Text(text = stringResource(R.string.change_counter))
             Spacer(modifier = Modifier.size(8.dp))
-            DropDownCounterList(counterDropDownTitle, counterList) { counterEntity ->
+            DropDownCounterList(counterDropDownTitle, counterList, ticketCount) { counterEntity ->
                 counterDropDownTitle = counterEntity.counter_name
                 viewModel.updateStoppageList(counterEntity)
             }

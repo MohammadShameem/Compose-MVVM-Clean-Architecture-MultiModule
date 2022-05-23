@@ -10,17 +10,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.jatri.offlinecounterticketing.R
+
 /**
- * AlertDialog With Title
- * This Dialog will be used on BackButtonPress (System Back Button and TopBar Back Button)
- * @titleText as title
+ * AlertDialogTicketPrint
+ * This dialog will show at the time of item click (Ticket Print)
  * @param: messageText as message
- * @param: isAlertDialogOpen as boolean value which will determine when dialog will be  shown or hide
+ * @param: isAlertDialogOpen as boolean value which will determine when dialog will show or hide
  * @param: onConformClick:() is a Lamda function which will invoke when we will press on conform button
  * */
 @Composable
-fun AlertDialogWithTitle(
-    titleText: String,
+fun AlertDialogTicketPrint(
     messageText: String,
     isAlertDialogOpen: MutableState<Boolean>,
     onConformClick: () -> Unit
@@ -36,7 +35,7 @@ fun AlertDialogWithTitle(
                     isAlertDialogOpen.value = false
                 }) {
                     Text(
-                        text = stringResource(id = R.string.btn_text_confirm),
+                        text = stringResource(id = R.string.btn_text_print_bn),
                         fontSize = 14.sp, fontWeight = FontWeight.Bold
                     )
                 }
@@ -46,17 +45,14 @@ fun AlertDialogWithTitle(
                     isAlertDialogOpen.value = false
                 }) {
                     Text(
-                        text = stringResource(id = R.string.btn_text_cancel),
+                        text = stringResource(id = R.string.btn_text_cancel_bn),
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
                 }
             },
-            title = {
-                Text(text = titleText, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-            },
             text = {
-                Text(text = messageText, fontSize = 16.sp, color = Color.Black)
+                Text(text = messageText, fontSize = 20.sp, color = Color.Black)
             }
         )
     }
