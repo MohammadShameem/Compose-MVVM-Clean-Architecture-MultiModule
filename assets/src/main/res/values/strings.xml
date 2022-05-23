@@ -24,7 +24,7 @@
     <string name="msg_success_update_password">Password Updated Successfully</string>
     <string name="btn_text_cancel">Cancel</string>
     <string name="btn_text_update">Update</string>
-    <string name="btn_text_conform">Confirm</string>
+    <string name="btn_text_confirm">Confirm</string>
     <string name="title_are_you_sure">Are you sure?</string>
     <string name="ticket_info">%s \nভাড়া = %d</string>
     <string name="ticket_counter">%s</string>

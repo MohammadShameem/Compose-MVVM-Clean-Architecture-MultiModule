@@ -36,7 +36,7 @@ fun AlertDialogWithTitle(
                     isAlertDialogOpen.value = false
                 }) {
                     Text(
-                        text = stringResource(id = R.string.btn_text_conform),
+                        text = stringResource(id = R.string.btn_text_confirm),
                         fontSize = 14.sp, fontWeight = FontWeight.Bold
                     )
                 }
