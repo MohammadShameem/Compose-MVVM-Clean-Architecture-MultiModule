@@ -65,4 +65,8 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="false" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.jatri.offlinecounterticketing.ui.about.AboutFragment"
+        android:label="AboutFragment" />
 </navigation>
