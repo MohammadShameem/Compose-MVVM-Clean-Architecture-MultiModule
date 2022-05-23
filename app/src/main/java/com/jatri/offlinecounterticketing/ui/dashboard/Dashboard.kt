@@ -25,10 +25,8 @@ import com.jatri.offlinecounterticketing.ui.components.CircularProgressBar
 import com.jatri.offlinecounterticketing.ui.components.DropDownCounterList
 import com.jatri.offlinecounterticketing.ui.components.JatriRoundOutlinedButton
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
-import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 import com.jatri.offlinecounterticketing.ui.theme.darkGrey
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -58,7 +56,7 @@ fun Dashboard(
         Spacer(modifier = Modifier.size(8.dp))
         ChangeCounter(viewModel, context)
         Spacer(modifier = Modifier.size(16.dp))
-        RoundJatriButton(text = stringResource(R.string.btn_text_report_print), backgroundColor = colorPrimary) {
+        RoundJatriButton(text = stringResource(R.string.btn_text_report_print), backgroundColor = lightGrey) {
                 coroutineScope.launch {
                     if(unSyncTicketCountState > 0) isProgressBarLoading = true
                     val soldTicketBody = viewModel.getSoldTicketBodyToSync(soldTicketListState)
@@ -215,7 +213,8 @@ fun DashboardCard(
     Card(
         modifier = modifier.padding(all = 8.dp),
         shape = RoundedCornerShape(10),
-        backgroundColor = lightGrey
+        backgroundColor = lightGrey,
+        elevation = 0.dp,
     ) {
         content.invoke()
     }
