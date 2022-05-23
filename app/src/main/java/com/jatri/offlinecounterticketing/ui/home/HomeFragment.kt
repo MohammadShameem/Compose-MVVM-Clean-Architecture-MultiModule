@@ -102,7 +102,7 @@ class HomeFragment : Fragment(){
                         )
 
                     }) {
-                        val enableConfigStudentFare = sharedPrefHelper.getBoolean(SpKey.studentFare)
+                        val isConfigStudentFare = sharedPrefHelper.getBoolean(SpKey.studentFare)
                         val itemStoppageEntity: MutableState<StoppageEntity> = remember { mutableStateOf(StoppageEntity(0,"",0,0)) }
                         val itemStudentFare = remember { mutableStateOf(false) }
 
@@ -110,14 +110,14 @@ class HomeFragment : Fragment(){
 
                         AlertDialogTicketPrint(
                             messageText = stringResource(R.string.ticket_info,itemStoppageEntity.value.name,
-                                if (itemStudentFare.value)itemStoppageEntity.value.fare_student else itemStoppageEntity.value.fare ),
+                                if (isConfigStudentFare&&itemStudentFare.value)itemStoppageEntity.value.fare_student else itemStoppageEntity.value.fare ),
                             isAlertDialogOpen = isAlertDialogDialogOpenWithOutTitle
                         ) {
-                            onBusCounterItemClick(itemStoppageEntity.value,itemStudentFare.value)
+                            onBusCounterItemClick(itemStoppageEntity.value,isConfigStudentFare,itemStudentFare.value)
                         }
 
                         HomeScreen(
-                            enableConfigStudentFare,
+                            isConfigStudentFare,
                             syncClickedCallBack = {
                                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToLoginFragment())
                             },
@@ -133,12 +133,13 @@ class HomeFragment : Fragment(){
         }
     }
 
-    private fun onBusCounterItemClick(stoppage: StoppageEntity, studentFare: Boolean) {
+    private fun onBusCounterItemClick(stoppage: StoppageEntity, isConfigStudentFareEnable: Boolean, studentFare: Boolean) {
         lifecycleScope.launch {
             val ticketFormatEntity = viewModel.getTicketFormatEntity()
             viewModel.printAndInsertTicket(
                 stoppage,
                 ticketFormatEntity,
+                isConfigStudentFareEnable,
                 studentFare
             )
         }

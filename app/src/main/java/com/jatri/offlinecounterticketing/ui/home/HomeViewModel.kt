@@ -83,7 +83,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun printAndInsertTicket(stoppageEntity: StoppageEntity,ticketFormatEntity: TicketFormatEntity,studentFare: Boolean){
+    fun printAndInsertTicket(stoppageEntity: StoppageEntity,ticketFormatEntity: TicketFormatEntity,   isConfigStudentFareEnable: Boolean,studentFare: Boolean){
         if (SunmiPrintHelper.instance.showPrinterStatus(application)){
             currentSerial = sharedPrefHelper.getInt(SpKey.soldTicketSerial)
             try {
@@ -143,7 +143,7 @@ class HomeViewModel @Inject constructor(
                                 }
                             }
                             AppConstant.fare -> {
-                                if (studentFare){
+                                if (isConfigStudentFareEnable&&studentFare){
                                     SunmiPrintHelper.instance.printText("${it.leading_student_fare_text}${BanglaConverterUtil.convertNumberToBengaliNumber("${stoppageEntity.fare_student}")}\n",
                                         it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
                                 }else{
@@ -187,7 +187,7 @@ class HomeViewModel @Inject constructor(
                             SoldTicketEntity(
                                 serial = incrementSerial,
                                 name = stoppageEntity.name,
-                                fare = if (studentFare) stoppageEntity.fare_student else stoppageEntity.fare
+                                fare = if (isConfigStudentFareEnable&&studentFare) stoppageEntity.fare_student else stoppageEntity.fare
                             )
                         )
                     }

@@ -11,7 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -24,13 +23,13 @@ import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 
 /**
  * Home Screen Stoppage list show
- * @param isStudentFareEnable fare enable from config page
+ * @param isConfigStudentFareEnable fare enable from config page
  * @param syncClickedCallBack sync button click callback
  * @param busCounterClickedCallback stoppage item click listener from stoppage list items
  * */
 @Composable
 fun HomeScreen(
-    isStudentFareEnable: Boolean,
+    isConfigStudentFareEnable: Boolean,
     syncClickedCallBack: () -> Unit,
     busCounterClickedCallback: (stoppageEntity: StoppageEntity, studentFare: Boolean) -> Unit
 ) {
@@ -58,11 +57,12 @@ fun HomeScreen(
         Card(
             modifier = Modifier
                 .fillMaxHeight()
-                .weight(if (isStudentFareEnable) .8f else .9f)
+                .weight(if (isConfigStudentFareEnable) .8f else .9f)
         ) {
             LazyColumn(modifier = Modifier.padding(all = 8.dp)) {
                 items(stoppageListState) { busCounter ->
                     BusCounterItem(
+                        isConfigStudentFareEnable,
                         StoppageEntity(
                             busCounter.id, busCounter.name,
                             busCounter.fare, busCounter.fare_student
@@ -75,7 +75,7 @@ fun HomeScreen(
         Card(
             elevation = 8.dp, modifier = Modifier
                 .fillMaxHeight()
-                .weight(if (isStudentFareEnable) .2f else .1f)
+                .weight(if (isConfigStudentFareEnable) .2f else .1f)
         ) {
             Column(
                 modifier = Modifier
@@ -88,7 +88,7 @@ fun HomeScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Column {
-                        if (isStudentFareEnable) {
+                        if (isConfigStudentFareEnable) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Checkbox(
                                     checked = studentCheckboxState.value,
@@ -136,12 +136,14 @@ fun HomeScreen(
 
 /**
  * Stoppage Item show in home page
+ * @param isStudentFareEnable config student fare
  * @param stoppageEntity stoppage entity
  * @param busCounterClickedCallback list item click
  * @param studentCheckBoxState student fare State
  * */
 @Composable
 fun BusCounterItem(
+    isStudentFareEnable: Boolean,
     stoppageEntity: StoppageEntity,
     busCounterClickedCallback: (stoppageEntity: StoppageEntity, studentFare: Boolean) -> Unit,
     studentCheckBoxState: MutableState<Boolean>
@@ -166,7 +168,7 @@ fun BusCounterItem(
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
-            text = if (studentCheckBoxState.value) stoppageEntity.fare_student.toString() else stoppageEntity.fare.toString(),
+            text = if (isStudentFareEnable&&studentCheckBoxState.value) stoppageEntity.fare_student.toString() else stoppageEntity.fare.toString(),
             color = Color.Black,
             fontSize = 24.sp,
             modifier = Modifier.weight(0.1f)
