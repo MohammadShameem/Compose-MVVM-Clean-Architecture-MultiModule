@@ -37,7 +37,7 @@ class DashboardFragment : Fragment() {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             requireActivity().showAlertDialog(
-                positiveBtn = getString(R.string.btn_text_conform),
+                positiveBtn = getString(R.string.btn_text_confirm),
                 negativeBtn = getString(R.string.btn_text_cancel),
                 title = getString(R.string.title_are_you_sure),
                 message = getString(R.string.msg_back_to_home),
