@@ -80,7 +80,7 @@ class HomeFragment : Fragment(){
                     val unSyncTicketCountState by viewModel.unSyncTicketCountState.collectAsState()
                     Scaffold(topBar = {
                         ToolbarWithButtonLargeWithMenu(
-                            toolbarTitle = sharedPrefHelper.getString(SpKey.companyName),
+                            toolbarTitle = sharedPrefHelper.getString(SpKey.counterName),
                             toolbarIcon = Icons.Filled.ArrowBack,
                             onBackButtonPressed = {
                                 isAlertDialogDialogOpenWithTitle.value = true
@@ -95,6 +95,9 @@ class HomeFragment : Fragment(){
                                         true
                                     )
                                 )
+                            },
+                            onMenuAboutClicked = {
+                                findNavController().navigate(R.id.aboutFragment)
                             }
                         )
 

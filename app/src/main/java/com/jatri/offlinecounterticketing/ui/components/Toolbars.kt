@@ -61,7 +61,8 @@ fun ToolbarWithButtonLargeWithMenu(
     toolbarTitle: String,
     toolbarIcon: ImageVector,
     onBackButtonPressed: () -> Unit,
-    onMenuDashboardClicked: () -> Unit
+    onMenuDashboardClicked: () -> Unit,
+    onMenuAboutClicked: () -> Unit,
 ) {
     Box(Modifier.background(color = colorPrimary)) {
         Column(
@@ -80,7 +81,7 @@ fun ToolbarWithButtonLargeWithMenu(
                     }
                 },
                 actions = {
-                    TopAppBarDropdownMenu(onMenuDashboardClicked)
+                    TopAppBarDropdownMenu(onMenuDashboardClicked, onMenuAboutClicked)
                 },
                 backgroundColor = colorPrimary,
                 elevation = 0.dp
@@ -97,7 +98,10 @@ fun ToolbarWithButtonLargeWithMenu(
 
 
 @Composable
-fun TopAppBarDropdownMenu(onMenuDashboardClicked: () -> Unit) {
+fun TopAppBarDropdownMenu(
+    onMenuDashboardClicked: () -> Unit,
+    onMenuAboutClicked: () -> Unit,
+) {
     var expanded by remember { mutableStateOf(false) }
     Box(
         Modifier
@@ -118,11 +122,25 @@ fun TopAppBarDropdownMenu(onMenuDashboardClicked: () -> Unit) {
     ) {
         DropdownMenuItem(onClick = {
             expanded = false
+            onMenuDashboardClicked.invoke()
 
         }) {
             Text(
                 text = "Configure",
-                modifier = Modifier.clickable(onClick = onMenuDashboardClicked)
+                modifier = Modifier
+                    .fillMaxWidth()
+
+            )
+        }
+        DropdownMenuItem(onClick = {
+            expanded = false
+            onMenuAboutClicked.invoke()
+
+        }) {
+            Text(
+                text = "About",
+                modifier = Modifier
+                    .fillMaxWidth()
             )
         }
     }
@@ -133,7 +151,7 @@ fun TopAppBarDropdownMenu(onMenuDashboardClicked: () -> Unit) {
 fun ToolbarPre() {
     ToolbarWithButtonLargeWithMenu(
         "Sea Maritime Service",
-        Icons.Filled.ArrowBack,{}
+        Icons.Filled.ArrowBack, {}, {}
     ) {
     }
 }
