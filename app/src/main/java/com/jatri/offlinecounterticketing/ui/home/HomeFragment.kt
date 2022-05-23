@@ -25,8 +25,8 @@ import com.jatri.common.dateparser.DateTimeParser
 import com.jatri.common.extfun.showAlertDialog
 import com.jatri.domain.entity.StoppageEntity
 import com.jatri.offlinecounterticketing.R
-import com.jatri.offlinecounterticketing.ui.components.AlertDialogWithoutTitle
-import com.jatri.offlinecounterticketing.ui.components.AlertDialogWithTitle
+import com.jatri.offlinecounterticketing.ui.components.AlertDialogTicketPrint
+import com.jatri.offlinecounterticketing.ui.components.AlertDialog
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLargeWithMenu
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
@@ -43,7 +43,7 @@ class HomeFragment : Fragment(){
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             requireActivity().showAlertDialog(
-                positiveBtn = getString(R.string.btn_text_conform),
+                positiveBtn = getString(R.string.btn_text_confirm),
                 negativeBtn = getString(R.string.btn_text_cancel),
                 title = getString(R.string.title_are_you_sure),
                 message = getString(R.string.msg_exit),
@@ -68,7 +68,7 @@ class HomeFragment : Fragment(){
         setContent {
             OfflineCounterTicketingTheme {
                 val isAlertDialogDialogOpenWithTitle = remember { mutableStateOf(false) }
-                AlertDialogWithTitle(
+                AlertDialog(
                     titleText = getString(R.string.title_are_you_sure),
                     messageText = getString(R.string.msg_exit),
                     isAlertDialogOpen = isAlertDialogDialogOpenWithTitle
@@ -99,7 +99,7 @@ class HomeFragment : Fragment(){
 
                         val isAlertDialogDialogOpenWithOutTitle = remember { mutableStateOf(false) }
 
-                        AlertDialogWithoutTitle(
+                        AlertDialogTicketPrint(
                             messageText = stringResource(R.string.ticket_info,itemStoppageEntity.value.name,itemStoppageEntity.value.fare),
                             isAlertDialogOpen = isAlertDialogDialogOpenWithOutTitle
                         ) {

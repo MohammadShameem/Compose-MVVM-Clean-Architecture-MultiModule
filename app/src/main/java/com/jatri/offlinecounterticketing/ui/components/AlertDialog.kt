@@ -11,7 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.jatri.offlinecounterticketing.R
 /**
- * AlertDialog With Title
+ * AlertDialog
  * This Dialog will be used on BackButtonPress (System Back Button and TopBar Back Button)
  * @titleText as title
  * @param: messageText as message
@@ -19,7 +19,7 @@ import com.jatri.offlinecounterticketing.R
  * @param: onConformClick:() is a Lamda function which will invoke when we will press on conform button
  * */
 @Composable
-fun AlertDialogWithTitle(
+fun AlertDialog(
     titleText: String,
     messageText: String,
     isAlertDialogOpen: MutableState<Boolean>,
@@ -36,7 +36,7 @@ fun AlertDialogWithTitle(
                     isAlertDialogOpen.value = false
                 }) {
                     Text(
-                        text = stringResource(id = R.string.btn_text_conform),
+                        text = stringResource(id = R.string.btn_text_confirm),
                         fontSize = 14.sp, fontWeight = FontWeight.Bold
                     )
                 }

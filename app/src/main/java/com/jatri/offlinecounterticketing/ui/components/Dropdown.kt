@@ -1,5 +1,6 @@
 package com.jatri.offlinecounterticketing.ui.components
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -7,10 +8,12 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.jatri.domain.entity.CounterEntity
 import com.jatri.domain.entity.CounterListEntity
 import com.jatri.entity.companylist.OfflineCompanyEntity
+import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 
 @Composable
@@ -69,16 +72,24 @@ fun DropDown(
 fun DropDownCounterList(
     text: String,
     item: CounterListEntity?,
+    ticketCount: Int = -1,
     onItemClick: (CounterEntity) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .fillMaxWidth()
             .wrapContentSize(Alignment.TopStart)
     ) {
         OutlinedButton(
-            onClick = { expanded = true },
+            onClick = {
+                if(ticketCount> 0){
+                    Toast.makeText(context,context.getString(R.string.msg_print_report),Toast.LENGTH_LONG).show()
+                    return@OutlinedButton
+                }
+                expanded = true
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),

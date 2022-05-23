@@ -24,6 +24,10 @@
     <string name="msg_success_update_password">Password Updated Successfully</string>
     <string name="btn_text_cancel">Cancel</string>
     <string name="btn_text_update">Update</string>
+    <string name="btn_text_confirm">Confirm</string>
+    <string name="btn_text_cancel_bn">বাতিল</string>
+    <string name="btn_text_print_bn">প্রিন্ট টিকিট</string>
+    <string name="msg_print_report">Print Report first</string>
     <string name="btn_text_conform">Confirm</string>
     <string name="btn_syn">SYNC</string>
     <string name="title_are_you_sure">Are you sure?</string>
