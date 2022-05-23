@@ -174,7 +174,6 @@ class HomeViewModel @Inject constructor(
                                         }
                                     }
                                 }
-                                SunmiPrintHelper.instance.printText("\n" ,10f,isBold = true, isUnderLine = false)
                                 SunmiPrintHelper.instance.printQr(qrCodeData,3,1)
                                 SunmiPrintHelper.instance.printText("\n" ,10f,isBold = true, isUnderLine = false)
                             }

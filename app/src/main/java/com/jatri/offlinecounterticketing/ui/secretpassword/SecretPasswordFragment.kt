@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.jatri.common.constant.AppConstant
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
@@ -73,7 +74,7 @@ class SecretPasswordFragment : Fragment() {
                      * If the secret password matches with our predefined password,
                      * navigate to Configuration Fragment and pass the json string of all companies
                      * */
-                    if (secretPassword == resources.getString(R.string.secretPassword)) {
+                    if (secretPassword == AppConstant.secretPassword) {
                         findNavController().navigate(
                             SecretPasswordFragmentDirections.actionSecretPasswordFragmentToConfigurationFragment(
                                 offlineCompaniesJsonString

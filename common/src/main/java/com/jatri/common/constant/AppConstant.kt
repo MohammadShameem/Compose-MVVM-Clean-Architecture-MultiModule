@@ -22,5 +22,6 @@ object AppConstant {
     const val qrDate = "qr_date"
     const val qrTime = "qr_time"
     const val qrSerial = "qr_serial"
+    const val secretPassword = "Jatri2020"
 
 }

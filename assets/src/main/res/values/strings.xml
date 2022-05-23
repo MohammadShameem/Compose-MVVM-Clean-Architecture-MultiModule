@@ -25,6 +25,7 @@
     <string name="btn_text_cancel">Cancel</string>
     <string name="btn_text_update">Update</string>
     <string name="btn_text_conform">Confirm</string>
+    <string name="btn_syn">SYNC</string>
     <string name="title_are_you_sure">Are you sure?</string>
     <string name="ticket_info">%s \nভাড়া = %d</string>
     <string name="ticket_counter">%s</string>
@@ -50,4 +51,6 @@
     <string name="change_counter">Change Counter</string>
     <string name="total_ticket_count">Total Ticket Count</string>
     <string name="total_ticket_fare">Total Ticket Fare</string>
+    <string name="checkbox_message">Student Fare</string>
+
 </resources>

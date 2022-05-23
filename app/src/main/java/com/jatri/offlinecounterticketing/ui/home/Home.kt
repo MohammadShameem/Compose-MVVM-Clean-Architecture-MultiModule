@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,12 +54,11 @@ fun HomeScreen(
         verticalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxHeight()
     ) {
-        val context = LocalContext.current
 
         Card(
             modifier = Modifier
-            .fillMaxHeight()
-            .weight(if(isStudentFareEnable).8f else .9f)
+                .fillMaxHeight()
+                .weight(if (isStudentFareEnable) .8f else .9f)
         ) {
             LazyColumn(modifier = Modifier.padding(all = 8.dp)) {
                 items(stoppageListState) { busCounter ->
@@ -74,8 +74,8 @@ fun HomeScreen(
         }
         Card(
             elevation = 8.dp, modifier = Modifier
-            .fillMaxHeight()
-            .weight(if(isStudentFareEnable).2f else .1f)
+                .fillMaxHeight()
+                .weight(if (isStudentFareEnable) .2f else .1f)
         ) {
             Column(
                 modifier = Modifier
@@ -95,7 +95,7 @@ fun HomeScreen(
                                     onCheckedChange = { studentCheckboxState.value = it }
                                 )
                                 Text(
-                                    text = "Student Fare",
+                                    text = stringResource(R.string.checkbox_message),
                                     fontSize = 16.sp,
                                     fontWeight = FontWeight.Bold
                                 )
@@ -103,7 +103,7 @@ fun HomeScreen(
                         }
 
                         Text(
-                            text = context.getString(
+                            text = stringResource(
                                 R.string.format_total_ticket_count,
                                 unSyncTicketCountState
                             ),
@@ -111,7 +111,7 @@ fun HomeScreen(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = context.getString(
+                            text = stringResource(
                                 R.string.format_total_ticket_fare,
                                 unSyncTicketAmountState
                             ),
@@ -123,7 +123,7 @@ fun HomeScreen(
                         onClick = { syncClickedCallBack.invoke() },
                         colors = ButtonDefaults.buttonColors(backgroundColor = colorPrimary)
                     ) {
-                        Text(text = "Sync", color = Color.White)
+                        Text(text = stringResource(R.string.btn_syn), color = Color.White)
                     }
 
                 }
