@@ -1,20 +1,16 @@
 package com.jatri.offlinecounterticketing.ui.dashboard
 
-import android.app.Activity
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
@@ -24,7 +20,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.common.constant.AppConstant
 import com.jatri.domain.usecase.dashboard.ChangePasswordApiUseCase
@@ -32,6 +27,7 @@ import com.jatri.entity.res.ApiResponse
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 import kotlinx.coroutines.launch
+
 /**
  * This is our custom dialog
  * Which will be used at the time of Change Password

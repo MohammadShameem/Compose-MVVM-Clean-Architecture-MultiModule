@@ -25,9 +25,6 @@
 -keepnames class com.path.to.your.ParcelableArg
 -keepnames class com.path.to.your.SerializableArg
 -keepnames class com.path.to.your.EnumArg
--keep class com.jatri.offlinecounterticketing.featcommon.model.** { *; }
--keep class com.jatri.offlinecounterticketing.featrental.model.** { *; }
--keep class com.jatri.offlinecounterticketing.featbusexpress.model.** { *; }
 -keep class com.jatri.offlinecounterticketing.api.model.** { *; }
 -keep class com.jatri.entity.** { *; }
 -keep class com.jatri.apiresponse.** { *; }

@@ -1,9 +1,9 @@
 package com.jatri.cache
 
 import com.jatri.cache.dao.OfflineCounterTicketingDao
-import com.jatri.domain.entity.StoppageEntity
-import com.jatri.domain.entity.SoldTicketEntity
-import com.jatri.domain.entity.SoldTicketGroupWiseEntity
+import com.jatri.entity.cachentity.StoppageEntity
+import com.jatri.entity.cachentity.SoldTicketEntity
+import com.jatri.entity.cachentity.SoldTicketGroupWiseEntity
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

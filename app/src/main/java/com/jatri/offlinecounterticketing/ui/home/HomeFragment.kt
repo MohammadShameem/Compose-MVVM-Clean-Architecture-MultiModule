@@ -22,7 +22,7 @@ import androidx.navigation.findNavController
 import com.jatri.common.dateparser.DateTimeFormat
 import com.jatri.common.dateparser.DateTimeParser
 import com.jatri.common.extfun.showAlertDialog
-import com.jatri.domain.entity.StoppageEntity
+import com.jatri.entity.cachentity.StoppageEntity
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.AlertDialogTicketPrint
 import com.jatri.offlinecounterticketing.ui.components.AlertDialog
@@ -103,7 +103,9 @@ class HomeFragment : Fragment(){
 
                     }) {
                         val isConfigStudentFare = sharedPrefHelper.getBoolean(SpKey.studentFare)
-                        val itemStoppageEntity: MutableState<StoppageEntity> = remember { mutableStateOf(StoppageEntity(0,"",0,0)) }
+                        val itemStoppageEntity: MutableState<StoppageEntity> = remember { mutableStateOf(
+                            StoppageEntity(0,"",0,0)
+                        ) }
                         val itemStudentFare = remember { mutableStateOf(false) }
 
                         val isAlertDialogDialogOpenWithOutTitle = remember { mutableStateOf(false) }

@@ -1,12 +1,11 @@
 package com.jatri.cache.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.jatri.domain.entity.StoppageEntity
-import com.jatri.domain.entity.SoldTicketEntity
-import com.jatri.domain.entity.SoldTicketGroupWiseEntity
+import com.jatri.entity.cachentity.StoppageEntity
+import com.jatri.entity.cachentity.SoldTicketEntity
+import com.jatri.entity.cachentity.SoldTicketGroupWiseEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

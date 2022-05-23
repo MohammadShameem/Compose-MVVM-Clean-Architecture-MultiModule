@@ -7,6 +7,6 @@ plugins {
 apply from: "$rootDir/android-core-library.gradle"
 dependencies {
     api project(ModulesDep.entity)
-    api AppDep.room
+   // api AppDep.room
 }
 

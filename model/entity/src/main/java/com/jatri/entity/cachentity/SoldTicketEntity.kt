@@ -1,4 +1,4 @@
-package com.jatri.domain.entity
+package com.jatri.entity.cachentity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

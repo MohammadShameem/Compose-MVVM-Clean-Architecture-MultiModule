@@ -10,7 +10,6 @@ import com.jatri.cache.CacheRepository
 import com.jatri.common.constant.AppConstant
 import com.jatri.common.dateparser.DateTimeFormat
 import com.jatri.common.dateparser.DateTimeParser
-import com.jatri.domain.entity.*
 import com.jatri.domain.usecase.dashboard.ChangePasswordApiUseCase
 import com.jatri.domain.usecase.dashboard.SyncedSoldTicketApiUseCase
 import com.jatri.entity.dashboard.ChangePasswordApiEntity
@@ -18,6 +17,9 @@ import com.jatri.entity.dashboard.SyncSoldTicketBody
 import com.jatri.entity.dashboard.SyncSoldTicketBodyCollection
 import com.jatri.entity.dashboard.SyncedSoldTicketApiEntity
 import com.jatri.entity.res.ApiResponse
+import com.jatri.entity.cachentity.SoldTicketGroupWiseEntity
+import com.jatri.entity.stoppage.CounterEntity
+import com.jatri.entity.stoppage.CounterListEntity
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.helper.BanglaConverterUtil
 import com.jatri.offlinecounterticketing.printer.SunmiPrintHelper

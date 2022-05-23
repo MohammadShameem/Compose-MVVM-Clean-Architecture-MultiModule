@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.Gson
 import com.jatri.cache.CacheRepository
-import com.jatri.domain.entity.CounterEntity
-import com.jatri.domain.entity.CounterListEntity
 import com.jatri.entity.companylist.OfflineCompanyEntity
+import com.jatri.entity.stoppage.CounterEntity
+import com.jatri.entity.stoppage.CounterListEntity
 import com.jatri.sharedpref.SharedPrefHelper
 import com.jatri.sharedpref.SpKey
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,7 +28,8 @@ class ConfigurationViewModel
     fun saveCompanyInfoToSharedPreference(
         companyEntity: OfflineCompanyEntity,
         studentFare: Boolean,
-        counterEntity: CounterEntity)
+        counterEntity: CounterEntity
+    )
     {
         viewModelScope.launch {
             sharedPrefHelper.putString(SpKey.companyName, companyEntity.name)

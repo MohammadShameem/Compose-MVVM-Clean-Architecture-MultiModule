@@ -10,8 +10,8 @@ import com.jatri.cache.CacheRepository
 import com.jatri.common.constant.AppConstant
 import com.jatri.common.dateparser.DateTimeFormat
 import com.jatri.common.dateparser.DateTimeParser
-import com.jatri.domain.entity.SoldTicketEntity
-import com.jatri.domain.entity.StoppageEntity
+import com.jatri.entity.cachentity.SoldTicketEntity
+import com.jatri.entity.cachentity.StoppageEntity
 import com.jatri.entity.ticketdesign.TicketFormatEntity
 import com.jatri.offlinecounterticketing.helper.BanglaConverterUtil
 import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
@@ -83,7 +83,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun printAndInsertTicket(stoppageEntity: StoppageEntity,ticketFormatEntity: TicketFormatEntity,   isConfigStudentFareEnable: Boolean,studentFare: Boolean){
+    fun printAndInsertTicket(stoppageEntity: StoppageEntity, ticketFormatEntity: TicketFormatEntity, isConfigStudentFareEnable: Boolean, studentFare: Boolean){
         if (SunmiPrintHelper.instance.showPrinterStatus(application)){
             currentSerial = sharedPrefHelper.getInt(SpKey.soldTicketSerial)
             try {

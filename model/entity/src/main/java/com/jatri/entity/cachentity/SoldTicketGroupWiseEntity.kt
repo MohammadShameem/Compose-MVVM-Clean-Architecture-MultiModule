@@ -1,4 +1,4 @@
-package com.jatri.domain.entity
+package com.jatri.entity.cachentity
 
 data class SoldTicketGroupWiseEntity(
     val total_fare:Int,

@@ -14,9 +14,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.jatri.domain.entity.CounterEntity
-import com.jatri.domain.entity.CounterListEntity
 import com.jatri.entity.companylist.OfflineCompanyEntity
+import com.jatri.entity.stoppage.CounterEntity
+import com.jatri.entity.stoppage.CounterListEntity
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
 import com.jatri.offlinecounterticketing.ui.components.DropDown

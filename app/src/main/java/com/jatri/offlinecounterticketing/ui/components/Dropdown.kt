@@ -11,9 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.jatri.domain.entity.CounterEntity
-import com.jatri.domain.entity.CounterListEntity
 import com.jatri.entity.companylist.OfflineCompanyEntity
+import com.jatri.entity.stoppage.CounterEntity
+import com.jatri.entity.stoppage.CounterListEntity
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.dashboard.DashboardViewModel
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey

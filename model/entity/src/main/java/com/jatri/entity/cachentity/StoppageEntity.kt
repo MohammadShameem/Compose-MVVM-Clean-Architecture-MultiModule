@@ -1,18 +1,10 @@
-package com.jatri.domain.entity
+package com.jatri.entity.cachentity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-data class CounterListEntity(
-    val counter_list: List<CounterEntity>
-)
-
-data class CounterEntity(
-    val counter_name: String,
-    val stoppage_list: List<StoppageEntity>
-)
 
 
 @Entity(tableName = "bus_counter")

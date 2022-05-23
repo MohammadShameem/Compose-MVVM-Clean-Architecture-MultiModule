@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.jatri.domain.entity.StoppageEntity
+import com.jatri.entity.cachentity.StoppageEntity
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
