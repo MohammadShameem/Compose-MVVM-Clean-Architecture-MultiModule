@@ -95,7 +95,7 @@ fun Configuration(
                     selectedCounterEntity = it //Set selected counter state
                 }
                 Spacer(modifier = Modifier.size(8.dp))
-                Text(text = "Student Fare", fontWeight = FontWeight.Bold)
+                Text(text = stringResource(R.string.student_fare), fontWeight = FontWeight.Bold)
                 Row(
                     modifier = Modifier.selectableGroup(),
                     verticalAlignment = Alignment.CenterVertically

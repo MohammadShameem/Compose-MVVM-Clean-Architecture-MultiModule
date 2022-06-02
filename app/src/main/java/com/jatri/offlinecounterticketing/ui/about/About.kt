@@ -6,6 +6,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontStyle
@@ -13,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 
 @Composable
@@ -28,7 +30,7 @@ fun About(
                     fontSize = MaterialTheme.typography.h6.fontSize
                 )
             ) {
-                append("Company Name: ")
+                append("${stringResource(R.string.company_name)}: ")
             }
 
             withStyle(
@@ -48,7 +50,7 @@ fun About(
                     fontSize = MaterialTheme.typography.h6.fontSize
                 )
             ) {
-                append("Version: ")
+                append("${stringResource(R.string.version)}: ")
             }
 
             withStyle(
@@ -67,7 +69,7 @@ fun About(
                     fontSize = MaterialTheme.typography.h6.fontSize
                 )
             ) {
-                append("Type: ")
+                append("${stringResource(R.string.type)}: ")
             }
             withStyle(
                 style = SpanStyle(

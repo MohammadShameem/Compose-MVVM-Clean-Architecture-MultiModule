@@ -8,9 +8,11 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.stringResource
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.jatri.offlinecounterticketing.BuildConfig
+import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.ToolbarWithButtonLarge
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 import com.jatri.sharedpref.SharedPrefHelper
@@ -35,7 +37,7 @@ class AboutFragment : Fragment() {
             ViewGroup.LayoutParams.MATCH_PARENT
         )
         appName = sharedPrefHelper.getString(SpKey.companyName)
-        type = if (BuildConfig.DEBUG) "Dev" else "Live"
+        type = if (BuildConfig.DEBUG) getString(R.string.app_type_dev) else getString(R.string.app_type_live)
 
 
         setContent {
@@ -43,7 +45,7 @@ class AboutFragment : Fragment() {
                 Scaffold(
                     topBar = {
                         ToolbarWithButtonLarge(
-                            toolbarTitle = "About",
+                            toolbarTitle = stringResource(id = R.string.about),
                             toolbarIcon = Icons.Filled.ArrowBack
                         ) {
                             findNavController().popBackStack()

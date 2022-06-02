@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Offline Counter</string>
+    <string name="app_type">Type</string>
+    <string name="app_type_dev">Dev</string>
+    <string name="app_type_live">Live</string>
 
     <!--Login Screen and Dashboard-->
     <string name="retry">Retry</string>
@@ -56,5 +59,15 @@
     <string name="total_ticket_count">Total Ticket Count</string>
     <string name="total_ticket_fare">Total Ticket Fare</string>
     <string name="checkbox_message">Student Fare</string>
+    
+    <string name="about">About</string>
+
+    <string name="student_fare">Student Fare</string>
+    <string name="no_counter">No Counters</string>
+    <string name="company_name">Company Name"</string>
+    <string name="version">Version</string>
+    <string name="type">Type</string>
+    <string name="toast_printer_is_abnormal">Printer is abnormal. Please try again</string>
+    <string name="toast_printer_device_is_offline">Print device is offline</string>
 
 </resources>

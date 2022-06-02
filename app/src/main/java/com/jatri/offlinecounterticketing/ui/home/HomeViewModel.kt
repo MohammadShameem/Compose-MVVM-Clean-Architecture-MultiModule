@@ -13,6 +13,7 @@ import com.jatri.common.dateparser.DateTimeParser
 import com.jatri.entity.cachentity.SoldTicketEntity
 import com.jatri.entity.cachentity.StoppageEntity
 import com.jatri.entity.ticketdesign.TicketFormatEntity
+import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.helper.BanglaConverterUtil
 import com.jatri.offlinecounterticketing.helper.loadJsonFromAsset
 import com.jatri.offlinecounterticketing.printer.SunmiPrintHelper
@@ -192,10 +193,10 @@ class HomeViewModel @Inject constructor(
                         )
                     }
                 }else{
-                    Toast.makeText(application, "Printer is abnormal. Please try again", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(application, application.getString(R.string.toast_printer_is_abnormal), Toast.LENGTH_SHORT).show()
                 }
             }catch (e: Exception){
-                Toast.makeText(application, "Print device is offline", Toast.LENGTH_SHORT).show()
+                Toast.makeText(application, application.getString(R.string.toast_printer_device_is_offline), Toast.LENGTH_SHORT).show()
                 if (incrementSerial>currentSerial){
                     sharedPrefHelper.putInt(SpKey.soldTicketSerial, currentSerial)
                 }
