@@ -114,7 +114,12 @@ fun Configuration(
             }
         }
 
-        RoundJatriButton(stringResource(R.string.btn_configure)) {
+        RoundJatriButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .padding(start = 16.dp, end = 16.dp),
+            text = stringResource(R.string.btn_configure)) {
             selectedCompanyEntity?.let {
                 coroutineScope.launch {
                     selectedCounterEntity?.let { counterEntity ->

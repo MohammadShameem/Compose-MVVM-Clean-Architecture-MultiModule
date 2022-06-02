@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.entity.cachentity.StoppageEntity
 import com.jatri.offlinecounterticketing.R
+import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
 import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
 
@@ -119,18 +120,19 @@ fun HomeScreen(
                             fontWeight = FontWeight.Bold
                         )
                     }
-                    Button(
-                        onClick = { syncClickedCallBack.invoke() },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = colorPrimary)
+                    RoundJatriButton(
+                        modifier = Modifier
+                            .height(44.dp)
+                            .width(100.dp),
+                            //.padding(start = 160.dp, end = 16.dp),
+                        backgroundColor = colorPrimary,
+                        text = stringResource(R.string.btn_syn)
                     ) {
-                        Text(text = stringResource(R.string.btn_syn), color = Color.White)
+                        syncClickedCallBack.invoke()
                     }
-
                 }
-
             }
         }
-
     }
 }
 

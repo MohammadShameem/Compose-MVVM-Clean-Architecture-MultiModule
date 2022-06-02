@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ButtonElevation
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.jatri.entity.res.ApiResponse
@@ -27,6 +29,7 @@ import com.jatri.offlinecounterticketing.ui.components.JatriRoundOutlinedButton
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
 import com.jatri.offlinecounterticketing.ui.theme.darkGrey
 import com.jatri.offlinecounterticketing.ui.theme.lightGrey
+import com.jatri.offlinecounterticketing.ui.theme.lightViolet
 import kotlinx.coroutines.launch
 
 @Composable
@@ -56,7 +59,13 @@ fun Dashboard(
         Spacer(modifier = Modifier.size(8.dp))
         ChangeCounter(viewModel, context)
         Spacer(modifier = Modifier.size(16.dp))
-        RoundJatriButton(text = stringResource(R.string.btn_text_report_print), backgroundColor = lightGrey) {
+        RoundJatriButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .padding(start = 16.dp, end = 16.dp),
+            text = stringResource(R.string.btn_text_report_print),
+            backgroundColor = lightGrey) {
                 coroutineScope.launch {
                     if(unSyncTicketCountState > 0) isProgressBarLoading = true
                     val soldTicketBody = viewModel.getSoldTicketBodyToSync(soldTicketListState)
@@ -82,7 +91,6 @@ fun Dashboard(
 
                 }
             }
-
         }
         Spacer(modifier = Modifier.height(15.dp))
         CircularProgressBar(isDisplayed = isProgressBarLoading)
@@ -113,9 +121,13 @@ fun UserInfo(
                     Text(text = number)
                     ChangePasswordDialog(isDialogOpen)
                     JatriRoundOutlinedButton(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 16.dp, end = 16.dp),
                         borderColor = darkGrey,
                         backgroundColor = lightGrey,
-                        text = stringResource(R.string.btn_text_change_password)
+                        text = stringResource(R.string.btn_text_change_password),
+                        textColor = lightViolet
                     ) {
                         isDialogOpen.value = true
                     }
@@ -207,13 +219,14 @@ fun TicketFare(modifier: Modifier = Modifier, unSyncTicketAmountState: Int) {
 @Composable
 fun DashboardCard(
     modifier: Modifier = Modifier,
+    elevation: Dp = 0.dp,
     content: @Composable () -> Unit
 ) {
     Card(
         modifier = modifier.padding(all = 8.dp),
         shape = RoundedCornerShape(10),
         backgroundColor = lightGrey,
-        elevation = 0.dp,
+        elevation = elevation,
     ) {
         content.invoke()
     }

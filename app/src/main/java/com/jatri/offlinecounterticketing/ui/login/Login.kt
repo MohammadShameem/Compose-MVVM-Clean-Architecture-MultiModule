@@ -3,7 +3,9 @@ package com.jatri.offlinecounterticketing.ui.login
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -12,10 +14,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
+import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
 
 @Composable
 fun LoginScreen(
@@ -60,6 +66,7 @@ fun LoginScreen(
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
             maxLines = 1,
+            visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Text,
                 imeAction = ImeAction.Done
@@ -73,8 +80,26 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(20.dp))
 
-        RoundJatriButton(stringResource(R.string.btn_text_login)) {
+        RoundJatriButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .padding(start = 16.dp, end = 16.dp),
+            text = stringResource(R.string.btn_text_login)) {
             clickCallBack.invoke(phoneNumber, password)
+        }
+        Spacer(modifier = Modifier.height(100.dp))
+    }
+}
+
+@Preview
+@Composable
+fun LoginPrev() {
+    OfflineCounterTicketingTheme() {
+        Surface {
+            LoginScreen{ _,_ ->
+
+            }
         }
     }
 }

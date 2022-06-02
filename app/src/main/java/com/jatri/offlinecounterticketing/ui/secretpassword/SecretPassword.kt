@@ -20,6 +20,7 @@ import com.jatri.offlinecounterticketing.R
 import com.jatri.offlinecounterticketing.ui.components.JatriLogo
 import com.jatri.offlinecounterticketing.ui.components.RoundJatriButton
 import com.jatri.offlinecounterticketing.ui.theme.OfflineCounterTicketingTheme
+import com.jatri.offlinecounterticketing.ui.theme.colorPrimary
 
 @Composable
 fun SecretPassword(
@@ -59,7 +60,14 @@ fun SecretPassword(
             ),
         )
         Spacer(modifier = Modifier.size(48.dp))
-        RoundJatriButton(stringResource(R.string.btn_continue)) {
+        RoundJatriButton(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(50.dp)
+                .padding(start = 16.dp, end = 16.dp),
+            backgroundColor = colorPrimary,
+            text = stringResource(R.string.btn_continue)
+        ) {
             /**
              * Send the entered text if user clicks Continue button
              * to check if it matched with our predefined password
