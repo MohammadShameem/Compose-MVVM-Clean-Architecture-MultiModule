@@ -33,17 +33,6 @@ fun TextView.isEmpty(text: String, errorTV: TextView): Boolean {
     return text.isBlank()
 }
 
-fun View.hideKeyboard() {
-    val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    inputMethodManager.hideSoftInputFromWindow(windowToken, 0)
-}
-
-fun Context.showKeyboard(){
-    val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0)
-}
-
-
 fun Activity.starPhoneCallDial(phoneNumber:String?){
     phoneNumber?.let {
         val intent = Intent(Intent.ACTION_DIAL)
