@@ -24,7 +24,7 @@ import com.jatri.offlinecounterticketing.ui.theme.lightViolet
 fun RoundJatriButton(
     modifier: Modifier = Modifier,
     backgroundColor: Color = MaterialTheme.colors.primary,
-    text: String = "Button",
+    text: String,
     onClick: () -> Unit
 ) {
     Button(
