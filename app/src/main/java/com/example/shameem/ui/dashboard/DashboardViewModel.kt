@@ -144,26 +144,8 @@ class DashboardViewModel @Inject constructor(
 
 
     fun printReport(totalCount:Int,totalFare:Int) {
-        if (SunmiPrintHelper.instance.showPrinterStatus(application)) {
-            try {
-                viewModelScope.launch {
-                    val currentDeviceDate = BanglaConverterUtil.convertMonthNumberToBengali(DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY))
-                    val currentDeviceTime = BanglaConverterUtil.convertNumberToBengaliNumber(DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputHMSA))
-
-                    cacheRepository.deleteAllSoldTicket()
-
-                }
-
-            } catch (e: Exception) {
-                Toast.makeText(application, "Print device is offline", Toast.LENGTH_SHORT).show()
-                viewModelScope.launch {
-                    cacheRepository.deleteAllSoldTicket()
-                }
-            }
-        }else{
-            viewModelScope.launch {
-                cacheRepository.deleteAllSoldTicket()
-            }
+        viewModelScope.launch {
+            cacheRepository.deleteAllSoldTicket()
         }
     }
 
