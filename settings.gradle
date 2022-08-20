@@ -6,7 +6,7 @@ dependencyResolutionManagement {
         maven { url "https://jitpack.io" }
     }
 }
-rootProject.name='OfflineCounterTicketing'
+rootProject.name='Compose-MVVM-Clean-Architecture-MultiModule'
 
 include ':app'
 include ':cache'

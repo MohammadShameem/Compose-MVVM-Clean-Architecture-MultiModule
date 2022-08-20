@@ -25,10 +25,10 @@
 -keepnames class com.path.to.your.ParcelableArg
 -keepnames class com.path.to.your.SerializableArg
 -keepnames class com.path.to.your.EnumArg
--keep class com.jatri.offlinecounterticketing.api.model.** { *; }
--keep class com.jatri.entity.** { *; }
--keep class com.jatri.apiresponse.** { *; }
--keep class com.jatri.navigation.arguments.** { *; }
+-keep class com.example.shameem.api.model.** { *; }
+-keep class com.example.entity.** { *; }
+-keep class com.example.apiresponse.** { *; }
+-keep class com.example.navigation.arguments.** { *; }
 
 #-----------------------------  COMMON KEEP ENTRY ----------------------
 -keep class kotlin.** { *; }

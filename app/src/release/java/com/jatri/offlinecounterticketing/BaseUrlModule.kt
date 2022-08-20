@@ -13,10 +13,10 @@ import dagger.hilt.components.SingletonComponent
 class BaseUrlModule{
     @Provides
     @AppBaseUrl
-    fun provideBaseUrl():String = "https://api.jslglobal.co/"
+    fun provideBaseUrl():String = ""
 
     @Provides
     @AppImageBaseUrl
-    fun provideImageBaseUrl():String = "https://storage.jatri.co/"
+    fun provideImageBaseUrl():String = ""
 }
 

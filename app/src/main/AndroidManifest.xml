@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.jatri.offlinecounterticketing">
+    package="com.example.shameem">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.jatri.offlinecounterticketing.application.MyApplication"
+        android:name="com.example.shameem.application.MyApplication"
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -22,7 +22,7 @@
             android:required="false" />
 
         <activity
-            android:name="com.jatri.offlinecounterticketing.ui.host.NavHostActivity"
+            android:name="com.example.shameem.ui.host.NavHostActivity"
             android:configChanges="uiMode"
             android:exported="true"
             android:launchMode="singleInstance"
