@@ -17,7 +17,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.shameem.R
-import com.example.shameem.ui.components.JatriLogo
+import com.example.shameem.ui.components.CompanyLogo
 import com.example.shameem.ui.components.RoundJatriButton
 import com.example.shameem.ui.theme.OfflineCounterTicketingTheme
 import com.example.shameem.ui.theme.colorPrimary
@@ -31,7 +31,7 @@ fun SecretPassword(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         var text by remember { mutableStateOf("") }
-        JatriLogo()
+        CompanyLogo()
         Text(
             text = stringResource(R.string.please_setup_configuration),
             fontWeight = FontWeight.Bold

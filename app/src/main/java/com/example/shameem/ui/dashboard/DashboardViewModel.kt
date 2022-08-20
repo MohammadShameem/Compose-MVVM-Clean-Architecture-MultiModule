@@ -150,27 +150,6 @@ class DashboardViewModel @Inject constructor(
                     val currentDeviceDate = BanglaConverterUtil.convertMonthNumberToBengali(DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputDMY))
                     val currentDeviceTime = BanglaConverterUtil.convertNumberToBengaliNumber(DateTimeParser.getCurrentDeviceDateTime(DateTimeFormat.outputHMSA))
 
-                    SunmiPrintHelper.instance.setAlign(1)
-                    SunmiPrintHelper.instance.printText("${sharedPrefHelper.getString(SpKey.companyName)}\n", 40f, isBold = true, isUnderLine = false)
-                    SunmiPrintHelper.instance.printText("${sharedPrefHelper.getString(SpKey.counterName)}\n\n", 30f, isBold = true, isUnderLine = false)
-
-                    SunmiPrintHelper.instance.setAlign(0)
-                    val soldTicketList = cacheRepository.fetchSoldTicketGroupWise()
-                    soldTicketList.forEach {
-                        SunmiPrintHelper.instance.printText("${BanglaConverterUtil.convertNumberToBengaliNumber(it.fare.toString())} x ${BanglaConverterUtil.convertNumberToBengaliNumber(it.ticket_count.toString())} = " +
-                                "${BanglaConverterUtil.convertNumberToBengaliNumber(it.total_fare.toString())} টাকা\n", 26f, isBold = true, isUnderLine = false)
-                    }
-                    SunmiPrintHelper.instance.printText("\n", 26f, isBold = true, isUnderLine = false)
-                    SunmiPrintHelper.instance.printText("সর্বমোট টিকেট: ${BanglaConverterUtil.convertNumberToBengaliNumber(totalCount.toString())}\n",
-                        26f, isBold = true, isUnderLine = false)
-                    SunmiPrintHelper.instance.printText("সর্বমোট ভাড়া: ${BanglaConverterUtil.convertNumberToBengaliNumber(totalFare.toString())} টাকা\n",
-                        26f, isBold = true, isUnderLine = false)
-                    SunmiPrintHelper.instance.printText("তারিখ: \n$currentDeviceDate $currentDeviceTime\n", 26f, isBold = true, isUnderLine = false)
-
-                    SunmiPrintHelper.instance.setAlign(1)
-                    SunmiPrintHelper.instance.printText("সার্বিক সহযোগিতায় যাত্রী সার্ভিস লিমিটেড\n", 20f, isBold = true, isUnderLine = false)
-                    SunmiPrintHelper.instance.feedPaper()
-
                     cacheRepository.deleteAllSoldTicket()
 
                 }

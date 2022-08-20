@@ -84,7 +84,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun printAndInsertTicket(stoppageEntity: StoppageEntity, ticketFormatEntity: TicketFormatEntity, isConfigStudentFareEnable: Boolean, studentFare: Boolean){
+    fun printAndInsertTicket(stoppageEntity: StoppageEntity, ticketFormatEntity: TicketFormatEntity,
+                             isConfigStudentFareEnable: Boolean, studentFare: Boolean){
         if (SunmiPrintHelper.instance.showPrinterStatus(application)){
             currentSerial = sharedPrefHelper.getInt(SpKey.soldTicketSerial)
             try {
@@ -105,80 +106,6 @@ class HomeViewModel @Inject constructor(
                             }
                         }
 
-                        when (it.type) {
-                            AppConstant.companyName -> {
-                                SunmiPrintHelper.instance.printText("${it.name}\n", it.font_size.toFloat(),
-                                    isBold = it.is_bold, isUnderLine = false)
-                            }
-                            AppConstant.ticketSerial -> {
-                                SunmiPrintHelper.instance.printText("${it.leading_text}${BanglaConverterUtil.convertNumberToBengaliNumber("$incrementSerial")}\n", it.font_size.toFloat(),
-                                    isBold = it.is_bold, isUnderLine = false)
-                            }
-                            AppConstant.text -> {
-                                SunmiPrintHelper.instance.printText("${it.text}\n", it.font_size.toFloat(),
-                                    isBold = it.is_bold, isUnderLine = false)
-                            }
-                            AppConstant.complainNumber -> {
-                                SunmiPrintHelper.instance.printText("${it.leading_text+it.text}\n", it.font_size.toFloat(),
-                                    isBold = it.is_bold, isUnderLine = false)
-                            }
-                            AppConstant.date -> {
-                                SunmiPrintHelper.instance.printText("${it.leading_text+currentDeviceDate}\n", it.font_size.toFloat(),
-                                    isBold = it.is_bold, isUnderLine = false)
-                            }
-                            AppConstant.time -> {
-                                SunmiPrintHelper.instance.printText("${it.leading_text+currentDeviceTime}\n", it.font_size.toFloat(),
-                                    isBold = it.is_bold, isUnderLine = false)
-                            }
-                            AppConstant.dateTime -> {
-                                SunmiPrintHelper.instance.printText("${it.leading_text}$currentDeviceDate $currentDeviceTime\n", it.font_size.toFloat(),
-                                    isBold = it.is_bold, isUnderLine = false)
-                            }
-                            AppConstant.routeName -> {
-                                if (it.is_dynamic){
-                                    SunmiPrintHelper.instance.printText("${stoppageEntity.name}\n",
-                                        it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
-                                } else{
-                                    SunmiPrintHelper.instance.printText("${it.name}\n",
-                                        it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
-                                }
-                            }
-                            AppConstant.fare -> {
-                                if (isConfigStudentFareEnable&&studentFare){
-                                    SunmiPrintHelper.instance.printText("${it.leading_student_fare_text}${BanglaConverterUtil.convertNumberToBengaliNumber("${stoppageEntity.fare_student}")}\n",
-                                        it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
-                                }else{
-                                    SunmiPrintHelper.instance.printText("${it.leading_text}${BanglaConverterUtil.convertNumberToBengaliNumber("${stoppageEntity.fare}")}\n",
-                                        it.font_size.toFloat(), isBold = it.is_bold, isUnderLine = false)
-                                }
-                            }
-                            AppConstant.image->{
-                                val imageId: Int = application.resources.getIdentifier(it.text, "drawable", application.packageName)
-                                SunmiPrintHelper.instance.printBitmap(BitmapFactory.decodeResource(application.resources, imageId),0)
-                                SunmiPrintHelper.instance.printText("\n" ,10f,isBold = true, isUnderLine = false)
-                            }
-                            AppConstant.qrCode ->{
-                                var qrCodeData = ""
-                                it.text.split(",").forEach { textQrCodeData->
-                                    when(textQrCodeData){
-                                        AppConstant.qrSerial ->{
-                                            qrCodeData += "$incrementSerial,"
-                                        }
-                                        AppConstant.qrName ->{
-                                            qrCodeData += "${stoppageEntity.name},"
-                                        }
-                                        AppConstant.qrDate ->{
-                                            qrCodeData += "$currentDeviceDate,"
-                                        }
-                                        AppConstant.qrTime ->{
-                                            qrCodeData += "$currentDeviceTime,"
-                                        }
-                                    }
-                                }
-                                SunmiPrintHelper.instance.printQr(qrCodeData,3,1)
-                                SunmiPrintHelper.instance.printText("\n" ,10f,isBold = true, isUnderLine = false)
-                            }
-                        }
 
                     }
                     SunmiPrintHelper.instance.feedPaper()

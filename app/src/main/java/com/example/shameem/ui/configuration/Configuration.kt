@@ -21,7 +21,7 @@ import com.example.shameem.R
 import com.example.shameem.helper.loadJsonFromAsset
 import com.example.shameem.ui.components.DropDown
 import com.example.shameem.ui.components.DropDownCounterList
-import com.example.shameem.ui.components.JatriLogo
+import com.example.shameem.ui.components.CompanyLogo
 import com.example.shameem.ui.components.RoundJatriButton
 import kotlinx.coroutines.launch
 
@@ -53,7 +53,7 @@ fun Configuration(
         var selectedCounterEntity by remember { mutableStateOf<CounterEntity?>(null) }
         var isStudentFareSelected by remember { mutableStateOf(false) }
 
-        JatriLogo()
+        CompanyLogo()
         Text(
             text = stringResource(id = R.string.please_setup_configuration),
             fontWeight = FontWeight.Bold
