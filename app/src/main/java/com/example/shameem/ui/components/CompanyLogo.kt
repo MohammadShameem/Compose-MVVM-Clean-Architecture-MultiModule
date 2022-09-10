@@ -11,7 +11,7 @@ import com.example.shameem.R
 @Composable
 fun CompanyLogo() {
     Image(
-        painter = painterResource(id = R.drawable.ic_app_logo),
+        painter = painterResource(id = R.drawable.logo_maritime),
         contentDescription = "Company Logo",
         modifier = Modifier.size(160.dp)
     )
